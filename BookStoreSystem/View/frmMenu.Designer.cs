@@ -28,12 +28,33 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
+            this.btnBookList = new System.Windows.Forms.Button();
+            this.SuspendLayout();
+            // 
+            // btnBookList
+            // 
+            this.btnBookList.Location = new System.Drawing.Point(306, 105);
+            this.btnBookList.Name = "btnBookList";
+            this.btnBookList.Size = new System.Drawing.Size(75, 23);
+            this.btnBookList.TabIndex = 0;
+            this.btnBookList.Text = "Book List";
+            this.btnBookList.UseVisualStyleBackColor = true;
+            this.btnBookList.Click += new System.EventHandler(this.btnBookList_Click);
+            // 
+            // frmMenu
+            // 
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.btnBookList);
+            this.Name = "frmMenu";
             this.Text = "frmMenu";
+            this.ResumeLayout(false);
+
         }
 
         #endregion
+
+        private System.Windows.Forms.Button btnBookList;
     }
 }
