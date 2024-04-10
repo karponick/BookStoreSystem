@@ -8,11 +8,11 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace BookStoreSystem
+namespace BookStoreSystem.View
 {
-    public partial class Form1 : Form
+    public partial class frmBookList : Form
     {
-        public Form1()
+        public frmBookList()
         {
             InitializeComponent();
         }
