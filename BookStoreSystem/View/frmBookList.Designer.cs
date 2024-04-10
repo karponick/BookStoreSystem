@@ -1,4 +1,4 @@
-﻿namespace BookStoreSystem.View
+﻿namespace BookStoreSystem
 {
     partial class frmBookList
     {

@@ -8,7 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace BookStoreSystem.View
+namespace BookStoreSystem
 {
     public partial class frmBookList : Form
     {
