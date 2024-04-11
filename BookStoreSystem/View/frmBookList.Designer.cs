@@ -42,18 +42,20 @@
             this.dgvBooks.AllowUserToResizeColumns = false;
             this.dgvBooks.AllowUserToResizeRows = false;
             this.dgvBooks.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvBooks.Location = new System.Drawing.Point(0, 0);
+            this.dgvBooks.Location = new System.Drawing.Point(12, 12);
             this.dgvBooks.MultiSelect = false;
             this.dgvBooks.Name = "dgvBooks";
             this.dgvBooks.ReadOnly = true;
             this.dgvBooks.RowHeadersVisible = false;
             this.dgvBooks.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvBooks.Size = new System.Drawing.Size(800, 438);
+            this.dgvBooks.Size = new System.Drawing.Size(700, 438);
             this.dgvBooks.TabIndex = 0;
+            this.dgvBooks.CellMouseEnter += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvBooks_CellMouseEnter);
+            this.dgvBooks.CellMouseLeave += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvBooks_CellMouseLeave);
             // 
             // btnCreate
             // 
-            this.btnCreate.Location = new System.Drawing.Point(12, 444);
+            this.btnCreate.Location = new System.Drawing.Point(12, 456);
             this.btnCreate.Name = "btnCreate";
             this.btnCreate.Size = new System.Drawing.Size(120, 60);
             this.btnCreate.TabIndex = 1;
@@ -63,7 +65,7 @@
             // 
             // btnModify
             // 
-            this.btnModify.Location = new System.Drawing.Point(138, 444);
+            this.btnModify.Location = new System.Drawing.Point(138, 456);
             this.btnModify.Name = "btnModify";
             this.btnModify.Size = new System.Drawing.Size(120, 60);
             this.btnModify.TabIndex = 2;
@@ -73,7 +75,7 @@
             // 
             // btnDelete
             // 
-            this.btnDelete.Location = new System.Drawing.Point(264, 444);
+            this.btnDelete.Location = new System.Drawing.Point(264, 456);
             this.btnDelete.Name = "btnDelete";
             this.btnDelete.Size = new System.Drawing.Size(120, 60);
             this.btnDelete.TabIndex = 3;
@@ -85,11 +87,14 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 511);
+            this.ClientSize = new System.Drawing.Size(984, 523);
             this.Controls.Add(this.btnDelete);
             this.Controls.Add(this.btnModify);
             this.Controls.Add(this.btnCreate);
             this.Controls.Add(this.dgvBooks);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
             this.Name = "frmBookList";
             this.Text = "Book LIst";
             ((System.ComponentModel.ISupportInitialize)(this.dgvBooks)).EndInit();

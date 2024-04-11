@@ -62,7 +62,8 @@ namespace BookStoreSystem
                     Author = row["Author"].ToString(),
                     Genre = row["Genre"].ToString(),
                     Description = row["Description"].ToString(),
-                    Publication = DateTime.Parse(row["Publication"].ToString())
+                    Publication = DateTime.Parse(row["Publication"].ToString()),
+                    CoverUrl = row["Cover_Url"].ToString()
                 };
                 bookList.Add(newBook);
             }

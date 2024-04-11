@@ -13,14 +13,33 @@ namespace BookStoreSystem
 {
     public partial class frmBookList : Form
     {
+        private readonly BookPanel bookPanel;
         public frmBookList()
         {
             InitializeComponent();
+            dgvBooks.AutoGenerateColumns = false;
+            dgvBooks.ColumnCount = 3;
             UpdateGrid();
+
+            bookPanel = new BookPanel();
+            Controls.Add(bookPanel);
+            dgvBooks.SendToBack();
         }
         // Methods
         private void UpdateGrid()
         {
+            dgvBooks.Columns[0].HeaderText = "Title";
+            dgvBooks.Columns[0].DataPropertyName = "Title";
+            dgvBooks.Columns[0].SortMode = DataGridViewColumnSortMode.NotSortable;
+
+            dgvBooks.Columns[1].HeaderText = "Author";
+            dgvBooks.Columns[1].DataPropertyName = "Author";
+            dgvBooks.Columns[1].SortMode = DataGridViewColumnSortMode.NotSortable;
+
+            dgvBooks.Columns[2].HeaderText = "Genre";
+            dgvBooks.Columns[2].DataPropertyName = "Genre";
+            dgvBooks.Columns[2].SortMode = DataGridViewColumnSortMode.NotSortable;
+
             dgvBooks.DataSource = frmMenu.DBC.GetBookList();
             dgvBooks.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
         }
@@ -34,7 +53,6 @@ namespace BookStoreSystem
 
         private void btnModify_Click(object sender, EventArgs e)
         {
-            
         }
 
         private void btnDelete_Click(object sender, EventArgs e)
@@ -45,6 +63,20 @@ namespace BookStoreSystem
                 frmMenu.DBC.DeleteBook(bookId);
             }
             UpdateGrid();
+        }
+
+        private void dgvBooks_CellMouseEnter(object sender, DataGridViewCellEventArgs e)
+        {
+            int row = e.RowIndex;
+            if (row < 0) { return; }
+            Book book = (Book)dgvBooks.Rows[row].DataBoundItem;
+            bookPanel.Populate(book);
+
+        }
+
+        private void dgvBooks_CellMouseLeave(object sender, DataGridViewCellEventArgs e)
+        {
+            bookPanel.Visible = false;
         }
     }
 }

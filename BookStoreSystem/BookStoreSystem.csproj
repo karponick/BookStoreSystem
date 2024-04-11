@@ -51,6 +51,9 @@
     <Compile Include="Model\Review.cs" />
     <Compile Include="Model\Transaction.cs" />
     <Compile Include="Model\User.cs" />
+    <Compile Include="View\BookPanel.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="View\frmBookEdit.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -111,6 +114,9 @@
   <ItemGroup>
     <Content Include="BookStoreDB.accdb">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="placeholder.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

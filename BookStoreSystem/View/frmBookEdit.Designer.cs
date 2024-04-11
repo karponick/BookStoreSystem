@@ -172,7 +172,15 @@
             "Non-Fiction",
             "Science-Fiction",
             "Fairy Tale",
-            "Poetry"});
+            "Poetry",
+            "Historical Fiction",
+            "Folklore",
+            "Fable Fiction",
+            "Horror",
+            "Humor",
+            "Mystery",
+            "Mythology",
+            "Biography"});
             this.cmbGenre.Location = new System.Drawing.Point(78, 87);
             this.cmbGenre.Name = "cmbGenre";
             this.cmbGenre.Size = new System.Drawing.Size(200, 21);

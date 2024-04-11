@@ -20,10 +20,20 @@ namespace BookStoreSystem
         }
         public static DatabaseController DBC { get { return dbc; } }
 
-        private void btnBookList_Click(object sender, EventArgs e)
+        private void btnBooks_Click(object sender, EventArgs e)
         {
             frmBookList bookListForm = new frmBookList();
             bookListForm.ShowDialog();
+        }
+
+        private void btnUsers_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnTransactions_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }
