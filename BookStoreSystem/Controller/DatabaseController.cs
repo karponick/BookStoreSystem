@@ -54,7 +54,7 @@ namespace BookStoreSystem
 
         public static bool AddUser(User user)
         {
-            OleDbCommand
+            return false;
         }
     }
 }

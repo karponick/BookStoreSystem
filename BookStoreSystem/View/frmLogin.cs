@@ -49,11 +49,11 @@ namespace BookStoreSystem
                 //create new account
                 var user = new User(0, txtUsername.Text.Trim(), txtPassword.Text.Trim(), accountType);
 
-                if (DatabaseController.GetUser(txtUsername.Text.Trim(), txtPassword.Text.Trim() != null))
+                if (DatabaseController.GetUser(txtUsername.Text.Trim(), txtPassword.Text.Trim(), user.AccountType1) != null)
                 {
                     MessageBox.Show("This account already exists.");
                 }
-                else if()
+                else if (false) { }
             }
 
         }
