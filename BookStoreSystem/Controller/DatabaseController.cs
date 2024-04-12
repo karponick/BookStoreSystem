@@ -2,11 +2,6 @@
 using System.Collections.Generic;
 using System.Data.OleDb;
 using System.Data;
-using System.Data.OleDb;
-using System.Diagnostics;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Diagnostics;
 using static BookStoreSystem.User;
 
@@ -36,6 +31,7 @@ namespace BookStoreSystem
         /*************************** Methods ***************************/
         private void PrintColHeaders(DataTable table)
         {
+            // Used for testing purposes - will be deleted, eventually....
             foreach (DataColumn col in table.Columns)
             {
                 Console.WriteLine(col.ColumnName + ": " + col.DataType.ToString());
@@ -116,8 +112,13 @@ namespace BookStoreSystem
             catch (OleDbException ex) { Console.WriteLine(ex.Message); }
             finally { myConnection.Close(); }
         }
-    public class DatabaseController
-    {
+
+
+
+
+
+
+        /**************************** User stuff ******************************************8*/
         const string connectionString = "Provider=Microsoft.ACE.OLEDB.12.0;Data Source = ../../BookStoreDB.accdb";
 
         public static User GetUser(string userName, string password, AccountType accountType)

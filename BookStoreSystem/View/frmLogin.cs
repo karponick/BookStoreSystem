@@ -76,5 +76,19 @@ namespace BookStoreSystem
                 return;
             }
         }
+
+
+
+
+
+
+        // Temporary Menu button click to bypass login
+        private void btnTemp_Click(object sender, EventArgs e)
+        {
+            frmMenu menuForm = new frmMenu();
+            Visible = false;
+            menuForm.ShowDialog();
+            Visible = true;
+        }
     }
 }
