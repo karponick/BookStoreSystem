@@ -79,6 +79,11 @@ namespace BookStoreSystem
                 MessageBox.Show("Please select an account type.");
                 return;
             }
+            else
+            {
+                frmBookList frmBookList = new frmBookList();
+                frmBookList.Show();
+            }
         }
 
 
