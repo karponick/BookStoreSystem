@@ -10,14 +10,16 @@ namespace BookStoreSystem.View
 {
     public class BookPanel : FlowLayoutPanel
     {
+        /*************************** Fields ***************************/
         private readonly Label title, author, genre, description, pages, price, publication;
         private readonly PictureBox cover;
         private Size defaultCoverSize;
-        private int padValue;
+        private readonly int padValue;
+        /*************************** Constructors ***************************/
         public BookPanel()
         {
-            MouseEnter += bookPan_MouseEnter;
-            MouseLeave += bookPan_MouseLeave;
+            //MouseEnter += bookPan_MouseEnter;
+            //MouseLeave += bookPan_MouseLeave;
             padValue = 5;
 
             Size = new Size(250, 355);
@@ -61,6 +63,7 @@ namespace BookStoreSystem.View
             description.Size = new Size(Width - padValue * 3, 100);
         }
 
+        /*************************** Methods ***************************/
         public void Populate(Book book)
         {
             title.Text = book.Title;
@@ -68,8 +71,8 @@ namespace BookStoreSystem.View
             genre.Text = book.Genre;
             description.Text = book.Description;
             pages.Text = book.Pages.ToString() + " Pages";
-            price.Text = "Price: $" + book.Price.ToString();
-            publication.Text = "Published " + book.Publication.ToLongDateString();
+            price.Text = "Price: " + book.Price.ToString();
+            publication.Text = "Published " + book.Publication;
 
             cover.Size = defaultCoverSize;
             if (book.CoverImage == null)
@@ -86,14 +89,12 @@ namespace BookStoreSystem.View
                     book.CoverImage = Image.FromFile("placeholder.jpg");
                 }
             }
-            else
-            {
-                cover.Image = book.CoverImage;
-            }
+            cover.Image = book.CoverImage;
             
             Visible = true;
         }
 
+        /*************************** Events ***************************/
         private void bookPan_MouseEnter(object sender, EventArgs e)
         {
             Visible = true;

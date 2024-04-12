@@ -5,18 +5,20 @@ using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Diagnostics;
 
 namespace BookStoreSystem
 {
     public class DatabaseController
     {
-        // fields
+        /*************************** Fields ***************************/
         readonly OleDbConnection myConnection;
         readonly OleDbCommand myCommand;
         readonly OleDbDataAdapter myAdapter;
         DataSet dataSet;
 
-        // constructor
+
+        /************************ Constructors ************************/
         public DatabaseController()
         {
             // Initialize Database connection stuff
@@ -27,8 +29,9 @@ namespace BookStoreSystem
             myAdapter = new OleDbDataAdapter(myCommand);
         }
 
-        //Methods
-        public void PrintColHeaders(DataTable table)
+
+        /*************************** Methods ***************************/
+        private void PrintColHeaders(DataTable table)
         {
             foreach (DataColumn col in table.Columns)
             {
@@ -62,7 +65,7 @@ namespace BookStoreSystem
                     Author = row["Author"].ToString(),
                     Genre = row["Genre"].ToString(),
                     Description = row["Description"].ToString(),
-                    Publication = DateTime.Parse(row["Publication"].ToString()),
+                    Publication = row["Publication"].ToString(),
                     CoverUrl = row["Cover_Url"].ToString()
                 };
                 bookList.Add(newBook);
@@ -72,12 +75,27 @@ namespace BookStoreSystem
 
         public void AddBook(Book book)
         {
+            List<Book> bookList = GetBookList();
+            int latestId = bookList[bookList.Count - 1].Id;
+            book.Id = latestId + 1;
             try
             {
                 myConnection.Open();
-                // Append changes to SQL string
-                List<string> changes = new List<string>();
                 myCommand.CommandText = "INSERT INTO Book VALUES ('" + string.Join("','", book.ToArray()) + "')";
+                myCommand.ExecuteNonQuery();
+            }
+            catch (OleDbException ex) { Console.WriteLine(ex.Message); }
+            finally { myConnection.Close(); }
+        }
+        public void ModifyBook(Book book)
+        {
+            try
+            {
+                myConnection.Open();
+                myCommand.CommandText = string.Format("Update Book SET Title = '{1}', Author = '{2}', Genre = '{3}', " +
+                    "Description = '{4}', Pages = {5}, Price = {6}, Publication = '{7}', Cover_Url = '{8}' WHERE Book_ID = {0}",
+                    book.Id, book.Title, book.Author, book.Genre, book.Description, book.Pages, book.Price, book.Publication, book.CoverUrl);
+                Console.WriteLine(myCommand.CommandText);
                 myCommand.ExecuteNonQuery();
             }
             catch (OleDbException ex) { Console.WriteLine(ex.Message); }
@@ -89,8 +107,6 @@ namespace BookStoreSystem
             try
             {
                 myConnection.Open();
-                // Append changes to SQL string
-                List<string> changes = new List<string>();
                 myCommand.CommandText = "DELETE FROM Book WHERE Book_ID = " + bookId;
                 myCommand.ExecuteNonQuery();
             }
