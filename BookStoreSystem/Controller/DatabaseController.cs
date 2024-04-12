@@ -162,6 +162,33 @@ namespace BookStoreSystem
 
         public static bool AddUser(User user)
         {
+            OleDbConnection conn = new OleDbConnection();
+            conn.ConnectionString = connectionString;
+
+            OleDbCommand cmd = new OleDbCommand(@"Insert into User
+                                            (Username, Password, Account_Type)
+                                            values(@Username, @Password, @Account_Type)");
+
+            conn.Open();
+            cmd.Connection = conn;
+
+            if(conn.State == ConnectionState.Open)
+            {
+                cmd.Parameters.Add("@Username", OleDbType.VarChar).Value = user.UserName;
+                cmd.Parameters.Add("@Password", OleDbType.VarChar).Value = user.Password;
+                cmd.Parameters.Add("@Account_Type", OleDbType.VarChar).Value = user.AccountType1;
+
+                try
+                {
+                    cmd.ExecuteNonQuery();
+                    conn.Close();
+                    return true;
+                }
+                catch (Exception ex)
+                {
+                    Debug.WriteLine(ex.Message);
+                }
+            }
             return false;
         }
     }

@@ -53,7 +53,11 @@ namespace BookStoreSystem
                 {
                     MessageBox.Show("This account already exists.");
                 }
-                else if (false) { }
+                else if (DatabaseController.AddUser(user) == true)
+                {
+                    MessageBox.Show("Account successfully created.");
+                    this.Close();
+                }
             }
 
         }
