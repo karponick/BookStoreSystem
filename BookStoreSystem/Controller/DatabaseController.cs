@@ -10,23 +10,10 @@ namespace BookStoreSystem
     public class DatabaseController
     {
         /*************************** Fields ***************************/
-        readonly OleDbConnection myConnection;
-        readonly OleDbCommand myCommand;
-        readonly OleDbDataAdapter myAdapter;
-        DataSet dataSet;
-
-
-        /************************ Constructors ************************/
-        public DatabaseController()
-        {
-            // Initialize Database connection stuff
-            string strConnection = "provider=Microsoft.ACE.OLEDB.12.0;" +
-                        "Data Source=BookStoreDB.accdb;";
-            myConnection = new OleDbConnection(strConnection);
-            myCommand = new OleDbCommand(string.Empty, myConnection);
-            myAdapter = new OleDbDataAdapter(myCommand);
-        }
-
+        const string connectionString = "provider=Microsoft.ACE.OLEDB.12.0; Data Source=BookStoreDB.accdb;";
+        static OleDbConnection myConnection = new OleDbConnection(connectionString);
+        static OleDbCommand myCommand = new OleDbCommand(string.Empty, myConnection);
+        static OleDbDataAdapter myAdapter = new OleDbDataAdapter(myCommand);
 
         /*************************** Methods ***************************/
         private void PrintColHeaders(DataTable table)
@@ -38,12 +25,12 @@ namespace BookStoreSystem
             }
         }
 
-        public List<Book> GetBookList()
+        public static List<Book> GetBookList()
         {
             // Gets all Books from Book table
             List<Book> bookList = new List<Book>();
             myCommand.CommandText = "SELECT * FROM Book";
-            dataSet = new DataSet();
+            DataSet dataSet = new DataSet();
             try
             {
                 myConnection.Open();
@@ -72,7 +59,7 @@ namespace BookStoreSystem
             return bookList;
         }
 
-        public void AddBook(Book book)
+        public static void AddBook(Book book)
         {
             List<Book> bookList = GetBookList();
             int latestId = bookList[bookList.Count - 1].Id;
@@ -86,7 +73,7 @@ namespace BookStoreSystem
             catch (OleDbException ex) { Console.WriteLine(ex.Message); }
             finally { myConnection.Close(); }
         }
-        public void ModifyBook(Book book)
+        public static void ModifyBook(Book book)
         {
             try
             {
@@ -100,7 +87,7 @@ namespace BookStoreSystem
             catch (OleDbException ex) { Console.WriteLine(ex.Message); }
             finally { myConnection.Close(); }
         }
-        public void DeleteBook(int bookId)
+        public static void DeleteBook(int bookId)
         {
             Console.WriteLine(bookId.ToString());
             try
@@ -119,7 +106,6 @@ namespace BookStoreSystem
 
 
         /**************************** User stuff ******************************************8*/
-        const string connectionString = "Provider=Microsoft.ACE.OLEDB.12.0;Data Source = ../../BookStoreDB.accdb";
 
         public static User GetUser(string userName, string password, AccountType accountType)
         {

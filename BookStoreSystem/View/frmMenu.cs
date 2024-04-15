@@ -12,16 +12,11 @@ namespace BookStoreSystem
 {
     public partial class frmMenu : Form
     {
-        /*************************** Fields ***************************/
-        private static DatabaseController dbc;
         /************************ Constructors ************************/
         public frmMenu()
         {
             InitializeComponent();
-            dbc = new DatabaseController();
         }
-        /************************* Properties ************************/
-        public static DatabaseController DBC { get { return dbc; } }
 
         /*************************** Events ***************************/
         private void btnBooks_Click(object sender, EventArgs e)

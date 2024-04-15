@@ -51,7 +51,7 @@ namespace BookStoreSystem
         private void UpdateGrid()
         {
             // Get latest book list from DB and update datagrid
-            dgvBooks.DataSource = frmMenu.DBC.GetBookList();
+            dgvBooks.DataSource = DatabaseController.GetBookList();
             dgvBooks.Update();
             ClearSelection();
         }
@@ -90,7 +90,7 @@ namespace BookStoreSystem
             if (dgvBooks.SelectedRows.Count > 0)
             {
                 Book book = (Book)dgvBooks.SelectedRows[0].DataBoundItem;
-                frmMenu.DBC.DeleteBook(book.Id);
+                DatabaseController.DeleteBook(book.Id);
             }
             UpdateGrid();
         }

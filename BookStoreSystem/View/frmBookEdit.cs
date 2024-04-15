@@ -61,8 +61,8 @@ namespace BookStoreSystem
             if (cmbGenre.SelectedIndex != -1) { book.Genre = cmbGenre.SelectedItem.ToString(); }
 
             // Either MODIFY existing book or ADD new book
-            if (forModification) { book.Id = id; frmMenu.DBC.ModifyBook(book); }
-            else { frmMenu.DBC.AddBook(book); }
+            if (forModification) { book.Id = id; DatabaseController.ModifyBook(book); }
+            else { DatabaseController.AddBook(book); }
             Close();
         }
 
