@@ -32,6 +32,8 @@
             this.btnCreate = new System.Windows.Forms.Button();
             this.btnModify = new System.Windows.Forms.Button();
             this.btnDelete = new System.Windows.Forms.Button();
+            this.btnPurchase = new System.Windows.Forms.Button();
+            this.btnReviews = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dgvBooks)).BeginInit();
             this.SuspendLayout();
             // 
@@ -62,6 +64,7 @@
             this.btnCreate.TabIndex = 1;
             this.btnCreate.Text = "Create";
             this.btnCreate.UseVisualStyleBackColor = true;
+            this.btnCreate.Visible = false;
             this.btnCreate.Click += new System.EventHandler(this.btnCreate_Click);
             // 
             // btnModify
@@ -72,6 +75,7 @@
             this.btnModify.TabIndex = 2;
             this.btnModify.Text = "Modify";
             this.btnModify.UseVisualStyleBackColor = true;
+            this.btnModify.Visible = false;
             this.btnModify.Click += new System.EventHandler(this.btnModify_Click);
             // 
             // btnDelete
@@ -82,13 +86,38 @@
             this.btnDelete.TabIndex = 3;
             this.btnDelete.Text = "Delete";
             this.btnDelete.UseVisualStyleBackColor = true;
+            this.btnDelete.Visible = false;
             this.btnDelete.Click += new System.EventHandler(this.btnDelete_Click);
+            // 
+            // btnPurchase
+            // 
+            this.btnPurchase.Location = new System.Drawing.Point(718, 456);
+            this.btnPurchase.Name = "btnPurchase";
+            this.btnPurchase.Size = new System.Drawing.Size(120, 60);
+            this.btnPurchase.TabIndex = 4;
+            this.btnPurchase.Text = "Purchase";
+            this.btnPurchase.UseVisualStyleBackColor = true;
+            this.btnPurchase.Visible = false;
+            this.btnPurchase.Click += new System.EventHandler(this.btnPurchase_Click);
+            // 
+            // btnReviews
+            // 
+            this.btnReviews.Location = new System.Drawing.Point(851, 456);
+            this.btnReviews.Name = "btnReviews";
+            this.btnReviews.Size = new System.Drawing.Size(120, 60);
+            this.btnReviews.TabIndex = 5;
+            this.btnReviews.Text = "Reviews";
+            this.btnReviews.UseVisualStyleBackColor = true;
+            this.btnReviews.Visible = false;
+            this.btnReviews.Click += new System.EventHandler(this.btnReviews_Click);
             // 
             // frmBookList
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(984, 523);
+            this.ClientSize = new System.Drawing.Size(980, 523);
+            this.Controls.Add(this.btnReviews);
+            this.Controls.Add(this.btnPurchase);
             this.Controls.Add(this.btnDelete);
             this.Controls.Add(this.btnModify);
             this.Controls.Add(this.btnCreate);
@@ -110,5 +139,7 @@
         private System.Windows.Forms.Button btnCreate;
         private System.Windows.Forms.Button btnModify;
         private System.Windows.Forms.Button btnDelete;
+        private System.Windows.Forms.Button btnPurchase;
+        private System.Windows.Forms.Button btnReviews;
     }
 }

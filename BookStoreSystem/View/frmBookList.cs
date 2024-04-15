@@ -16,11 +16,14 @@ namespace BookStoreSystem
         /*************************** Fields ***************************/
         private readonly BookPanel bookPanel;
         private int selectedIndex;
+        private bool isAdmin;
         /************************ Constructors ************************/
-        public frmBookList()
+        public frmBookList(bool isAdmin)
         {
             InitializeComponent();
             selectedIndex = -1;
+            this.isAdmin = isAdmin;
+            if (isAdmin) { btnCreate.Visible = true; }
 
             // Initialize datagridview properties
             dgvBooks.AutoGenerateColumns = false;
@@ -59,9 +62,13 @@ namespace BookStoreSystem
         {
             selectedIndex = -1;
             dgvBooks.ClearSelection();
+            bookPanel.Visible = false;
+
             btnModify.Visible = false;
             btnDelete.Visible = false;
-            bookPanel.Visible = false;
+
+            btnPurchase.Visible = false;
+            btnReviews.Visible = false;
         }
         /*************************** Events ***************************/
         private void btnCreate_Click(object sender, EventArgs e)
@@ -119,6 +126,7 @@ namespace BookStoreSystem
 
         private void dgvBooks_CellMouseClick(object sender, DataGridViewCellMouseEventArgs e)
         {
+            // When a row is selected, show User-available buttons and keep detail panel visible
             if (e.RowIndex == selectedIndex || e.RowIndex == -1)
             {
                 ClearSelection();
@@ -126,13 +134,38 @@ namespace BookStoreSystem
             else
             {
                 selectedIndex = e.RowIndex;
-                btnModify.Visible = true;
-                btnDelete.Visible = true;
                 Book book = (Book)dgvBooks.Rows[selectedIndex].DataBoundItem;
                 bookPanel.Populate(book);
                 bookPanel.Visible = true;
+
+                // If logged in User is an admin, enable Modify/Delete buttons
+                if (isAdmin)
+                {
+                    btnModify.Visible = true;
+                    btnDelete.Visible = true;
+                }
+                // If logged in User ia a customer, enable Purchase, Review buttons
+                else if (!isAdmin)
+                {
+                    btnPurchase.Visible = true;
+                }
+
+                btnReviews.Visible = true;
             }
             
+        }
+
+        private void btnPurchase_Click(object sender, EventArgs e)
+        {
+            // TODO: Daniel
+        }
+
+        private void btnReviews_Click(object sender, EventArgs e)
+        {
+            // TODO: Nick
+            Book book = (Book)dgvBooks.Rows[selectedIndex].DataBoundItem;
+            frmReviews reviewForm = new frmReviews(book.Id);
+            reviewForm.ShowDialog();
         }
     }
 }

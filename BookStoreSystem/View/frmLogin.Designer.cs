@@ -47,9 +47,9 @@
             this.gbAccountType.Controls.Add(this.rbCustomer);
             this.gbAccountType.Controls.Add(this.rbAdmin);
             this.gbAccountType.Location = new System.Drawing.Point(414, 115);
-            this.gbAccountType.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.gbAccountType.Margin = new System.Windows.Forms.Padding(2);
             this.gbAccountType.Name = "gbAccountType";
-            this.gbAccountType.Padding = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.gbAccountType.Padding = new System.Windows.Forms.Padding(2);
             this.gbAccountType.Size = new System.Drawing.Size(118, 88);
             this.gbAccountType.TabIndex = 20;
             this.gbAccountType.TabStop = false;
@@ -59,7 +59,7 @@
             // 
             this.rbCustomer.AutoSize = true;
             this.rbCustomer.Location = new System.Drawing.Point(14, 48);
-            this.rbCustomer.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.rbCustomer.Margin = new System.Windows.Forms.Padding(2);
             this.rbCustomer.Name = "rbCustomer";
             this.rbCustomer.Size = new System.Drawing.Size(69, 17);
             this.rbCustomer.TabIndex = 1;
@@ -71,7 +71,7 @@
             // 
             this.rbAdmin.AutoSize = true;
             this.rbAdmin.Location = new System.Drawing.Point(14, 26);
-            this.rbAdmin.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.rbAdmin.Margin = new System.Windows.Forms.Padding(2);
             this.rbAdmin.Name = "rbAdmin";
             this.rbAdmin.Size = new System.Drawing.Size(54, 17);
             this.rbAdmin.TabIndex = 0;
@@ -83,28 +83,30 @@
             // 
             this.btnSignUp.BackColor = System.Drawing.Color.DeepSkyBlue;
             this.btnSignUp.Location = new System.Drawing.Point(211, 258);
-            this.btnSignUp.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.btnSignUp.Margin = new System.Windows.Forms.Padding(2);
             this.btnSignUp.Name = "btnSignUp";
             this.btnSignUp.Size = new System.Drawing.Size(100, 25);
             this.btnSignUp.TabIndex = 19;
             this.btnSignUp.Text = "SIGN UP";
             this.btnSignUp.UseVisualStyleBackColor = false;
+            this.btnSignUp.Click += new System.EventHandler(this.btnSignUp_Click);
             // 
             // btnLogIn
             // 
             this.btnLogIn.BackColor = System.Drawing.Color.MediumSpringGreen;
             this.btnLogIn.Location = new System.Drawing.Point(211, 221);
-            this.btnLogIn.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.btnLogIn.Margin = new System.Windows.Forms.Padding(2);
             this.btnLogIn.Name = "btnLogIn";
             this.btnLogIn.Size = new System.Drawing.Size(100, 25);
             this.btnLogIn.TabIndex = 18;
             this.btnLogIn.Text = "LOGIN";
             this.btnLogIn.UseVisualStyleBackColor = false;
+            this.btnLogIn.Click += new System.EventHandler(this.btnLogIn_Click);
             // 
             // txtPassword
             // 
             this.txtPassword.Location = new System.Drawing.Point(236, 151);
-            this.txtPassword.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.txtPassword.Margin = new System.Windows.Forms.Padding(2);
             this.txtPassword.Name = "txtPassword";
             this.txtPassword.PasswordChar = '*';
             this.txtPassword.Size = new System.Drawing.Size(139, 20);
@@ -113,7 +115,7 @@
             // txtUsername
             // 
             this.txtUsername.Location = new System.Drawing.Point(236, 114);
-            this.txtUsername.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.txtUsername.Margin = new System.Windows.Forms.Padding(2);
             this.txtUsername.Name = "txtUsername";
             this.txtUsername.Size = new System.Drawing.Size(139, 20);
             this.txtUsername.TabIndex = 16;
@@ -173,7 +175,7 @@
             this.Controls.Add(this.lblPassword);
             this.Controls.Add(this.lblUserName);
             this.Controls.Add(this.lblLogInTitle);
-            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "frmLogin";
             this.Text = "User Log In";
             this.gbAccountType.ResumeLayout(false);

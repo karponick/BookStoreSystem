@@ -22,8 +22,8 @@ namespace BookStoreSystem.View
             //MouseLeave += bookPan_MouseLeave;
             padValue = 5;
 
-            Size = new Size(250, 355);
-            Location = new Point(720, 40);
+            Size = new Size(250, 438);
+            Location = new Point(720, 12);
             Padding = new Padding(padValue, padValue, padValue, padValue);
             BorderStyle = BorderStyle.FixedSingle;
             Visible = false;
@@ -37,7 +37,7 @@ namespace BookStoreSystem.View
             publication = new Label();
 
 
-            defaultCoverSize = new Size(Width - padValue * 3 + 2, 120);
+            defaultCoverSize = new Size(Width - padValue * 3 + 2, 203);
             cover = new PictureBox()
             {
                 Size = defaultCoverSize,
