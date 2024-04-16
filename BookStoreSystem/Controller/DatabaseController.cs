@@ -15,7 +15,7 @@ namespace BookStoreSystem
         static OleDbCommand myCommand = new OleDbCommand(string.Empty, myConnection);
         static OleDbDataAdapter myAdapter = new OleDbDataAdapter(myCommand);
 
-        /*************************** Methods ***************************/
+        /*************************** Book Methods ***************************/
         private void PrintColHeaders(DataTable table)
         {
             // Used for testing purposes - will be deleted, eventually....
@@ -99,13 +99,56 @@ namespace BookStoreSystem
             catch (OleDbException ex) { Console.WriteLine(ex.Message); }
             finally { myConnection.Close(); }
         }
+        public static string GetBookTitle(int id)
+        {
+            // Gets Book Title from Database by ID
+            myCommand.CommandText = "SELECT Title FROM Book WHERE Book_ID = " + id.ToString();
+            DataSet dataSet = new DataSet();
+            try
+            {
+                myConnection.Open();
+                myAdapter.Fill(dataSet, "Book");
+            }
+            catch (OleDbException ex) { Console.WriteLine(ex.Message); }
+            finally { myConnection.Close(); }
 
+            DataTable table = dataSet.Tables["Book"];
+            DataRow row = table.Rows[0];
+            return row["Title"].ToString();
+        }
 
+        /**************************** Review Methods *****************************************/
+        public static List<Review> GetReviewList(int bookId)
+        {
+            // Gets all Books from Book table
+            List<Review> reviewList = new List<Review>();
+            myCommand.CommandText = "SELECT * FROM Review WHERE Book_ID = " + bookId.ToString();
+            DataSet dataSet = new DataSet();
+            try
+            {
+                myConnection.Open();
+                myAdapter.Fill(dataSet, "Review");
+            }
+            catch (OleDbException ex) { Console.WriteLine(ex.Message); }
+            finally { myConnection.Close(); }
 
+            // Handle data from database
+            DataTable table = dataSet.Tables["Review"];
 
+            foreach (DataRow row in table.Rows)
+            {
+                // Create book and add to list
+                Review newReview = new Review(row["Review_ID"].ToString(), row["User_ID"].ToString(), row["Book_ID"].ToString())
+                {
+                    Description = row["Description"].ToString()
+                };
+                newReview.SetRatings(row["Style_Rating"].ToString(), row["Plot_Rating"].ToString(), row["Character_Rating"].ToString());
+                reviewList.Add(newReview);
+            }
+            return reviewList;
+        }
 
-
-        /**************************** User stuff ******************************************8*/
+        /**************************** User Methods *******************************************/
 
         public static User GetUser(string userName, string password, AccountType accountType)
         {

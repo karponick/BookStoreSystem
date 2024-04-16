@@ -79,10 +79,21 @@ namespace BookStoreSystem
                 MessageBox.Show("Please select an account type.");
                 return;
             }
-            else
+
+            // Temporary IF statements. Might need update once User is validated against database
+            else if (rbAdmin.Checked)
             {
-                frmBookList frmBookList = new frmBookList();
-                frmBookList.Show();
+                Visible = false;
+                frmMenu menuForm = new frmMenu();
+                menuForm.ShowDialog();
+                Visible = true;
+            }
+            else if (rbCustomer.Checked)
+            {
+                Visible = false;
+                frmBookList bookListForm = new frmBookList(false);
+                bookListForm.ShowDialog();
+                Visible = true;
             }
         }
 
