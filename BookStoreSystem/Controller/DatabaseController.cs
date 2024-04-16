@@ -158,7 +158,7 @@ namespace BookStoreSystem
                 conn = new OleDbConnection(connectionString);
                 conn.Open();
 
-                OleDbCommand cmd = new OleDbCommand("Select * From User where Username=@Username and [Password]=@Password and Account_Type=@AccountType", conn);
+                OleDbCommand cmd = new OleDbCommand("Select * From [User] where [Username]=@Username and [Password]=@Password and Account_Type=@AccountType", conn);
                 cmd.Parameters.Add("@Username", OleDbType.VarChar).Value = userName;
                 cmd.Parameters.Add("@Password", OleDbType.VarChar).Value = password;
                 cmd.Parameters.Add("@AccountType", OleDbType.VarChar).Value = accountType;
@@ -194,9 +194,9 @@ namespace BookStoreSystem
             OleDbConnection conn = new OleDbConnection();
             conn.ConnectionString = connectionString;
 
-            OleDbCommand cmd = new OleDbCommand(@"Insert into User
-                                            (Username, Password, Account_Type)
-                                            values(@Username, @Password, @Account_Type)");
+            OleDbCommand cmd = new OleDbCommand(@"Insert into [User]
+                                            ([Username], [Password], [Account_Type])
+                                            values (@Username, @Password, @Account_Type)");
 
             conn.Open();
             cmd.Connection = conn;
@@ -205,7 +205,7 @@ namespace BookStoreSystem
             {
                 cmd.Parameters.Add("@Username", OleDbType.VarChar).Value = user.UserName;
                 cmd.Parameters.Add("@Password", OleDbType.VarChar).Value = user.Password;
-                cmd.Parameters.Add("@Account_Type", OleDbType.VarChar).Value = user.AccountType1;
+                cmd.Parameters.Add("@Account_Type", OleDbType.VarChar).Value = user.AccountType1.ToString();
 
                 try
                 {

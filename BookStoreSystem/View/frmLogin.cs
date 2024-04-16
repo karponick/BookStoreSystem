@@ -98,10 +98,6 @@ namespace BookStoreSystem
         }
 
 
-
-
-
-
         // Temporary Menu button click to bypass login
         private void btnTemp_Click(object sender, EventArgs e)
         {
@@ -110,5 +106,7 @@ namespace BookStoreSystem
             menuForm.ShowDialog();
             Visible = true;
         }
+
+        
     }
 }
