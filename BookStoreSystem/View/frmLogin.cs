@@ -56,7 +56,6 @@ namespace BookStoreSystem
                 else if (DatabaseController.AddUser(user) == true)
                 {
                     MessageBox.Show("Account successfully created.");
-                    this.Close();
                 }
             }
 
