@@ -163,7 +163,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(600, 366);
+            this.ClientSize = new System.Drawing.Size(736, 366);
             this.Controls.Add(this.btnTemp);
             this.Controls.Add(this.gbAccountType);
             this.Controls.Add(this.btnSignUp);
