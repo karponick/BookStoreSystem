@@ -105,7 +105,5 @@ namespace BookStoreSystem
             menuForm.ShowDialog();
             Visible = true;
         }
-
-        
     }
 }

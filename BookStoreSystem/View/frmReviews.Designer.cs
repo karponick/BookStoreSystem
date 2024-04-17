@@ -32,6 +32,7 @@
             this.btnDelete = new System.Windows.Forms.Button();
             this.btnModify = new System.Windows.Forms.Button();
             this.btnAdd = new System.Windows.Forms.Button();
+            this.tlpReviews = new System.Windows.Forms.TableLayoutPanel();
             ((System.ComponentModel.ISupportInitialize)(this.dgvReviews)).BeginInit();
             this.SuspendLayout();
             // 
@@ -48,12 +49,12 @@
             this.dgvReviews.ReadOnly = true;
             this.dgvReviews.RowHeadersVisible = false;
             this.dgvReviews.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvReviews.Size = new System.Drawing.Size(700, 438);
+            this.dgvReviews.Size = new System.Drawing.Size(604, 438);
             this.dgvReviews.TabIndex = 1;
             // 
             // btnDelete
             // 
-            this.btnDelete.Location = new System.Drawing.Point(592, 456);
+            this.btnDelete.Location = new System.Drawing.Point(566, 454);
             this.btnDelete.Name = "btnDelete";
             this.btnDelete.Size = new System.Drawing.Size(120, 60);
             this.btnDelete.TabIndex = 6;
@@ -62,7 +63,7 @@
             // 
             // btnModify
             // 
-            this.btnModify.Location = new System.Drawing.Point(466, 456);
+            this.btnModify.Location = new System.Drawing.Point(440, 454);
             this.btnModify.Name = "btnModify";
             this.btnModify.Size = new System.Drawing.Size(120, 60);
             this.btnModify.TabIndex = 5;
@@ -79,11 +80,26 @@
             this.btnAdd.UseVisualStyleBackColor = true;
             this.btnAdd.Click += new System.EventHandler(this.btnAdd_Click);
             // 
+            // tlpReviews
+            // 
+            this.tlpReviews.AutoScroll = true;
+            this.tlpReviews.BackColor = System.Drawing.SystemColors.ControlLight;
+            this.tlpReviews.CellBorderStyle = System.Windows.Forms.TableLayoutPanelCellBorderStyle.Single;
+            this.tlpReviews.ColumnCount = 1;
+            this.tlpReviews.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tlpReviews.Location = new System.Drawing.Point(12, 12);
+            this.tlpReviews.Name = "tlpReviews";
+            this.tlpReviews.RowCount = 1;
+            this.tlpReviews.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.tlpReviews.Size = new System.Drawing.Size(674, 438);
+            this.tlpReviews.TabIndex = 7;
+            // 
             // frmReviews
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(725, 526);
+            this.ClientSize = new System.Drawing.Size(698, 526);
+            this.Controls.Add(this.tlpReviews);
             this.Controls.Add(this.btnDelete);
             this.Controls.Add(this.btnModify);
             this.Controls.Add(this.btnAdd);
@@ -105,5 +121,6 @@
         private System.Windows.Forms.Button btnDelete;
         private System.Windows.Forms.Button btnModify;
         private System.Windows.Forms.Button btnAdd;
+        private System.Windows.Forms.TableLayoutPanel tlpReviews;
     }
 }

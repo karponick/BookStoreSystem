@@ -8,7 +8,7 @@
     <OutputType>WinExe</OutputType>
     <RootNamespace>BookStoreSystem</RootNamespace>
     <AssemblyName>BookStoreSystem</AssemblyName>
-    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <Deterministic>true</Deterministic>
@@ -48,6 +48,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Controller\DatabaseController.cs" />
+    <Compile Include="Controller\SystemController.cs" />
     <Compile Include="Model\Book.cs" />
     <Compile Include="Model\Review.cs" />
     <Compile Include="Model\Transaction.cs" />
@@ -92,6 +93,9 @@
     </Compile>
     <Compile Include="View\frmReviews.Designer.cs">
       <DependentUpon>frmReviews.cs</DependentUpon>
+    </Compile>
+    <Compile Include="View\ReviewPanel.cs">
+      <SubType>Component</SubType>
     </Compile>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
