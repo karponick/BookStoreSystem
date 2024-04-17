@@ -119,6 +119,9 @@
     <EmbeddedResource Include="View\frmMenu.resx">
       <DependentUpon>frmMenu.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="View\frmOrderBook.resx">
+      <DependentUpon>frmOrderBook.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="View\frmReviews.resx">
       <DependentUpon>frmReviews.cs</DependentUpon>
     </EmbeddedResource>

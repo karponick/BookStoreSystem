@@ -158,6 +158,9 @@ namespace BookStoreSystem
         private void btnPurchase_Click(object sender, EventArgs e)
         {
             // TODO: Daniel
+            Book book = (Book)dgvBooks.Rows[selectedIndex].DataBoundItem;
+            frmOrderBook bookOrderForm = new frmOrderBook(book.Id);
+            bookOrderForm.ShowDialog();
         }
 
         private void btnReviews_Click(object sender, EventArgs e)

@@ -42,7 +42,7 @@ namespace BookStoreSystem
                 }
                 else
                 {
-                    MessageBox.Show("PLease select account type");
+                    MessageBox.Show("Pease select account type");
                     return;
                 }
 
@@ -79,15 +79,37 @@ namespace BookStoreSystem
                 return;
             }
 
+            User.AccountType accountType;
+            if (rbAdmin.Checked)
+            {
+                accountType = User.AccountType.Admin;
+            }
+            else if (rbCustomer.Checked)
+            {
+                accountType = User.AccountType.Customer;
+            }
+            else
+            {
+                MessageBox.Show("Please select account type");
+                return;
+            }
+
+            var user = new User(0, txtUsername.Text.Trim(), txtPassword.Text.Trim(), accountType);
+
+
+
+
+
             // Temporary IF statements. Might need update once User is validated against database
-            else if (rbAdmin.Checked)
+
+            if (rbAdmin.Checked)
             {
                 Visible = false;
                 frmMenu menuForm = new frmMenu();
                 menuForm.ShowDialog();
                 Visible = true;
             }
-            else if (rbCustomer.Checked)
+            if (rbCustomer.Checked)
             {
                 Visible = false;
                 frmBookList bookListForm = new frmBookList(false);
@@ -105,5 +127,7 @@ namespace BookStoreSystem
             menuForm.ShowDialog();
             Visible = true;
         }
+
+
     }
 }

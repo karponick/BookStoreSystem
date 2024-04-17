@@ -12,7 +12,7 @@ namespace BookStoreSystem.View
 {
     public partial class frmOrderBook : Form
     {
-        public frmOrderBook()
+        public frmOrderBook(int bookId)
         {
             InitializeComponent();
         }
