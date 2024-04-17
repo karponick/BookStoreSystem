@@ -81,6 +81,12 @@
     <Compile Include="View\frmMenu.Designer.cs">
       <DependentUpon>frmMenu.cs</DependentUpon>
     </Compile>
+    <Compile Include="View\frmOrderBook.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="View\frmOrderBook.Designer.cs">
+      <DependentUpon>frmOrderBook.cs</DependentUpon>
+    </Compile>
     <Compile Include="View\frmReviews.cs">
       <SubType>Form</SubType>
     </Compile>
