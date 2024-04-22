@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BookStoreSystem.Utils;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -14,36 +15,75 @@ namespace BookStoreSystem.View
 {
     public partial class frmOrderBook : Form
     {
-        private readonly int bookId;
+        private readonly List<Book> selectedBooks;
         private readonly int userId;
+    
 
-        public frmOrderBook(int bookId, int userId)
+        public frmOrderBook(List<Book> selectedBooks, int userId)
         {
             InitializeComponent();
-            this.bookId = bookId;
+            this.selectedBooks = selectedBooks;
             this.userId = userId;
         }
 
         private void frmOrderBook_Load(object sender, EventArgs e)
         {
+            int i = 1;
+            foreach (Book b in selectedBooks)
+            {
+                Label l = new Label();
+                l.Text = i + ". " + b.Title + "-" + b.Author;
+                l.Width = flpListOfBooks.ClientSize.Width;
+                flpListOfBooks.Controls.Add(l);
+                i++;
+            }
 
+            var calculator = new CostCalculator(selectedBooks);
+            double totalCost = calculator.GetTotalCost();
+            txtTotalCost.Text = totalCost.ToString("c");
         }
 
         private void btnPurchase_Click(object sender, EventArgs e)
         {
             if (IsTransactionValid()) 
             {
-                Transaction transaction = new Transaction(0, userId, bookId, DateTime.Now, double.Parse(txtTotalCost.Text), txtCardNo.Text, 
-                    (CardType)Enum.Parse(typeof(CardType), cbCardType.Text), dtpExpDate.Value, int.Parse(txtSecurityCode.Text), txtBillingAddress.Text,
+                CardType cardType = GetCardType();
+
+                Transaction transaction = new Transaction(0, userId, selectedBooks, DateTime.Now, double.Parse(txtTotalCost.Text.TrimStart('$')), txtCardNo.Text,
+                    cardType, dtpExpDate.Value, int.Parse(txtSecurityCode.Text), txtBillingAddress.Text,
                     txtZIP.Text, cbState.SelectedItem.ToString()
                     );
-
             }
             
         }
 
+        private CardType GetCardType()
+        {
+            CardType cardType = CardType.VISA;
+            if (cbCardType.SelectedValue.ToString() == "Master Card")
+            {
+                cardType = CardType.Master;
+            }
+            else if (cbCardType.SelectedValue.ToString() == "American Express")
+            {
+                cardType = CardType.AmericanExpress;
+            }
+            else if (cbCardType.SelectedValue.ToString() == "Visa")
+            {
+                cardType = CardType.VISA;
+            }
+
+            return cardType;
+        }
+
         private bool IsTransactionValid()
         {
+            if (selectedBooks.Count == 0)
+            {
+                MessageBox.Show("No book selected.");
+                return false;
+            }
+            
             if (string.IsNullOrWhiteSpace(txtCardNo.Text)){
                 MessageBox.Show("Must enter card number.");
                 return false;
@@ -92,6 +132,18 @@ namespace BookStoreSystem.View
             if(dtpExpDate.Value < DateTime.Today)
             {
                 MessageBox.Show("Your credit card has expired.");
+                return false;
+            }
+
+            if (cbState.SelectedItem == null)
+            {
+                MessageBox.Show("Please select a state.");
+                return false;
+            }
+
+            if (cbCardType.SelectedItem == null)
+            {
+                MessageBox.Show("Please select a credit card type.");
                 return false;
             }
           

@@ -10,9 +10,9 @@ namespace BookStoreSystem
     {
         private int transactionID;
         private int userID;
-        private int bookID;
+        private List<Book> books;
         private DateTime purchaseDate;
-        private double bookCost;
+        private double totalCost;
         private string cardNumber;
         private CardType cardType;
         private DateTime expirationDate;
@@ -20,27 +20,28 @@ namespace BookStoreSystem
         private string billingAddress;
         private string zip;
         private string state;
+        
 
         public enum CardType
         {
             VISA, Master, AmericanExpress
         }
 
-        public Transaction(int transactionID, int userID, int bookID, DateTime purchaseDate, double bookCost, string cardNumber, CardType cardType, DateTime expirationDate,
+        public Transaction(int transactionID, int userID, List<Book> books, DateTime purchaseDate, double totalCost, string cardNumber, CardType cardType, DateTime expirationDate,
             int securityCode, string billingAddress, string zip, string state)
         {
             this.transactionID = transactionID;
             this.userID = userID;
-            this.bookID = bookID;
+            this.books = books;
             this.purchaseDate = purchaseDate;
-            this.bookCost = bookCost;
+            this.totalCost = totalCost;
             this.cardNumber = cardNumber;
             this.cardType = cardType;
             this.expirationDate = expirationDate;
             this.securityCode = securityCode;
             this.billingAddress = billingAddress;
             this.zip = zip;
-            this.state = state;
+            this.state = state; 
         }
 
         public int TransactionID
@@ -55,10 +56,9 @@ namespace BookStoreSystem
             set { userID = value; }
         }
 
-        public int BookID
-        {
-            get { return bookID; }
-            set { bookID = value; }
+        public List<Book> Books {
+            get { return books; }
+            set { books = value; }
         }
 
         public DateTime PurchaseDate
@@ -67,10 +67,10 @@ namespace BookStoreSystem
             set { purchaseDate = value; }
         }
 
-        public double BookCost
+        public double TotalCost
         {
-            get { return bookCost; }
-            set { bookCost = value; }
+            get { return totalCost; }
+            set { totalCost = value; }
         }
 
         public string CardNumber
@@ -105,8 +105,8 @@ namespace BookStoreSystem
 
         public string ZIP
         {
-            get { return ZIP; }
-            set { ZIP = value; }
+            get { return zip; }
+            set { zip = value; }
         }
 
         public string State

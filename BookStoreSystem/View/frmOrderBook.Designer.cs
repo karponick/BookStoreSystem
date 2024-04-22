@@ -156,7 +156,12 @@ namespace BookStoreSystem.View
             // 
             // cbCardType
             // 
+            this.cbCardType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbCardType.FormattingEnabled = true;
+            this.cbCardType.Items.AddRange(new object[] {
+            "Visa",
+            "Master Card",
+            "American Express"});
             this.cbCardType.Location = new System.Drawing.Point(185, 74);
             this.cbCardType.Name = "cbCardType";
             this.cbCardType.Size = new System.Drawing.Size(178, 24);

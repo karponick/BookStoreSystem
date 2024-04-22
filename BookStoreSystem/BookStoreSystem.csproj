@@ -53,6 +53,7 @@
     <Compile Include="Model\Review.cs" />
     <Compile Include="Model\Transaction.cs" />
     <Compile Include="Model\User.cs" />
+    <Compile Include="Utils\CostCalculator.cs" />
     <Compile Include="View\BookPanel.cs">
       <SubType>Component</SubType>
     </Compile>
