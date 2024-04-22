@@ -17,12 +17,15 @@ namespace BookStoreSystem
         private readonly BookPanel bookPanel;
         private int selectedIndex;
         private bool isAdmin;
+        private readonly int userId;
+
         /************************ Constructors ************************/
-        public frmBookList(bool isAdmin)
+        public frmBookList(bool isAdmin, int userId)
         {
             InitializeComponent();
             selectedIndex = -1;
             this.isAdmin = isAdmin;
+            this.userId = userId;
             if (isAdmin) { btnCreate.Visible = true; }
 
             // Initialize datagridview properties
@@ -159,7 +162,7 @@ namespace BookStoreSystem
         {
             // TODO: Daniel
             Book book = (Book)dgvBooks.Rows[selectedIndex].DataBoundItem;
-            frmOrderBook bookOrderForm = new frmOrderBook(book.Id);
+            frmOrderBook bookOrderForm = new frmOrderBook(book.Id, userId);
             bookOrderForm.ShowDialog();
         }
 

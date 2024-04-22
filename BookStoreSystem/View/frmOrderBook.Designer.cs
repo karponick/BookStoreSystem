@@ -34,8 +34,6 @@ namespace BookStoreSystem.View
             this.txtTotalCost = new System.Windows.Forms.TextBox();
             this.lblSemesterCost = new System.Windows.Forms.Label();
             this.lblSelectedBooks = new System.Windows.Forms.Label();
-            this.dtpPurchaseDate = new System.Windows.Forms.DateTimePicker();
-            this.lblPurchaseDate = new System.Windows.Forms.Label();
             this.txtSecurityCode = new System.Windows.Forms.TextBox();
             this.lblSecurityCode = new System.Windows.Forms.Label();
             this.txtCardNo = new System.Windows.Forms.TextBox();
@@ -51,7 +49,8 @@ namespace BookStoreSystem.View
             this.lblState = new System.Windows.Forms.Label();
             this.txtZIP = new System.Windows.Forms.TextBox();
             this.lblZip = new System.Windows.Forms.Label();
-            this.comboBox1 = new System.Windows.Forms.ComboBox();
+            this.cbState = new System.Windows.Forms.ComboBox();
+            this.btnPurchase = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // flpCustomersWhoOrdered
@@ -95,22 +94,6 @@ namespace BookStoreSystem.View
             this.lblSelectedBooks.Size = new System.Drawing.Size(106, 17);
             this.lblSelectedBooks.TabIndex = 15;
             this.lblSelectedBooks.Text = "Selected Books";
-            // 
-            // dtpPurchaseDate
-            // 
-            this.dtpPurchaseDate.Location = new System.Drawing.Point(674, 265);
-            this.dtpPurchaseDate.Name = "dtpPurchaseDate";
-            this.dtpPurchaseDate.Size = new System.Drawing.Size(200, 22);
-            this.dtpPurchaseDate.TabIndex = 18;
-            // 
-            // lblPurchaseDate
-            // 
-            this.lblPurchaseDate.AutoSize = true;
-            this.lblPurchaseDate.Location = new System.Drawing.Point(562, 267);
-            this.lblPurchaseDate.Name = "lblPurchaseDate";
-            this.lblPurchaseDate.Size = new System.Drawing.Size(102, 17);
-            this.lblPurchaseDate.TabIndex = 19;
-            this.lblPurchaseDate.Text = "Purchase Date";
             // 
             // txtSecurityCode
             // 
@@ -176,7 +159,7 @@ namespace BookStoreSystem.View
             this.cbCardType.FormattingEnabled = true;
             this.cbCardType.Location = new System.Drawing.Point(185, 74);
             this.cbCardType.Name = "cbCardType";
-            this.cbCardType.Size = new System.Drawing.Size(121, 24);
+            this.cbCardType.Size = new System.Drawing.Size(178, 24);
             this.cbCardType.TabIndex = 62;
             // 
             // txtBillingName
@@ -239,10 +222,10 @@ namespace BookStoreSystem.View
             this.lblZip.TabIndex = 69;
             this.lblZip.Text = "ZIP";
             // 
-            // comboBox1
+            // cbState
             // 
-            this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Items.AddRange(new object[] {
+            this.cbState.FormattingEnabled = true;
+            this.cbState.Items.AddRange(new object[] {
             "Alabama",
             "Alaska",
             "Arizona",
@@ -293,17 +276,30 @@ namespace BookStoreSystem.View
             "West Virginia",
             "Wisconsin",
             "Wyoming"});
-            this.comboBox1.Location = new System.Drawing.Point(710, 151);
-            this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(178, 24);
-            this.comboBox1.TabIndex = 71;
+            this.cbState.Location = new System.Drawing.Point(710, 151);
+            this.cbState.Name = "cbState";
+            this.cbState.Size = new System.Drawing.Size(178, 24);
+            this.cbState.TabIndex = 71;
+            // 
+            // btnPurchase
+            // 
+            this.btnPurchase.BackColor = System.Drawing.Color.MediumSpringGreen;
+            this.btnPurchase.Location = new System.Drawing.Point(969, 98);
+            this.btnPurchase.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.btnPurchase.Name = "btnPurchase";
+            this.btnPurchase.Size = new System.Drawing.Size(316, 65);
+            this.btnPurchase.TabIndex = 72;
+            this.btnPurchase.Text = "Purchase";
+            this.btnPurchase.UseVisualStyleBackColor = false;
+            this.btnPurchase.Click += new System.EventHandler(this.btnPurchase_Click);
             // 
             // frmOrderBook
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1347, 746);
-            this.Controls.Add(this.comboBox1);
+            this.Controls.Add(this.btnPurchase);
+            this.Controls.Add(this.cbState);
             this.Controls.Add(this.txtZIP);
             this.Controls.Add(this.lblZip);
             this.Controls.Add(this.lblState);
@@ -319,15 +315,14 @@ namespace BookStoreSystem.View
             this.Controls.Add(this.lblExpDate);
             this.Controls.Add(this.lblCardNo);
             this.Controls.Add(this.lblCardType);
-            this.Controls.Add(this.lblPurchaseDate);
-            this.Controls.Add(this.dtpPurchaseDate);
             this.Controls.Add(this.txtTotalCost);
             this.Controls.Add(this.lblSemesterCost);
             this.Controls.Add(this.lblSelectedBooks);
             this.Controls.Add(this.flpCustomersWhoOrdered);
             this.Controls.Add(this.flpListOfBooks);
             this.Name = "frmOrderBook";
-            this.Text = "frmOrderBook";
+            this.Text = "Book Order";
+            this.Load += new System.EventHandler(this.frmOrderBook_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -340,8 +335,6 @@ namespace BookStoreSystem.View
         private System.Windows.Forms.TextBox txtTotalCost;
         private System.Windows.Forms.Label lblSemesterCost;
         private System.Windows.Forms.Label lblSelectedBooks;
-        private System.Windows.Forms.DateTimePicker dtpPurchaseDate;
-        private System.Windows.Forms.Label lblPurchaseDate;
         private System.Windows.Forms.TextBox txtSecurityCode;
         private System.Windows.Forms.Label lblSecurityCode;
         private System.Windows.Forms.TextBox txtCardNo;
@@ -357,6 +350,7 @@ namespace BookStoreSystem.View
         private System.Windows.Forms.Label lblState;
         private System.Windows.Forms.TextBox txtZIP;
         private System.Windows.Forms.Label lblZip;
-        private System.Windows.Forms.ComboBox comboBox1;
+        private System.Windows.Forms.ComboBox cbState;
+        private System.Windows.Forms.Button btnPurchase;
     }
 }

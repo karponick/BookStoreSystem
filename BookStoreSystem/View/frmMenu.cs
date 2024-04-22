@@ -21,7 +21,7 @@ namespace BookStoreSystem
         /*************************** Events ***************************/
         private void btnBooks_Click(object sender, EventArgs e)
         {
-            frmBookList bookListForm = new frmBookList(true);
+            frmBookList bookListForm = new frmBookList(true, 1);
             bookListForm.ShowDialog();
         }
 

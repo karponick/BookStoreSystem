@@ -94,10 +94,13 @@ namespace BookStoreSystem
                 return;
             }
 
-            var user = new User(0, txtUsername.Text.Trim(), txtPassword.Text.Trim(), accountType);
+            User user = DatabaseController.GetUser(txtUsername.Text.Trim(), txtPassword.Text.Trim(), accountType);
 
-
-
+            if (user == null)
+            {
+                MessageBox.Show("Invalid Login attempt. Please try again.");
+                return;
+            }
 
 
             // Temporary IF statements. Might need update once User is validated against database
@@ -112,7 +115,7 @@ namespace BookStoreSystem
             if (rbCustomer.Checked)
             {
                 Visible = false;
-                frmBookList bookListForm = new frmBookList(false);
+                frmBookList bookListForm = new frmBookList(false, user.UserID);
                 bookListForm.ShowDialog();
                 Visible = true;
             }
