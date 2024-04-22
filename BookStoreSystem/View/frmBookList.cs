@@ -166,6 +166,7 @@ namespace BookStoreSystem
             if (selectedBooks.Count == 0)
             {
                 MessageBox.Show("Please select at least one book");
+                return;
             }
             
             frmOrderBook bookOrderForm = new frmOrderBook(selectedBooks, userId);
