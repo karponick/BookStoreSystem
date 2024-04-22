@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BookStoreSystem.Controller;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -101,36 +102,13 @@ namespace BookStoreSystem
                 MessageBox.Show("Invalid Login attempt. Please try again.");
                 return;
             }
-
-
-            // Temporary IF statements. Might need update once User is validated against database
-
-            if (rbAdmin.Checked)
+            else
             {
+                SystemController.CurrentUser = user;
                 Visible = false;
-                frmMenu menuForm = new frmMenu();
-                menuForm.ShowDialog();
-                Visible = true;
-            }
-            if (rbCustomer.Checked)
-            {
-                Visible = false;
-                frmBookList bookListForm = new frmBookList(false, user.UserID);
-                bookListForm.ShowDialog();
+                SystemController.Login();
                 Visible = true;
             }
         }
-
-
-        // Temporary Menu button click to bypass login
-        private void btnTemp_Click(object sender, EventArgs e)
-        {
-            frmMenu menuForm = new frmMenu();
-            Visible = false;
-            menuForm.ShowDialog();
-            Visible = true;
-        }
-
-
     }
 }

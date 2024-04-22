@@ -1,4 +1,5 @@
-﻿using BookStoreSystem.View;
+﻿using BookStoreSystem.Controller;
+using BookStoreSystem.View;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -16,18 +17,14 @@ namespace BookStoreSystem
         /*************************** Fields ***************************/
         private readonly BookPanel bookPanel;
         private int selectedIndex;
-        private bool isAdmin;
-        private readonly int userId;
         private List<Book> selectedBooks;
 
         /************************ Constructors ************************/
-        public frmBookList(bool isAdmin, int userId)
+        public frmBookList()
         {
             InitializeComponent();
             selectedIndex = -1;
-            this.isAdmin = isAdmin;
-            this.userId = userId;
-            if (isAdmin) { btnCreate.Visible = true; }
+            if (SystemController.IsAdmin()) { btnCreate.Visible = true; }
             selectedBooks = new List<Book>();
 
             // Initialize datagridview properties
@@ -144,7 +141,7 @@ namespace BookStoreSystem
                 bookPanel.Visible = true;
 
                 // If logged in User is an admin, enable Modify/Delete buttons
-                if (isAdmin)
+                if (SystemController.IsAdmin())
                 {
                     btnModify.Visible = true;
                     btnDelete.Visible = true;
@@ -168,7 +165,7 @@ namespace BookStoreSystem
                 MessageBox.Show("Please select at least one book");
             }
             
-            frmOrderBook bookOrderForm = new frmOrderBook(selectedBooks, userId);
+            frmOrderBook bookOrderForm = new frmOrderBook(selectedBooks, SystemController.CurrentUser.UserID);
             bookOrderForm.ShowDialog();
         }
 

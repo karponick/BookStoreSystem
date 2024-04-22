@@ -14,15 +14,14 @@ namespace BookStoreSystem
         private DateTime submissionDateTime;
 
         /**************************** Constructor *******************************************/
-        public Review(string idString, string userIdString, string bookIdString)
+        public Review(string userIdString, string bookIdString)
         {
-            int.TryParse(idString, out id);
             int.TryParse(userIdString, out userId);
             int.TryParse(bookIdString, out bookId);
             submissionDateTime = DateTime.UtcNow;
         }
         /**************************** Properties *******************************************/
-        public int Id { get { return id; } }
+        public int Id { get { return id; } set { id = value; } }
         public int UserId { get { return userId; } }
         public int BookId { get { return bookId; } }
         public string Description { get { return description; } set {  description = value; } }

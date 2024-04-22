@@ -61,13 +61,12 @@ namespace BookStoreSystem
 
         public static void AddBook(Book book)
         {
-            List<Book> bookList = GetBookList();
-            int latestId = bookList[bookList.Count - 1].Id;
-            book.Id = latestId + 1;
             try
             {
                 myConnection.Open();
-                myCommand.CommandText = "INSERT INTO Book VALUES ('" + string.Join("','", book.ToArray()) + "')";
+                myCommand.CommandText = string.Format("INSERT INTO Book (Title, Author, Genre, Description, Pages, " +
+                    "Price, Publication, Cover_Url) VALUES ('{0}', '{1}', '{2}', '{3}', {4}, {5}, '{6}', '{7}')",
+                    book.Title, book.Author, book.Genre, book.Description, book.Pages, book.Price, book.Publication, book.CoverUrl);
                 myCommand.ExecuteNonQuery();
             }
             catch (OleDbException ex) { Console.WriteLine(ex.Message); }
@@ -138,14 +137,29 @@ namespace BookStoreSystem
             foreach (DataRow row in table.Rows)
             {
                 // Create book and add to list
-                Review newReview = new Review(row["Review_ID"].ToString(), row["User_ID"].ToString(), row["Book_ID"].ToString())
+                int.TryParse(row["Review_ID"].ToString(), out int reviewId);
+                Review newReview = new Review(row["User_ID"].ToString(), row["Book_ID"].ToString())
                 {
+                    Id = reviewId,
                     Description = row["Description"].ToString()
                 };
                 newReview.SetRatings(row["Style_Rating"].ToString(), row["Plot_Rating"].ToString(), row["Character_Rating"].ToString());
                 reviewList.Add(newReview);
             }
             return reviewList;
+        }
+        public static void AddReview(Review review)
+        {
+            try
+            {
+                myConnection.Open();
+                myCommand.CommandText = string.Format("INSERT INTO Review (User_ID, Book_ID, Description, Style_Rating, " +
+                    "Plot_Rating, Character_Rating) VALUES ({0}, {1}, '{2}', {3}, {4}, {5})",
+                    review.UserId, review.BookId, review.Description, review.StyleRating, review.PlotRating, review.CharacterRating);
+                myCommand.ExecuteNonQuery();
+            }
+            catch (OleDbException ex) { Console.WriteLine(ex.Message); }
+            finally { myConnection.Close(); }
         }
 
         /**************************** User Methods *******************************************/
@@ -219,6 +233,24 @@ namespace BookStoreSystem
                 }
             }
             return false;
+        }
+
+        public static string GetUsername(int id)
+        {
+            // Gets Username from Database by ID
+            myCommand.CommandText = "SELECT [Username] FROM [User] WHERE [User_ID] = " + id.ToString();
+            DataSet dataSet = new DataSet();
+            try
+            {
+                myConnection.Open();
+                myAdapter.Fill(dataSet, "User");
+            }
+            catch (OleDbException ex) { Console.WriteLine(ex.Message); }
+            finally { myConnection.Close(); }
+
+            DataTable table = dataSet.Tables["User"];
+            DataRow row = table.Rows[0];
+            return row["Username"].ToString();
         }
     }
 }

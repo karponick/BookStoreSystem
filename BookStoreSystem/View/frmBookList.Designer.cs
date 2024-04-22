@@ -92,9 +92,9 @@
             // 
             // btnPurchase
             // 
-            this.btnPurchase.Location = new System.Drawing.Point(718, 456);
+            this.btnPurchase.Location = new System.Drawing.Point(483, 456);
             this.btnPurchase.Name = "btnPurchase";
-            this.btnPurchase.Size = new System.Drawing.Size(120, 60);
+            this.btnPurchase.Size = new System.Drawing.Size(229, 60);
             this.btnPurchase.TabIndex = 4;
             this.btnPurchase.Text = "Check Out";
             this.btnPurchase.UseVisualStyleBackColor = true;
@@ -114,7 +114,7 @@
             // 
             // btnAddToCart
             // 
-            this.btnAddToCart.Location = new System.Drawing.Point(592, 457);
+            this.btnAddToCart.Location = new System.Drawing.Point(718, 456);
             this.btnAddToCart.Name = "btnAddToCart";
             this.btnAddToCart.Size = new System.Drawing.Size(120, 60);
             this.btnAddToCart.TabIndex = 6;

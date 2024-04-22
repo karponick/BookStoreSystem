@@ -89,6 +89,12 @@
     <Compile Include="View\frmOrderBook.Designer.cs">
       <DependentUpon>frmOrderBook.cs</DependentUpon>
     </Compile>
+    <Compile Include="View\frmReviewEdit.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="View\frmReviewEdit.Designer.cs">
+      <DependentUpon>frmReviewEdit.cs</DependentUpon>
+    </Compile>
     <Compile Include="View\frmReviews.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -122,6 +128,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="View\frmOrderBook.resx">
       <DependentUpon>frmOrderBook.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="View\frmReviewEdit.resx">
+      <DependentUpon>frmReviewEdit.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="View\frmReviews.resx">
       <DependentUpon>frmReviews.cs</DependentUpon>

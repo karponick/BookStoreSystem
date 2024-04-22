@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BookStoreSystem.Controller;
+using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
@@ -29,7 +30,7 @@ namespace BookStoreSystem.View
             int halfWidth = (int)(tlpWidth * .66);
             username = new Label()
             {
-                Text = "Name", // placeholder
+                Text = DatabaseController.GetUsername(review.UserId),
                 Size = new Size(halfWidth, 20),
                 BorderStyle = BorderStyle.FixedSingle,
                 TextAlign = ContentAlignment.MiddleLeft,
@@ -78,8 +79,11 @@ namespace BookStoreSystem.View
             // Add controls to main panel
             Controls.Add(username);
             Controls.Add(description);
-            Controls.Add(edit);
-            Controls.Add(delete);
+            if (review.UserId == SystemController.CurrentUser.UserID)
+            {
+                Controls.Add(edit);
+                Controls.Add(delete);
+            }
             Controls.Add(styleRating);
             Controls.Add(plotRating);
             Controls.Add(charRating);
