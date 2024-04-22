@@ -53,6 +53,17 @@ namespace BookStoreSystem.View
                     cardType, dtpExpDate.Value, int.Parse(txtSecurityCode.Text), txtBillingAddress.Text,
                     txtZIP.Text, cbState.SelectedItem.ToString()
                     );
+                //add database method to get add transaction to the DB
+
+                Label lblPersonWhoIsBillingInfo = new Label();
+                lblPersonWhoIsBillingInfo.Text = "Billing Name: " + txtBillingName.Text + " " + "Billing Address: " + txtBillingAddress.Text;
+                lblPersonWhoIsBillingInfo.Width = flpCustomersWhoOrdered.ClientSize.Width;
+                flpCustomersWhoOrdered.Controls.Add(lblPersonWhoIsBillingInfo);
+
+                txtBillingName.Text = "";
+                txtBillingAddress.Text = "";
+
+                //add database method to get transaction
             }
             
         }
