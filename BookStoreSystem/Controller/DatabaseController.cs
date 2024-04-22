@@ -220,5 +220,39 @@ namespace BookStoreSystem
             }
             return false;
         }
+
+        /**************************** Transaction Methods *****************************************/
+
+        public static List<Transaction> GetTransactions()
+        {
+            OleDbConnection connection = new OleDbConnection();
+            List<Transaction> transactions = new List<Transaction>();
+            try
+            {
+                connection.Open();
+                OleDbCommand oleDbCommand = new OleDbCommand("select * from Transaction", connection);
+                OleDbDataReader reader = oleDbCommand.ExecuteReader();
+
+                while (reader.Read())
+                {
+                    BindTransaction(reader);
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                return new List<Transaction>();
+            }
+            finally
+            {
+                connection.Close();
+            }
+            return transactions;
+        }
+
+        private static void BindTransaction(OleDbDataReader reader)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
