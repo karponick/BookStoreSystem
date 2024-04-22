@@ -64,15 +64,15 @@ namespace BookStoreSystem.View
             int y = 10;
             Stars styleRating = new Stars("Style", review.StyleRating, halfWidth)
             {
-                Location = new Point(halfWidth, y)
+                Location = new Point(halfWidth - 5, y)
             };
             Stars plotRating = new Stars("Plot", review.PlotRating, halfWidth)
             {
-                Location = new Point(halfWidth, y+30)
+                Location = new Point(halfWidth - 5, y+30)
             };
             Stars charRating = new Stars("Rating", review.CharacterRating, halfWidth)
             {
-                Location = new Point(halfWidth, y+60)
+                Location = new Point(halfWidth - 5, y+60)
             };
 
             // Add controls to main panel
@@ -96,7 +96,7 @@ namespace BookStoreSystem.View
                 Label text = new Label()
                 {
                     Text = category,
-                    Padding = new Padding(5, 5, 0, 0),
+                    Padding = new Padding(0, 5, 0, 0),
                     AutoSize = false,
                     Size = new Size(60, 20),
                     TextAlign = ContentAlignment.MiddleRight
