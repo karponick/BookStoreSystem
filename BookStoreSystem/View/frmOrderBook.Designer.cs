@@ -229,6 +229,7 @@ namespace BookStoreSystem.View
             // 
             // cbState
             // 
+            this.cbState.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbState.FormattingEnabled = true;
             this.cbState.Items.AddRange(new object[] {
             "Alabama",

@@ -54,6 +54,7 @@ namespace BookStoreSystem.View
                     txtZIP.Text, cbState.SelectedItem.ToString()
                     );
                 //add database method to get add transaction to the DB
+                DatabaseController.CreateTransaction(transaction);
 
                 Label lblPersonWhoIsBillingInfo = new Label();
                 lblPersonWhoIsBillingInfo.Text = "Billing Name: " + txtBillingName.Text + " " + "Billing Address: " + txtBillingAddress.Text;
@@ -71,15 +72,15 @@ namespace BookStoreSystem.View
         private CardType GetCardType()
         {
             CardType cardType = CardType.VISA;
-            if (cbCardType.SelectedValue.ToString() == "Master Card")
+            if (cbCardType.SelectedItem.ToString() == "Master Card")
             {
                 cardType = CardType.Master;
             }
-            else if (cbCardType.SelectedValue.ToString() == "American Express")
+            else if (cbCardType.SelectedItem.ToString() == "American Express")
             {
                 cardType = CardType.AmericanExpress;
             }
-            else if (cbCardType.SelectedValue.ToString() == "Visa")
+            else if (cbCardType.SelectedItem.ToString() == "Visa")
             {
                 cardType = CardType.VISA;
             }

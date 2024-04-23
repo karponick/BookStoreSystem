@@ -223,7 +223,69 @@ namespace BookStoreSystem
 
         /**************************** Transaction Methods *****************************************/
 
-        public static List<Transaction> GetTransactions()
+
+        public static void CreateTransaction(Transaction transaction)
+        {
+            OleDbConnection connection = new OleDbConnection(connectionString);
+
+            try
+            {
+                connection.Open();
+                OleDbCommand oleDbCommand = new OleDbCommand(@"INSERT into [Transaction] ( User_ID, PurchaseDate, TotalCost, CardNumber, CardType,
+                                            ExpirationDate, SecurityCode, BillingAddress, ZIP, State)
+                                            values(@User_ID, @PurchaseDate, @TotalCost, @CardNumber, @CardType,
+                                            @ExpirationDate, @SecurityCode, @BillingAddress, @ZIP, @State)", connection);
+                
+                oleDbCommand.Parameters.Add("@User_ID", OleDbType.Integer).Value = transaction.UserID;
+                oleDbCommand.Parameters.Add("@PurchaseDate", OleDbType.Date).Value = transaction.PurchaseDate;
+                oleDbCommand.Parameters.Add("@TotalCost", OleDbType.Double).Value = transaction.TotalCost;
+                oleDbCommand.Parameters.Add("@CardNumber", OleDbType.VarChar).Value = transaction.CardNumber;
+                oleDbCommand.Parameters.Add("@CardType", OleDbType.VarChar).Value = transaction.CardType1;
+                oleDbCommand.Parameters.Add("@ExpirationDate", OleDbType.Date).Value = transaction.ExpDate;
+                oleDbCommand.Parameters.Add("@SecurityCode", OleDbType.Integer).Value = transaction.SecurityCode;
+                oleDbCommand.Parameters.Add("@BillingAddress", OleDbType.VarChar).Value = transaction.BillingAddress;
+                oleDbCommand.Parameters.Add("@ZIP", OleDbType.VarChar).Value = transaction.ZIP;
+                oleDbCommand.Parameters.Add("@State", OleDbType.VarChar).Value = transaction.State;
+                oleDbCommand.ExecuteNonQuery();
+
+                var cmd1 = new OleDbCommand("SELECT @@IDENTITY", connection);
+                int transactionId = (int)cmd1.ExecuteScalar();
+
+              
+               //insert into booktransaction table
+               foreach (var item in transaction.Books)
+               {
+                   OleDbCommand cmd2 = new OleDbCommand(@"INSERT into BookTransaction
+                               (Book_ID, Transaction_ID)
+                               values(@Book_ID, @Transaction_ID)", connection);
+
+                   cmd1.Parameters.Add("@Book_ID", OleDbType.Integer).Value = item.Id;
+                   cmd1.Parameters.Add("@Transaction_ID", OleDbType.Integer).Value = transactionId;
+                   try
+                   {
+                       cmd2.ExecuteNonQuery();
+                   }
+                   catch (OleDbException ex)
+                   {
+                       Debug.WriteLine(ex.Message);
+                       connection.Close();
+                   }
+               }
+                }
+            
+            catch (OleDbException ex)
+            {
+                Console.WriteLine(ex.Message);
+                return;
+            }
+            finally
+            {
+                connection.Close();
+            }
+        }
+
+
+/*        public static List<Transaction> GetTransactions()
         {
             OleDbConnection connection = new OleDbConnection();
             List<Transaction> transactions = new List<Transaction>();
@@ -252,7 +314,20 @@ namespace BookStoreSystem
 
         private static void BindTransaction(OleDbDataReader reader)
         {
-            throw new NotImplementedException();
-        }
+            Transaction transaction = new Transaction(
+                Convert.ToInt32(reader["Transaction_ID"]),
+                Convert.ToInt32(reader["User_ID"]),
+                Convert.ToInt32(reader["Transaction_ID"]), //
+                DateTime.Parse(reader["PurchaseDate"].ToString()),
+                Convert.ToDouble(reader["TotalCost"]),
+                reader["CardNumber"].ToString(),
+                reader["CardType"].ToString(),
+                DateTime.Parse(reader["ExpirationDate"].ToString()),
+                Convert.ToInt32(reader["SecurityCode"]),
+                reader["BillingAddress"].ToString(),
+                reader["ZIP"].ToString(),
+
+
+        }*/
     }
 }
