@@ -259,8 +259,8 @@ namespace BookStoreSystem
                                (Book_ID, Transaction_ID)
                                values(@Book_ID, @Transaction_ID)", connection);
 
-                   cmd1.Parameters.Add("@Book_ID", OleDbType.Integer).Value = item.Id;
-                   cmd1.Parameters.Add("@Transaction_ID", OleDbType.Integer).Value = transactionId;
+                   cmd2.Parameters.Add("@Book_ID", OleDbType.Integer).Value = item.Id;
+                   cmd2.Parameters.Add("@Transaction_ID", OleDbType.Integer).Value = transactionId;
                    try
                    {
                        cmd2.ExecuteNonQuery();
@@ -271,11 +271,10 @@ namespace BookStoreSystem
                        connection.Close();
                    }
                }
-                }
-            
+            }
             catch (OleDbException ex)
             {
-                Console.WriteLine(ex.Message);
+                Debug.WriteLine(ex.Message);
                 return;
             }
             finally
