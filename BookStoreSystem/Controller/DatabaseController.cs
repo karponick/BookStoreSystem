@@ -77,7 +77,7 @@ namespace BookStoreSystem
             try
             {
                 myConnection.Open();
-                myCommand.CommandText = string.Format("Update Book SET Title = '{1}', Author = '{2}', Genre = '{3}', " +
+                myCommand.CommandText = string.Format("UPDATE Book SET Title = '{1}', Author = '{2}', Genre = '{3}', " +
                     "Description = '{4}', Pages = {5}, Price = {6}, Publication = '{7}', Cover_Url = '{8}' WHERE Book_ID = {0}",
                     book.Id, book.Title, book.Author, book.Genre, book.Description, book.Pages, book.Price, book.Publication, book.CoverUrl);
                 Console.WriteLine(myCommand.CommandText);
@@ -161,6 +161,25 @@ namespace BookStoreSystem
             catch (OleDbException ex) { Console.WriteLine(ex.Message); }
             finally { myConnection.Close(); }
         }
+        public static void ModifyReview(Review review)
+        {
+            //try
+            //{
+            //    myConnection.Open();
+            //    myCommand.CommandText = string.Format("UPDATE Review SET Title = '{1}', Author = '{2}', Genre = '{3}', " +
+            //        "Description = '{4}', Pages = {5}, Price = {6}, Publication = '{7}', Cover_Url = '{8}' WHERE Book_ID = {0}",
+            //        book.Id, book.Title, book.Author, book.Genre, book.Description, book.Pages, book.Price, book.Publication, book.CoverUrl);
+            //    Console.WriteLine(myCommand.CommandText);
+            //    myCommand.ExecuteNonQuery();
+            //}
+            //catch (OleDbException ex) { Console.WriteLine(ex.Message); }
+            //finally { myConnection.Close(); }
+        }
+        public static void DeleteReview(int reviewId)
+        {
+
+        }
+
 
         /**************************** User Methods *******************************************/
 

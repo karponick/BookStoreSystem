@@ -58,7 +58,7 @@
             this.txtDesc.Location = new System.Drawing.Point(12, 12);
             this.txtDesc.Multiline = true;
             this.txtDesc.Name = "txtDesc";
-            this.txtDesc.Size = new System.Drawing.Size(298, 141);
+            this.txtDesc.Size = new System.Drawing.Size(298, 206);
             this.txtDesc.TabIndex = 1;
             // 
             // gbStyle
@@ -70,7 +70,7 @@
             this.gbStyle.Controls.Add(this.chkStyle1);
             this.gbStyle.Location = new System.Drawing.Point(316, 12);
             this.gbStyle.Name = "gbStyle";
-            this.gbStyle.Size = new System.Drawing.Size(108, 43);
+            this.gbStyle.Size = new System.Drawing.Size(108, 55);
             this.gbStyle.TabIndex = 2;
             this.gbStyle.TabStop = false;
             this.gbStyle.Text = "Style Rating";
@@ -78,46 +78,56 @@
             // chkStyle5
             // 
             this.chkStyle5.AutoSize = true;
+            this.chkStyle5.CheckAlign = System.Drawing.ContentAlignment.TopCenter;
             this.chkStyle5.Location = new System.Drawing.Point(90, 18);
             this.chkStyle5.Name = "chkStyle5";
-            this.chkStyle5.Size = new System.Drawing.Size(15, 14);
+            this.chkStyle5.Size = new System.Drawing.Size(17, 31);
             this.chkStyle5.TabIndex = 4;
+            this.chkStyle5.Text = "5";
             this.chkStyle5.UseVisualStyleBackColor = true;
             // 
             // chkStyle4
             // 
             this.chkStyle4.AutoSize = true;
+            this.chkStyle4.CheckAlign = System.Drawing.ContentAlignment.TopCenter;
             this.chkStyle4.Location = new System.Drawing.Point(69, 18);
             this.chkStyle4.Name = "chkStyle4";
-            this.chkStyle4.Size = new System.Drawing.Size(15, 14);
+            this.chkStyle4.Size = new System.Drawing.Size(17, 31);
             this.chkStyle4.TabIndex = 3;
+            this.chkStyle4.Text = "4";
             this.chkStyle4.UseVisualStyleBackColor = true;
             // 
             // chkStyle3
             // 
             this.chkStyle3.AutoSize = true;
+            this.chkStyle3.CheckAlign = System.Drawing.ContentAlignment.TopCenter;
             this.chkStyle3.Location = new System.Drawing.Point(48, 18);
             this.chkStyle3.Name = "chkStyle3";
-            this.chkStyle3.Size = new System.Drawing.Size(15, 14);
+            this.chkStyle3.Size = new System.Drawing.Size(17, 31);
             this.chkStyle3.TabIndex = 2;
+            this.chkStyle3.Text = "3";
             this.chkStyle3.UseVisualStyleBackColor = true;
             // 
             // chkStyle2
             // 
             this.chkStyle2.AutoSize = true;
+            this.chkStyle2.CheckAlign = System.Drawing.ContentAlignment.TopCenter;
             this.chkStyle2.Location = new System.Drawing.Point(27, 18);
             this.chkStyle2.Name = "chkStyle2";
-            this.chkStyle2.Size = new System.Drawing.Size(15, 14);
+            this.chkStyle2.Size = new System.Drawing.Size(17, 31);
             this.chkStyle2.TabIndex = 1;
+            this.chkStyle2.Text = "2";
             this.chkStyle2.UseVisualStyleBackColor = true;
             // 
             // chkStyle1
             // 
             this.chkStyle1.AutoSize = true;
+            this.chkStyle1.CheckAlign = System.Drawing.ContentAlignment.TopCenter;
             this.chkStyle1.Location = new System.Drawing.Point(6, 18);
             this.chkStyle1.Name = "chkStyle1";
-            this.chkStyle1.Size = new System.Drawing.Size(15, 14);
+            this.chkStyle1.Size = new System.Drawing.Size(17, 31);
             this.chkStyle1.TabIndex = 0;
+            this.chkStyle1.Text = "1";
             this.chkStyle1.UseVisualStyleBackColor = true;
             // 
             // gbPlot
@@ -127,9 +137,9 @@
             this.gbPlot.Controls.Add(this.chkPlot3);
             this.gbPlot.Controls.Add(this.chkPlot2);
             this.gbPlot.Controls.Add(this.chkPlot1);
-            this.gbPlot.Location = new System.Drawing.Point(316, 61);
+            this.gbPlot.Location = new System.Drawing.Point(316, 73);
             this.gbPlot.Name = "gbPlot";
-            this.gbPlot.Size = new System.Drawing.Size(108, 43);
+            this.gbPlot.Size = new System.Drawing.Size(108, 55);
             this.gbPlot.TabIndex = 5;
             this.gbPlot.TabStop = false;
             this.gbPlot.Text = "Plot Rating";
@@ -137,46 +147,56 @@
             // chkPlot5
             // 
             this.chkPlot5.AutoSize = true;
+            this.chkPlot5.CheckAlign = System.Drawing.ContentAlignment.TopCenter;
             this.chkPlot5.Location = new System.Drawing.Point(90, 18);
             this.chkPlot5.Name = "chkPlot5";
-            this.chkPlot5.Size = new System.Drawing.Size(15, 14);
+            this.chkPlot5.Size = new System.Drawing.Size(17, 31);
             this.chkPlot5.TabIndex = 4;
+            this.chkPlot5.Text = "5";
             this.chkPlot5.UseVisualStyleBackColor = true;
             // 
             // chkPlot4
             // 
             this.chkPlot4.AutoSize = true;
+            this.chkPlot4.CheckAlign = System.Drawing.ContentAlignment.TopCenter;
             this.chkPlot4.Location = new System.Drawing.Point(69, 18);
             this.chkPlot4.Name = "chkPlot4";
-            this.chkPlot4.Size = new System.Drawing.Size(15, 14);
+            this.chkPlot4.Size = new System.Drawing.Size(17, 31);
             this.chkPlot4.TabIndex = 3;
+            this.chkPlot4.Text = "4";
             this.chkPlot4.UseVisualStyleBackColor = true;
             // 
             // chkPlot3
             // 
             this.chkPlot3.AutoSize = true;
+            this.chkPlot3.CheckAlign = System.Drawing.ContentAlignment.TopCenter;
             this.chkPlot3.Location = new System.Drawing.Point(48, 18);
             this.chkPlot3.Name = "chkPlot3";
-            this.chkPlot3.Size = new System.Drawing.Size(15, 14);
+            this.chkPlot3.Size = new System.Drawing.Size(17, 31);
             this.chkPlot3.TabIndex = 2;
+            this.chkPlot3.Text = "3";
             this.chkPlot3.UseVisualStyleBackColor = true;
             // 
             // chkPlot2
             // 
             this.chkPlot2.AutoSize = true;
+            this.chkPlot2.CheckAlign = System.Drawing.ContentAlignment.TopCenter;
             this.chkPlot2.Location = new System.Drawing.Point(27, 18);
             this.chkPlot2.Name = "chkPlot2";
-            this.chkPlot2.Size = new System.Drawing.Size(15, 14);
+            this.chkPlot2.Size = new System.Drawing.Size(17, 31);
             this.chkPlot2.TabIndex = 1;
+            this.chkPlot2.Text = "2";
             this.chkPlot2.UseVisualStyleBackColor = true;
             // 
             // chkPlot1
             // 
             this.chkPlot1.AutoSize = true;
+            this.chkPlot1.CheckAlign = System.Drawing.ContentAlignment.TopCenter;
             this.chkPlot1.Location = new System.Drawing.Point(6, 18);
             this.chkPlot1.Name = "chkPlot1";
-            this.chkPlot1.Size = new System.Drawing.Size(15, 14);
+            this.chkPlot1.Size = new System.Drawing.Size(17, 31);
             this.chkPlot1.TabIndex = 0;
+            this.chkPlot1.Text = "1";
             this.chkPlot1.UseVisualStyleBackColor = true;
             // 
             // gbCharacter
@@ -186,9 +206,9 @@
             this.gbCharacter.Controls.Add(this.chkChar3);
             this.gbCharacter.Controls.Add(this.chkChar2);
             this.gbCharacter.Controls.Add(this.chkChar1);
-            this.gbCharacter.Location = new System.Drawing.Point(316, 110);
+            this.gbCharacter.Location = new System.Drawing.Point(315, 134);
             this.gbCharacter.Name = "gbCharacter";
-            this.gbCharacter.Size = new System.Drawing.Size(108, 43);
+            this.gbCharacter.Size = new System.Drawing.Size(108, 55);
             this.gbCharacter.TabIndex = 6;
             this.gbCharacter.TabStop = false;
             this.gbCharacter.Text = "Character Rating";
@@ -196,51 +216,61 @@
             // chkChar5
             // 
             this.chkChar5.AutoSize = true;
+            this.chkChar5.CheckAlign = System.Drawing.ContentAlignment.TopCenter;
             this.chkChar5.Location = new System.Drawing.Point(90, 18);
             this.chkChar5.Name = "chkChar5";
-            this.chkChar5.Size = new System.Drawing.Size(15, 14);
+            this.chkChar5.Size = new System.Drawing.Size(17, 31);
             this.chkChar5.TabIndex = 4;
+            this.chkChar5.Text = "5";
             this.chkChar5.UseVisualStyleBackColor = true;
             // 
             // chkChar4
             // 
             this.chkChar4.AutoSize = true;
+            this.chkChar4.CheckAlign = System.Drawing.ContentAlignment.TopCenter;
             this.chkChar4.Location = new System.Drawing.Point(69, 18);
             this.chkChar4.Name = "chkChar4";
-            this.chkChar4.Size = new System.Drawing.Size(15, 14);
+            this.chkChar4.Size = new System.Drawing.Size(17, 31);
             this.chkChar4.TabIndex = 3;
+            this.chkChar4.Text = "4";
             this.chkChar4.UseVisualStyleBackColor = true;
             // 
             // chkChar3
             // 
             this.chkChar3.AutoSize = true;
+            this.chkChar3.CheckAlign = System.Drawing.ContentAlignment.TopCenter;
             this.chkChar3.Location = new System.Drawing.Point(48, 18);
             this.chkChar3.Name = "chkChar3";
-            this.chkChar3.Size = new System.Drawing.Size(15, 14);
+            this.chkChar3.Size = new System.Drawing.Size(17, 31);
             this.chkChar3.TabIndex = 2;
+            this.chkChar3.Text = "3";
             this.chkChar3.UseVisualStyleBackColor = true;
             // 
             // chkChar2
             // 
             this.chkChar2.AutoSize = true;
+            this.chkChar2.CheckAlign = System.Drawing.ContentAlignment.TopCenter;
             this.chkChar2.Location = new System.Drawing.Point(27, 18);
             this.chkChar2.Name = "chkChar2";
-            this.chkChar2.Size = new System.Drawing.Size(15, 14);
+            this.chkChar2.Size = new System.Drawing.Size(17, 31);
             this.chkChar2.TabIndex = 1;
+            this.chkChar2.Text = "2";
             this.chkChar2.UseVisualStyleBackColor = true;
             // 
             // chkChar1
             // 
             this.chkChar1.AutoSize = true;
+            this.chkChar1.CheckAlign = System.Drawing.ContentAlignment.TopCenter;
             this.chkChar1.Location = new System.Drawing.Point(6, 18);
             this.chkChar1.Name = "chkChar1";
-            this.chkChar1.Size = new System.Drawing.Size(15, 14);
+            this.chkChar1.Size = new System.Drawing.Size(17, 31);
             this.chkChar1.TabIndex = 0;
+            this.chkChar1.Text = "1";
             this.chkChar1.UseVisualStyleBackColor = true;
             // 
             // btnSubmit
             // 
-            this.btnSubmit.Location = new System.Drawing.Point(316, 160);
+            this.btnSubmit.Location = new System.Drawing.Point(316, 195);
             this.btnSubmit.Name = "btnSubmit";
             this.btnSubmit.Size = new System.Drawing.Size(108, 23);
             this.btnSubmit.TabIndex = 7;
@@ -252,7 +282,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(445, 196);
+            this.ClientSize = new System.Drawing.Size(435, 231);
             this.Controls.Add(this.btnSubmit);
             this.Controls.Add(this.gbCharacter);
             this.Controls.Add(this.gbPlot);

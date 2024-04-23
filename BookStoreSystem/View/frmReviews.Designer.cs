@@ -28,35 +28,15 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.btnDelete = new System.Windows.Forms.Button();
-            this.btnModify = new System.Windows.Forms.Button();
             this.btnAdd = new System.Windows.Forms.Button();
             this.tlpReviews = new System.Windows.Forms.TableLayoutPanel();
             this.SuspendLayout();
             // 
-            // btnDelete
-            // 
-            this.btnDelete.Location = new System.Drawing.Point(566, 454);
-            this.btnDelete.Name = "btnDelete";
-            this.btnDelete.Size = new System.Drawing.Size(120, 60);
-            this.btnDelete.TabIndex = 6;
-            this.btnDelete.Text = "Delete";
-            this.btnDelete.UseVisualStyleBackColor = true;
-            // 
-            // btnModify
-            // 
-            this.btnModify.Location = new System.Drawing.Point(440, 454);
-            this.btnModify.Name = "btnModify";
-            this.btnModify.Size = new System.Drawing.Size(120, 60);
-            this.btnModify.TabIndex = 5;
-            this.btnModify.Text = "Modify";
-            this.btnModify.UseVisualStyleBackColor = true;
-            // 
             // btnAdd
             // 
-            this.btnAdd.Location = new System.Drawing.Point(12, 456);
+            this.btnAdd.Location = new System.Drawing.Point(194, 456);
             this.btnAdd.Name = "btnAdd";
-            this.btnAdd.Size = new System.Drawing.Size(120, 60);
+            this.btnAdd.Size = new System.Drawing.Size(319, 60);
             this.btnAdd.TabIndex = 4;
             this.btnAdd.Text = "Add Review";
             this.btnAdd.UseVisualStyleBackColor = true;
@@ -82,8 +62,6 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(698, 526);
             this.Controls.Add(this.tlpReviews);
-            this.Controls.Add(this.btnDelete);
-            this.Controls.Add(this.btnModify);
             this.Controls.Add(this.btnAdd);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.MaximizeBox = false;
@@ -95,8 +73,6 @@
         }
 
         #endregion
-        private System.Windows.Forms.Button btnDelete;
-        private System.Windows.Forms.Button btnModify;
         private System.Windows.Forms.Button btnAdd;
         private System.Windows.Forms.TableLayoutPanel tlpReviews;
     }

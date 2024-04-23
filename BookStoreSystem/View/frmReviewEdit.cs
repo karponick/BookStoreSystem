@@ -14,12 +14,13 @@ namespace BookStoreSystem.View
 {
     public partial class frmReviewEdit : Form
     {
-        List<CheckBox> chkStyle, chkPlot, chkChar;
         private bool checkLock = false;
         private int bookId;
+        private bool forModification;
         public frmReviewEdit(int bookId)
         {
             this.bookId = bookId;
+            forModification = false;
             InitializeComponent();
             // Add event to each check box
             foreach (GroupBox grp in Controls.OfType<GroupBox>())
@@ -30,6 +31,14 @@ namespace BookStoreSystem.View
                 }
             }
         }
+
+        public frmReviewEdit(Review review)
+        {
+            forModification = true;
+            InitializeComponent();
+            // TODO: Fill in form with existing review data
+        }
+
 
         private int GetRating(GroupBox group)
         {
@@ -44,14 +53,16 @@ namespace BookStoreSystem.View
 
         private void btnSubmit_Click(object sender, EventArgs e)
         {
-            Review newReview = new Review(SystemController.CurrentUser.UserID.ToString(), bookId.ToString())
+            Review review = new Review(SystemController.CurrentUser.UserID.ToString(), bookId.ToString())
             {
                 Description = txtDesc.Text,
                 StyleRating = GetRating(gbStyle),
                 PlotRating = GetRating(gbPlot),
                 CharacterRating = GetRating(gbCharacter)
             };
-            DatabaseController.AddReview(newReview);
+            if (forModification) { DatabaseController.ModifyReview(review); }
+            else { DatabaseController.AddReview(review); }
+            Close();
         }
 
         private void chk_CheckedChanged(object sender, EventArgs e)

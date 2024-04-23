@@ -13,10 +13,11 @@ namespace BookStoreSystem.View
     {
         private readonly Label username, description;
         private readonly Button edit, delete;
+        private readonly Review review;
         // custom control for star ratings? * * * * * 
         public ReviewPanel(Review review, int tlpWidth)
         {
-            // TODO: Get User from System controller and enable/disable buttons based on account matching
+            this.review = review;
 
             // Main panel properties
             BorderStyle = BorderStyle.Fixed3D;
@@ -49,7 +50,7 @@ namespace BookStoreSystem.View
             {
                 Text = "Edit",
                 Size = buttonSize,
-                Location = new Point(description.Location.X + description.Width + 10, 
+                Location = new Point(description.Location.X + description.Width + 15, 
                 description.Location.Y + description.Height - buttonSize.Height)
             };
             edit.Click += edit_Click;
@@ -79,7 +80,8 @@ namespace BookStoreSystem.View
             // Add controls to main panel
             Controls.Add(username);
             Controls.Add(description);
-            if (review.UserId == SystemController.CurrentUser.UserID)
+            // Only add edit/delete buttons if it's from logged in account
+            if (review.UserId == SystemController.CurrentUser.UserID) 
             {
                 Controls.Add(edit);
                 Controls.Add(delete);
@@ -124,11 +126,13 @@ namespace BookStoreSystem.View
 
         private void edit_Click(object sender, EventArgs e)
         {
-
+            // Open review edit form with existing review details
+            frmReviewEdit editReviewForm = new frmReviewEdit(review);
+            editReviewForm.ShowDialog();
         }
         private void delete_Click(object sender, EventArgs e)
         {
-
+            DatabaseController.DeleteReview(review.Id);
         }
     }
 }

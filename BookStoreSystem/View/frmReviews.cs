@@ -28,6 +28,7 @@ namespace BookStoreSystem.View
         /************************** Methods ***************************/
         private void UpdateView()
         {
+            tlpReviews.Controls.Clear();
             tlpReviews.RowCount = 0;
             // Get reviews for given book id
             foreach (Review review in DatabaseController.GetReviewList(bookId))
