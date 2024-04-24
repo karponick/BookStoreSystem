@@ -40,7 +40,6 @@ namespace BookStoreSystem.View
             this.lblExpDate = new System.Windows.Forms.Label();
             this.lblCardNo = new System.Windows.Forms.Label();
             this.lblCardType = new System.Windows.Forms.Label();
-            this.dtpExpDate = new System.Windows.Forms.DateTimePicker();
             this.cbCardType = new System.Windows.Forms.ComboBox();
             this.txtBillingName = new System.Windows.Forms.TextBox();
             this.lblBillingName = new System.Windows.Forms.Label();
@@ -51,6 +50,8 @@ namespace BookStoreSystem.View
             this.lblZip = new System.Windows.Forms.Label();
             this.cbState = new System.Windows.Forms.ComboBox();
             this.btnPurchase = new System.Windows.Forms.Button();
+            this.txtExpDate = new System.Windows.Forms.TextBox();
+            this.label1 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // flpCustomersWhoOrdered
@@ -146,13 +147,6 @@ namespace BookStoreSystem.View
             this.lblCardType.Size = new System.Drawing.Size(74, 17);
             this.lblCardType.TabIndex = 52;
             this.lblCardType.Text = "Card Type";
-            // 
-            // dtpExpDate
-            // 
-            this.dtpExpDate.Location = new System.Drawing.Point(185, 146);
-            this.dtpExpDate.Name = "dtpExpDate";
-            this.dtpExpDate.Size = new System.Drawing.Size(217, 22);
-            this.dtpExpDate.TabIndex = 61;
             // 
             // cbCardType
             // 
@@ -299,11 +293,30 @@ namespace BookStoreSystem.View
             this.btnPurchase.UseVisualStyleBackColor = false;
             this.btnPurchase.Click += new System.EventHandler(this.btnPurchase_Click);
             // 
+            // txtExpDate
+            // 
+            this.txtExpDate.Location = new System.Drawing.Point(185, 143);
+            this.txtExpDate.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.txtExpDate.Name = "txtExpDate";
+            this.txtExpDate.Size = new System.Drawing.Size(178, 22);
+            this.txtExpDate.TabIndex = 73;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(369, 148);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(66, 17);
+            this.label1.TabIndex = 74;
+            this.label1.Text = "MMYYYY";
+            // 
             // frmOrderBook
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1347, 746);
+            this.Controls.Add(this.label1);
+            this.Controls.Add(this.txtExpDate);
             this.Controls.Add(this.btnPurchase);
             this.Controls.Add(this.cbState);
             this.Controls.Add(this.txtZIP);
@@ -314,7 +327,6 @@ namespace BookStoreSystem.View
             this.Controls.Add(this.txtBillingName);
             this.Controls.Add(this.lblBillingName);
             this.Controls.Add(this.cbCardType);
-            this.Controls.Add(this.dtpExpDate);
             this.Controls.Add(this.txtSecurityCode);
             this.Controls.Add(this.lblSecurityCode);
             this.Controls.Add(this.txtCardNo);
@@ -347,7 +359,6 @@ namespace BookStoreSystem.View
         private System.Windows.Forms.Label lblExpDate;
         private System.Windows.Forms.Label lblCardNo;
         private System.Windows.Forms.Label lblCardType;
-        private System.Windows.Forms.DateTimePicker dtpExpDate;
         private System.Windows.Forms.ComboBox cbCardType;
         private System.Windows.Forms.TextBox txtBillingName;
         private System.Windows.Forms.Label lblBillingName;
@@ -358,5 +369,7 @@ namespace BookStoreSystem.View
         private System.Windows.Forms.Label lblZip;
         private System.Windows.Forms.ComboBox cbState;
         private System.Windows.Forms.Button btnPurchase;
+        private System.Windows.Forms.TextBox txtExpDate;
+        private System.Windows.Forms.Label label1;
     }
 }
