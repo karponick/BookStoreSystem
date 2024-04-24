@@ -11,77 +11,96 @@ namespace BookStoreSystem.View
 {
     public class ReviewPanel : Panel
     {
-        private readonly Label username, description;
-        private readonly Button edit, delete;
-        private readonly Review review;
+        private Label username, description, times;
+        private Button edit, delete;
+        private Review review;
+        private int tlpWidth;
         // custom control for star ratings? * * * * * 
         public ReviewPanel(Review review, int tlpWidth)
         {
             this.review = review;
+            this.tlpWidth = tlpWidth;
 
             // Main panel properties
             BorderStyle = BorderStyle.Fixed3D;
             Dock = DockStyle.Fill;
-            MinimumSize = new Size(0,150);
-            MaximumSize = new Size(1000,150);
-            BackColor = Color.White;
+            MinimumSize = new Size(0,180);
+            BackColor = Color.LightGoldenrodYellow;
+            Margin = new Padding(15,15,30,15);
 
+            PopulatePanel();
+        }
 
+        private void PopulatePanel()
+        {
+            Controls.Clear();
             /*** Controls (text, ratings, buttons) ***/
             int halfWidth = (int)(tlpWidth * .66);
             username = new Label()
             {
                 Text = DatabaseController.GetUsername(review.UserId),
-                Size = new Size(halfWidth, 20),
-                BorderStyle = BorderStyle.FixedSingle,
+                Size = new Size(halfWidth / 2, 20),
+                //BorderStyle = BorderStyle.FixedSingle,
                 TextAlign = ContentAlignment.MiddleLeft,
                 Location = new Point(10, 10),
-                
             };
             description = new Label()
             {
                 Text = review.Description,
-                Size = new Size(halfWidth, 100),
+                Size = new Size(halfWidth - 10, 100),
                 BorderStyle = BorderStyle.FixedSingle,
+                BackColor = Color.Wheat,
                 Location = new Point(10, username.Location.Y + username.Height + 5),
             };
-            Size buttonSize = new Size(80, 30);
+            times = new Label()
+            {
+                Text = "Submitted: " + review.SubmissionDateTime,
+                Size = new Size(halfWidth / 2, 30),
+                //BorderStyle = BorderStyle.FixedSingle,
+                Location = new Point(10, description.Location.Y + description.Height + 5)
+            };
+            if (review.LastEditDateTime != string.Empty) { times.Text += "\nLast Edit: " + review.LastEditDateTime; }
+
+
+            Size buttonSize = new Size(50, 30);
             edit = new Button()
             {
                 Text = "Edit",
                 Size = buttonSize,
-                Location = new Point(description.Location.X + description.Width + 15, 
-                description.Location.Y + description.Height - buttonSize.Height)
+                Location = new Point(description.Location.X + description.Width - buttonSize.Width * 2 - 5,
+                                     times.Location.Y)
             };
             edit.Click += edit_Click;
             delete = new Button()
             {
                 Text = "Delete",
                 Size = buttonSize,
-                Location = new Point(edit.Location.X + edit.Width + 10, edit.Location.Y)
+                Location = new Point(edit.Location.X + edit.Width + 5, edit.Location.Y)
             };
             delete.Click += delete_Click;
 
             // Rating stars
-            int y = 10;
+            int x = halfWidth - 20;
+            int y = description.Location.Y;
             Stars styleRating = new Stars("Style", review.StyleRating, halfWidth)
             {
-                Location = new Point(halfWidth, y)
+                Location = new Point(x, y)
             };
             Stars plotRating = new Stars("Plot", review.PlotRating, halfWidth)
             {
-                Location = new Point(halfWidth, y+30)
+                Location = new Point(x, y + 30)
             };
             Stars charRating = new Stars("Rating", review.CharacterRating, halfWidth)
             {
-                Location = new Point(halfWidth, y+60)
+                Location = new Point(x, y + 60)
             };
 
             // Add controls to main panel
             Controls.Add(username);
             Controls.Add(description);
+            Controls.Add(times);
             // Only add edit/delete buttons if it's from logged in account
-            if (review.UserId == SystemController.CurrentUser.UserID) 
+            if (review.UserId == SystemController.CurrentUser.UserID)
             {
                 Controls.Add(edit);
                 Controls.Add(delete);
@@ -126,13 +145,17 @@ namespace BookStoreSystem.View
 
         private void edit_Click(object sender, EventArgs e)
         {
-            // Open review edit form with existing review details
-            frmReviewEdit editReviewForm = new frmReviewEdit(review);
+            // Open ReviewEdit form with existing review details
+            frmReviewEdit editReviewForm = new frmReviewEdit(review, true);
             editReviewForm.ShowDialog();
+
+            review = DatabaseController.GetReview(review.Id);
+            PopulatePanel();
         }
         private void delete_Click(object sender, EventArgs e)
         {
             DatabaseController.DeleteReview(review.Id);
+            Parent.Controls.Remove(this);
         }
     }
 }

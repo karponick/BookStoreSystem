@@ -76,6 +76,7 @@
             this.txtPages.Name = "txtPages";
             this.txtPages.Size = new System.Drawing.Size(200, 20);
             this.txtPages.TabIndex = 4;
+            this.txtPages.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.NumOnly_TextChanged);
             // 
             // txtPrice
             // 
@@ -83,6 +84,7 @@
             this.txtPrice.Name = "txtPrice";
             this.txtPrice.Size = new System.Drawing.Size(200, 20);
             this.txtPrice.TabIndex = 5;
+            this.txtPrice.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.NumOnly_TextChanged);
             // 
             // lblTitle
             // 
@@ -188,6 +190,7 @@
             this.txtPublication.Name = "txtPublication";
             this.txtPublication.Size = new System.Drawing.Size(200, 20);
             this.txtPublication.TabIndex = 18;
+            this.txtPublication.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.NumOnly_TextChanged);
             // 
             // txtCoverUrl
             // 
@@ -238,6 +241,9 @@
             this.Controls.Add(this.txtDescription);
             this.Controls.Add(this.txtAuthor);
             this.Controls.Add(this.txtTitle);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
             this.Name = "frmBookEdit";
             this.Text = "Book Editing Tool";
             ((System.ComponentModel.ISupportInitialize)(this.picCover)).EndInit();

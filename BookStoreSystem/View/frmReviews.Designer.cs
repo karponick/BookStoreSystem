@@ -34,9 +34,9 @@
             // 
             // btnAdd
             // 
-            this.btnAdd.Location = new System.Drawing.Point(194, 456);
+            this.btnAdd.Location = new System.Drawing.Point(12, 456);
             this.btnAdd.Name = "btnAdd";
-            this.btnAdd.Size = new System.Drawing.Size(319, 60);
+            this.btnAdd.Size = new System.Drawing.Size(359, 60);
             this.btnAdd.TabIndex = 4;
             this.btnAdd.Text = "Add Review";
             this.btnAdd.UseVisualStyleBackColor = true;
@@ -44,7 +44,6 @@
             // 
             // tlpReviews
             // 
-            this.tlpReviews.AutoScroll = true;
             this.tlpReviews.BackColor = System.Drawing.SystemColors.ControlLight;
             this.tlpReviews.CellBorderStyle = System.Windows.Forms.TableLayoutPanelCellBorderStyle.Single;
             this.tlpReviews.ColumnCount = 1;
@@ -53,14 +52,14 @@
             this.tlpReviews.Name = "tlpReviews";
             this.tlpReviews.RowCount = 1;
             this.tlpReviews.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tlpReviews.Size = new System.Drawing.Size(674, 438);
+            this.tlpReviews.Size = new System.Drawing.Size(741, 438);
             this.tlpReviews.TabIndex = 7;
             // 
             // frmReviews
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(698, 526);
+            this.ClientSize = new System.Drawing.Size(765, 526);
             this.Controls.Add(this.tlpReviews);
             this.Controls.Add(this.btnAdd);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;

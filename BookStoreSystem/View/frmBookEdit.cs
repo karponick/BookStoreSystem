@@ -45,6 +45,31 @@ namespace BookStoreSystem
         /*************************** Events ***************************/
         private void btnSubmit_Click(object sender, EventArgs e)
         {
+            // Validate inputs
+            List<string> errors = new List<string>();
+            foreach (TextBox txt in Controls.OfType<TextBox>())
+            {
+                if (txt.Text == string.Empty)
+                {
+                    errors.Add(txt.Name.Substring(3));
+                }
+            }
+            if (cmbGenre.SelectedIndex == -1)
+            {
+                errors.Add("Genre");
+            }
+
+            if (errors.Count > 0)
+            {
+                MessageBox.Show("Missing Data: " + string.Join(", ", errors));
+                return;
+            }
+
+
+
+
+
+
             // Create Book object using values from Form inputs
             int.TryParse(txtPages.Text, out int pages);
             double.TryParse(txtPrice.Text, out double price);
@@ -77,6 +102,17 @@ namespace BookStoreSystem
             {
                 Console.WriteLine(ex.Message);
                 picCover.Image = Image.FromFile("placeholder.jpg");
+            }
+        }
+
+        private void NumOnly_TextChanged(object sender, KeyPressEventArgs e)
+        {
+            // Used by Pages, Price, Publication
+            // If key input is not an int, period ".", nor backspace, then skip input
+            if (!int.TryParse(e.KeyChar.ToString(), out int _) && e.KeyChar != '.' && e.KeyChar != (char)Keys.Back) { e.Handled = true; }
+            if (sender == txtPublication)
+            {
+                if (txtPublication.Text.Length == 4) { e.Handled = true; }
             }
         }
     }

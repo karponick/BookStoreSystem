@@ -4,6 +4,8 @@ using System.Data.OleDb;
 using System.Data;
 using System.Diagnostics;
 using static BookStoreSystem.User;
+using System.Net;
+using System.Collections;
 
 namespace BookStoreSystem
 {
@@ -80,7 +82,6 @@ namespace BookStoreSystem
                 myCommand.CommandText = string.Format("UPDATE Book SET Title = '{1}', Author = '{2}', Genre = '{3}', " +
                     "Description = '{4}', Pages = {5}, Price = {6}, Publication = '{7}', Cover_Url = '{8}' WHERE Book_ID = {0}",
                     book.Id, book.Title, book.Author, book.Genre, book.Description, book.Pages, book.Price, book.Publication, book.CoverUrl);
-                Console.WriteLine(myCommand.CommandText);
                 myCommand.ExecuteNonQuery();
             }
             catch (OleDbException ex) { Console.WriteLine(ex.Message); }
@@ -136,12 +137,14 @@ namespace BookStoreSystem
 
             foreach (DataRow row in table.Rows)
             {
-                // Create book and add to list
+                // Create review and add to list
                 int.TryParse(row["Review_ID"].ToString(), out int reviewId);
                 Review newReview = new Review(row["User_ID"].ToString(), row["Book_ID"].ToString())
                 {
                     Id = reviewId,
-                    Description = row["Description"].ToString()
+                    Description = row["Description"].ToString(),
+                    SubmissionDateTime = row["Submission_DateTime"].ToString(),
+                    LastEditDateTime = row["LastEdit_DateTime"].ToString(),
                 };
                 newReview.SetRatings(row["Style_Rating"].ToString(), row["Plot_Rating"].ToString(), row["Character_Rating"].ToString());
                 reviewList.Add(newReview);
@@ -154,8 +157,10 @@ namespace BookStoreSystem
             {
                 myConnection.Open();
                 myCommand.CommandText = string.Format("INSERT INTO Review (User_ID, Book_ID, Description, Style_Rating, " +
-                    "Plot_Rating, Character_Rating) VALUES ({0}, {1}, '{2}', {3}, {4}, {5})",
-                    review.UserId, review.BookId, review.Description, review.StyleRating, review.PlotRating, review.CharacterRating);
+                    "Plot_Rating, Character_Rating, Submission_DateTime) " +
+                    "VALUES ({0}, {1}, '{2}', {3}, {4}, {5}, '{6}')",
+                    review.UserId, review.BookId, review.Description, review.StyleRating, review.PlotRating, review.CharacterRating,
+                    review.SubmissionDateTime);
                 myCommand.ExecuteNonQuery();
             }
             catch (OleDbException ex) { Console.WriteLine(ex.Message); }
@@ -163,23 +168,79 @@ namespace BookStoreSystem
         }
         public static void ModifyReview(Review review)
         {
-            //try
-            //{
-            //    myConnection.Open();
-            //    myCommand.CommandText = string.Format("UPDATE Review SET Title = '{1}', Author = '{2}', Genre = '{3}', " +
-            //        "Description = '{4}', Pages = {5}, Price = {6}, Publication = '{7}', Cover_Url = '{8}' WHERE Book_ID = {0}",
-            //        book.Id, book.Title, book.Author, book.Genre, book.Description, book.Pages, book.Price, book.Publication, book.CoverUrl);
-            //    Console.WriteLine(myCommand.CommandText);
-            //    myCommand.ExecuteNonQuery();
-            //}
-            //catch (OleDbException ex) { Console.WriteLine(ex.Message); }
-            //finally { myConnection.Close(); }
+            try
+            {
+                myConnection.Open();
+                myCommand.CommandText = string.Format("UPDATE Review SET Description = '{1}', " +
+                    "Style_Rating = {2}, Plot_Rating = {3}, Character_Rating = {4}, LastEdit_DateTime = '{5}' WHERE Review_ID = {0}",
+                    review.Id, review.Description, review.StyleRating, review.PlotRating, review.CharacterRating, review.LastEditDateTime);
+                myCommand.ExecuteNonQuery();
+            }
+            catch (OleDbException ex) { Console.WriteLine(ex.Message); }
+            finally { myConnection.Close(); }
         }
         public static void DeleteReview(int reviewId)
         {
-
+            try
+            {
+                myConnection.Open();
+                myCommand.CommandText = "DELETE FROM Review WHERE Review_ID = " + reviewId;
+                myCommand.ExecuteNonQuery();
+            }
+            catch (OleDbException ex) { Console.WriteLine(ex.Message); }
+            finally { myConnection.Close(); }
         }
 
+        public static Review GetReview(int reviewId)
+        {
+            DataSet dataSet = new DataSet();
+            myCommand.CommandText = "SELECT * FROM Review WHERE Review_ID = " + reviewId.ToString();
+            try
+            {
+                myConnection.Open();
+                myAdapter.Fill(dataSet, "Review");
+            }
+            catch (OleDbException ex) { Console.WriteLine(ex.Message); }
+            finally { myConnection.Close(); }
+
+            // Handle data from database
+            DataTable table = dataSet.Tables["Review"];
+            DataRow row = table.Rows[0];
+            // Create review
+            Review newReview = new Review(row["User_ID"].ToString(), row["Book_ID"].ToString())
+            {
+                Id = reviewId,
+                Description = row["Description"].ToString(),
+                SubmissionDateTime = row["Submission_DateTime"].ToString(),
+                LastEditDateTime = row["LastEdit_DateTime"].ToString(),
+            };
+            newReview.SetRatings(row["Style_Rating"].ToString(), row["Plot_Rating"].ToString(), row["Character_Rating"].ToString());
+            return newReview;
+        }
+
+        public static double[] AverageRatings(int bookId)
+        {
+            // Returns an array of average ratings
+            // [0] = Style, [1] = Plot, [2] = Character
+            DataSet dataSet = new DataSet();
+            myCommand.CommandText = "SELECT AVG(Style_Rating), AVG(Plot_Rating), AVG(Character_Rating) FROM Review WHERE Book_ID = " + bookId.ToString();
+            try
+            {
+                myConnection.Open();
+                myAdapter.Fill(dataSet, "Review");
+            }
+            catch (OleDbException ex) { Console.WriteLine(ex.Message); }
+            finally { myConnection.Close(); }
+
+            // Handle data from database
+            DataRow row = dataSet.Tables["Review"].Rows[0];
+            double[] averages = new double[3] { 0, 0, 0 };
+            double.TryParse(row[0].ToString(), out averages[0]);
+            double.TryParse(row[1].ToString(), out averages[1]);
+            double.TryParse(row[2].ToString(), out averages[2]);
+
+            return averages;
+        }
 
         /**************************** User Methods *******************************************/
 

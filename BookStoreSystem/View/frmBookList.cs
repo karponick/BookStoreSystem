@@ -7,6 +7,7 @@ using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -18,6 +19,7 @@ namespace BookStoreSystem
         private readonly BookPanel bookPanel;
         private int selectedIndex;
         private List<Book> selectedBooks;
+        private int filter = -1;
 
         /************************ Constructors ************************/
         public frmBookList()
@@ -56,7 +58,23 @@ namespace BookStoreSystem
         private void UpdateGrid()
         {
             // Get latest book list from DB and update datagrid
-            dgvBooks.DataSource = DatabaseController.GetBookList();
+            List<Book> bookList = DatabaseController.GetBookList();
+            List<Book> filteredList = new List<Book>();
+
+            if (filter > -1 && txtFilter.Text != string.Empty)
+            {
+                foreach (Book book in  bookList)
+                {
+                    string filterText = txtFilter.Text.ToLower();
+
+                    if (filter == 0 && book.Title.ToLower().Contains(filterText)) { filteredList.Add(book); }
+                    if (filter == 1 && book.Author.ToLower().Contains(filterText)) { filteredList.Add(book); }
+                    if (filter == 2 && book.Genre.ToLower().Contains(filterText)) { filteredList.Add(book); }
+                }
+            }
+            else { filteredList = bookList; }
+
+            dgvBooks.DataSource = filteredList;
             dgvBooks.Update();
             ClearSelection();
         }
@@ -182,6 +200,24 @@ namespace BookStoreSystem
             Book book = (Book)dgvBooks.Rows[selectedIndex].DataBoundItem;
             selectedBooks.Add(book);
             MessageBox.Show("Total " + selectedBooks.Count + " item(s) in the cart.");
+        }
+
+        private void txtFilter_TextChanged(object sender, EventArgs e)
+        {
+            if (filter > -1) { UpdateGrid(); }
+        }
+
+        private void cmbFilter_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            filter = cmbFilter.SelectedIndex;
+            if (txtFilter.Text != string.Empty) { UpdateGrid(); }
+        }
+
+        private void btnClearFilter_Click(object sender, EventArgs e)
+        {
+            cmbFilter.SelectedIndex = -1;
+            txtFilter.Clear();
+            UpdateGrid();
         }
     }
 }

@@ -15,13 +15,29 @@ namespace BookStoreSystem.View
     public partial class frmReviewEdit : Form
     {
         private bool checkLock = false;
-        private int bookId;
         private bool forModification;
-        public frmReviewEdit(int bookId)
+        private int reviewIdForMod;
+        private Review review;
+
+        public frmReviewEdit(Review review, bool forModification)
         {
-            this.bookId = bookId;
-            forModification = false;
+            this.review = review;
+            this.forModification = forModification;
             InitializeComponent();
+            InitializeCheckEvents();
+
+            if (forModification) 
+            {
+                reviewIdForMod = review.Id;
+                txtDesc.Text = review.Description;
+                gbStyle.Controls.OfType<CheckBox>().ToList()[5 - review.StyleRating].Checked = true;
+                gbPlot.Controls.OfType<CheckBox>().ToList()[5 - review.PlotRating].Checked = true;
+                gbCharacter.Controls.OfType<CheckBox>().ToList()[5 - review.CharacterRating].Checked = true;
+            }
+        }
+
+        private void InitializeCheckEvents()
+        {
             // Add event to each check box
             foreach (GroupBox grp in Controls.OfType<GroupBox>())
             {
@@ -30,13 +46,6 @@ namespace BookStoreSystem.View
                     chk.CheckedChanged += chk_CheckedChanged;
                 }
             }
-        }
-
-        public frmReviewEdit(Review review)
-        {
-            forModification = true;
-            InitializeComponent();
-            // TODO: Fill in form with existing review data
         }
 
 
@@ -53,15 +62,34 @@ namespace BookStoreSystem.View
 
         private void btnSubmit_Click(object sender, EventArgs e)
         {
-            Review review = new Review(SystemController.CurrentUser.UserID.ToString(), bookId.ToString())
+            // validate inputs
+            int styleRating = GetRating(gbStyle);
+            int plotRating = GetRating(gbPlot);
+            int characterRating = GetRating(gbCharacter);
+
+            if (styleRating == 0 || plotRating == 0 || characterRating == 0) { MessageBox.Show("Invalid: Missing ratings"); return; }
+            if (txtDesc.Text == string.Empty) { MessageBox.Show("Invalid: Missing description"); return; }
+
+
+            // create review
+            Review newReview = new Review(SystemController.CurrentUser.UserID.ToString(), review.BookId.ToString())
             {
                 Description = txtDesc.Text,
-                StyleRating = GetRating(gbStyle),
-                PlotRating = GetRating(gbPlot),
-                CharacterRating = GetRating(gbCharacter)
+                StyleRating = styleRating,
+                PlotRating = plotRating,
+                CharacterRating = characterRating
             };
-            if (forModification) { DatabaseController.ModifyReview(review); }
-            else { DatabaseController.AddReview(review); }
+            if (forModification)
+            {
+                newReview.Id = reviewIdForMod;
+                newReview.LastEditDateTime = DateTime.UtcNow.ToString();
+                DatabaseController.ModifyReview(newReview);
+            }
+            else
+            {
+                newReview.SubmissionDateTime = DateTime.UtcNow.ToString();
+                DatabaseController.AddReview(newReview); 
+            }
             Close();
         }
 

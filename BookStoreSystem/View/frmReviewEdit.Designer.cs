@@ -288,6 +288,7 @@
             this.Controls.Add(this.gbPlot);
             this.Controls.Add(this.gbStyle);
             this.Controls.Add(this.txtDesc);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "frmReviewEdit";
