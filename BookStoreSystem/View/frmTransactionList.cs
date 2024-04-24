@@ -12,9 +12,11 @@ namespace BookStoreSystem.View
 {
     public partial class frmTransactionList : Form
     {
+        private readonly List<Transaction> transactions;
         public frmTransactionList()
         {
             InitializeComponent();
+            transactions = DatabaseController.GetTransactions();
         }
 
         private void frmTransactionList_Load(object sender, EventArgs e)
@@ -23,6 +25,7 @@ namespace BookStoreSystem.View
             listViewTransactions.GridLines = true;
             listViewTransactions.FullRowSelect = true;
             listViewTransactions.Scrollable = true;
+            listViewTransactions.MultiSelect = true;
 
             listViewTransactions.Columns.Add("Transaction ID", 100);
             listViewTransactions.Columns.Add("User ID", 100);
@@ -30,7 +33,7 @@ namespace BookStoreSystem.View
             listViewTransactions.Columns.Add("Total Cost", 100);
 
             listViewTransactions.Items.Clear();
-            List<Transaction> transactions = DatabaseController.GetTransactions();
+            
             foreach (var transaction in transactions)
             {
                 string[] arr = new string[4];
@@ -41,6 +44,27 @@ namespace BookStoreSystem.View
                 ListViewItem transactionItem = new ListViewItem(arr);
                 listViewTransactions.Items.Add(transactionItem);
             }
+        }
+
+        private void listViewTransactions_SelectedIndexChanged(object sender, EventArgs e)
+        {
+       
+            if (listViewTransactions.SelectedIndices.Count > 0)
+            {
+                flpBooks.Controls.Clear();
+                Transaction selectedTrans = transactions[listViewTransactions.SelectedIndices[0]];
+                List<Book> books = DatabaseController.GetBooksByTransaction(selectedTrans.TransactionID);
+                int i = 1;
+                foreach(Book book in books)
+                {
+                    Label l = new Label();
+                    l.Text = i + ". " + book.Title + " - " + book.Author + " - " + book.Price;
+                    l.Width = flpBooks.ClientSize.Width;//to increase label width
+                    flpBooks.Controls.Add(l);
+                    i++;
+                }
+            }
+   
         }
     }
 }

@@ -60,6 +60,8 @@ namespace BookStoreSystem
             return bookList;
         }
 
+        
+
         public static void AddBook(Book book)
         {
             List<Book> bookList = GetBookList();
@@ -311,6 +313,50 @@ namespace BookStoreSystem
                 connection.Close();
             }
             return transactions;
+        }
+
+        public static List<Book> GetBooksByTransaction(int transactionID)
+        {
+            OleDbConnection connection = new OleDbConnection(connectionString);
+            List<Book> books = new List<Book>();
+
+            try
+            {
+                connection.Open();
+                OleDbCommand oleDbCommand = new OleDbCommand(@"select * from Book inner join BookTransaction on 
+                    BookTransaction.Book_ID = Book.Book_ID where BookTransaction.Transaction_ID=@transaction_ID ", connection);
+                oleDbCommand.Parameters.Add("@transaction_ID", OleDbType.Integer).Value = transactionID;
+                OleDbDataReader reader = oleDbCommand.ExecuteReader();
+
+                while (reader.Read())
+                {
+                    Book book = BindBook(reader);
+                    books.Add(book);
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                return new List<Book>();
+            }
+            finally
+            {
+                connection.Close();
+            }
+
+            return books;
+        }
+
+        private static Book BindBook(OleDbDataReader reader)
+        {
+            Book book = new Book()
+            {
+                Title = reader["Title"].ToString(),
+                Author = reader["Author"].ToString(),
+                Price = Convert.ToDouble(reader["Price"])
+            };
+
+            return book;
         }
 
         private static Transaction BindTransaction(OleDbDataReader reader)
