@@ -4,6 +4,7 @@ using System.Data.OleDb;
 using System.Data;
 using System.Diagnostics;
 using static BookStoreSystem.User;
+using static BookStoreSystem.Transaction;
 
 namespace BookStoreSystem
 {
@@ -284,19 +285,20 @@ namespace BookStoreSystem
         }
 
 
-/*        public static List<Transaction> GetTransactions()
+        public static List<Transaction> GetTransactions()
         {
-            OleDbConnection connection = new OleDbConnection();
+            OleDbConnection connection = new OleDbConnection(connectionString);
             List<Transaction> transactions = new List<Transaction>();
             try
             {
                 connection.Open();
-                OleDbCommand oleDbCommand = new OleDbCommand("select * from Transaction", connection);
+                OleDbCommand oleDbCommand = new OleDbCommand("select * from [Transaction]", connection);
                 OleDbDataReader reader = oleDbCommand.ExecuteReader();
 
                 while (reader.Read())
                 {
-                    BindTransaction(reader);
+                    Transaction transaction = BindTransaction(reader);
+                    transactions.Add(transaction);
                 }
             }
             catch (Exception ex)
@@ -311,22 +313,23 @@ namespace BookStoreSystem
             return transactions;
         }
 
-        private static void BindTransaction(OleDbDataReader reader)
+        private static Transaction BindTransaction(OleDbDataReader reader)
         {
-            Transaction transaction = new Transaction(
-                Convert.ToInt32(reader["Transaction_ID"]),
-                Convert.ToInt32(reader["User_ID"]),
-                Convert.ToInt32(reader["Transaction_ID"]), //
-                DateTime.Parse(reader["PurchaseDate"].ToString()),
-                Convert.ToDouble(reader["TotalCost"]),
-                reader["CardNumber"].ToString(),
-                reader["CardType"].ToString(),
-                DateTime.Parse(reader["ExpirationDate"].ToString()),
-                Convert.ToInt32(reader["SecurityCode"]),
-                reader["BillingAddress"].ToString(),
-                reader["ZIP"].ToString(),
+           
+           Transaction transaction = new Transaction(
+              Convert.ToInt32(reader["Transaction_ID"]),
+              Convert.ToInt32(reader["User_ID"]),
+              DateTime.Parse(reader["PurchaseDate"].ToString()),
+              Convert.ToDouble(reader["TotalCost"]),
+              reader["CardNumber"].ToString(),
+              (CardType)Enum.Parse(typeof(CardType), reader["CardType"].ToString()),
+              DateTime.Parse(reader["ExpirationDate"].ToString()),
+              Convert.ToInt32(reader["SecurityCode"]),
+              reader["BillingAddress"].ToString(),
+              reader["ZIP"].ToString(),
+              reader["State"].ToString());
+           return transaction;
 
-
-        }*/
+        }
     }
 }

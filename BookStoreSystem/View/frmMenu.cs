@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using BookStoreSystem.View;
 
 namespace BookStoreSystem
 {
@@ -32,7 +33,8 @@ namespace BookStoreSystem
 
         private void btnTransactions_Click(object sender, EventArgs e)
         {
-
+            frmTransactionList transactionList = new frmTransactionList();
+            transactionList.ShowDialog();
         }
     }
 }
