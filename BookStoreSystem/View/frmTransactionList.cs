@@ -1,8 +1,10 @@
-﻿using System;
+﻿using BookStoreSystem.Controller;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -65,6 +67,23 @@ namespace BookStoreSystem.View
                 }
             }
    
+        }
+
+        private void exportToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            using (var fbd = new FolderBrowserDialog())
+            {
+                DialogResult result = fbd.ShowDialog();
+                if (result == DialogResult.OK && !string.IsNullOrWhiteSpace(fbd.SelectedPath))
+                {
+                    string path = Path.Combine(fbd.SelectedPath, "transactions.csv");
+                    if (FileController.ExportToCSV(transactions, path))
+                    {
+                        MessageBox.Show("Transaction information has been exported to the " + path + ".", "Export Transactions",
+                            MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
+                }
+            }
         }
     }
 }
