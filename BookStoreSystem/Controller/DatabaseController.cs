@@ -90,7 +90,6 @@ namespace BookStoreSystem
         }
         public static void DeleteBook(int bookId)
         {
-            Console.WriteLine(bookId.ToString());
             try
             {
                 myConnection.Open();
@@ -409,6 +408,24 @@ namespace BookStoreSystem
             return false;
         }
 
+        public static string GetUsername(int id)
+        {
+            // Gets Username from Database by ID
+            myCommand.CommandText = "SELECT [Username] FROM [User] WHERE [User_ID] = " + id.ToString();
+            DataSet dataSet = new DataSet();
+            try
+            {
+                myConnection.Open();
+                myAdapter.Fill(dataSet, "User");
+            }
+            catch (OleDbException ex) { Console.WriteLine(ex.Message); }
+            finally { myConnection.Close(); }
+
+            DataTable table = dataSet.Tables["User"];
+            DataRow row = table.Rows[0];
+            return row["Username"].ToString();
+        }
+
         /**************************** Transaction Methods *****************************************/
 
 
@@ -563,24 +580,6 @@ namespace BookStoreSystem
               reader["State"].ToString());
            return transaction;
 
-        }
-
-        public static string GetUsername(int id)
-        {
-            // Gets Username from Database by ID
-            myCommand.CommandText = "SELECT [Username] FROM [User] WHERE [User_ID] = " + id.ToString();
-            DataSet dataSet = new DataSet();
-            try
-            {
-                myConnection.Open();
-                myAdapter.Fill(dataSet, "User");
-            }
-            catch (OleDbException ex) { Console.WriteLine(ex.Message); }
-            finally { myConnection.Close(); }
-
-            DataTable table = dataSet.Tables["User"];
-            DataRow row = table.Rows[0];
-            return row["Username"].ToString();
         }
     }
 }

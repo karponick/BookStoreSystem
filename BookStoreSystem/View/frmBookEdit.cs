@@ -70,7 +70,6 @@ namespace BookStoreSystem
                 return;
             }
 
-
             // Create Book object using values from Form inputs
             int.TryParse(txtPages.Text, out int pages);
             double.TryParse(txtPrice.Text, out double price);
