@@ -49,37 +49,58 @@ namespace BookStoreSystem.View
             {
                 CardType cardType = GetCardType();
 
+                DateTime expiration = GetCreditCardExpiration();
+
                 Transaction transaction = new Transaction(0, userId, selectedBooks, DateTime.Now, double.Parse(txtTotalCost.Text.TrimStart('$')), txtCardNo.Text,
-                    cardType, dtpExpDate.Value, int.Parse(txtSecurityCode.Text), txtBillingAddress.Text,
+                    cardType, expiration, int.Parse(txtSecurityCode.Text), txtBillingAddress.Text,
                     txtZIP.Text, cbState.SelectedItem.ToString()
                     );
-                //add database method to get add transaction to the DB
+                //add transaction to the DB
+                bool processedSuccessfully = DatabaseController.CreateTransaction(transaction);
 
-                Label lblPersonWhoIsBillingInfo = new Label();
-                lblPersonWhoIsBillingInfo.Text = "Billing Name: " + txtBillingName.Text + " " + "Billing Address: " + txtBillingAddress.Text;
-                lblPersonWhoIsBillingInfo.Width = flpCustomersWhoOrdered.ClientSize.Width;
-                flpCustomersWhoOrdered.Controls.Add(lblPersonWhoIsBillingInfo);
+                if (processedSuccessfully)
+                {
+                    Label lblPersonWhoIsBillingInfo = new Label();
+                    lblPersonWhoIsBillingInfo.Text = "Billing Name: " + txtBillingName.Text + " " + "Billing Address: " + txtBillingAddress.Text;
+                    lblPersonWhoIsBillingInfo.Width = flpCustomersWhoOrdered.ClientSize.Width;
+                    flpCustomersWhoOrdered.Controls.Add(lblPersonWhoIsBillingInfo);
 
-                txtBillingName.Text = "";
-                txtBillingAddress.Text = "";
+                    txtBillingName.Text = "";
+                    txtBillingAddress.Text = "";
+                    MessageBox.Show("Thank you for your order. Transaction is successful.", "Book Order", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+                else
+                {
+                    MessageBox.Show("There was an error to process your transaction. Please try again later.", "Book Order", MessageBoxButtons.OK, MessageBoxIcon.Error); 
+                }
 
-                //add database method to get transaction
             }
             
+        }
+
+        private DateTime GetCreditCardExpiration()
+        {
+            string month = txtExpDate.Text.Substring(0, 2);
+            string year = txtExpDate.Text.Substring(2, 4);
+
+            int intMonth = int.Parse(month);
+            int intYear = int.Parse(year);
+            DateTime expirationDate = new DateTime(intYear, intMonth, 1);
+            return expirationDate;
         }
 
         private CardType GetCardType()
         {
             CardType cardType = CardType.VISA;
-            if (cbCardType.SelectedValue.ToString() == "Master Card")
+            if (cbCardType.SelectedItem.ToString() == "Master Card")
             {
                 cardType = CardType.Master;
             }
-            else if (cbCardType.SelectedValue.ToString() == "American Express")
+            else if (cbCardType.SelectedItem.ToString() == "American Express")
             {
                 cardType = CardType.AmericanExpress;
             }
-            else if (cbCardType.SelectedValue.ToString() == "Visa")
+            else if (cbCardType.SelectedItem.ToString() == "Visa")
             {
                 cardType = CardType.VISA;
             }
@@ -140,12 +161,47 @@ namespace BookStoreSystem.View
                 return false;
             }
 
-            if(dtpExpDate.Value < DateTime.Today)
+            if (string.IsNullOrWhiteSpace(txtExpDate.Text))
             {
-                MessageBox.Show("Your credit card has expired.");
+                MessageBox.Show("Credit card expiration date is required.");
                 return false;
             }
 
+            if (txtExpDate.Text.Length != 6)
+            {
+                MessageBox.Show("Credit card expiration date must be in format MMYYYY.");
+                return false;
+            }
+
+            string month = txtExpDate.Text.Substring(0, 2);
+            string year = txtExpDate.Text.Substring(2, 4);
+
+            int intMonth;
+            int intYear;
+
+            if (!int.TryParse(month, out intMonth))
+            {
+                MessageBox.Show("Credit card expiration date must be in format MMYYYY.");
+                return false;
+            }
+
+            if (!int.TryParse(year, out intYear))
+            {
+                MessageBox.Show("Credit card expiration date must be in format MMYYYY.");
+                return false;
+            }
+
+            try
+            {
+                DateTime expirationDate = new DateTime(intYear, intMonth, 1);
+            }
+            catch (ArgumentOutOfRangeException)
+            {
+                MessageBox.Show("Credit card expiration date must be in format MMYYYY.");
+                return false;
+            }
+
+            
             if (cbState.SelectedItem == null)
             {
                 MessageBox.Show("Please select a state.");

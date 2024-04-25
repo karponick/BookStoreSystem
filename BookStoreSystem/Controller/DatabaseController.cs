@@ -4,6 +4,7 @@ using System.Data.OleDb;
 using System.Data;
 using System.Diagnostics;
 using static BookStoreSystem.User;
+using static BookStoreSystem.Transaction;
 
 namespace BookStoreSystem
 {
@@ -12,6 +13,9 @@ namespace BookStoreSystem
         /*************************** Fields ***************************/
         const string connectionString = "provider=Microsoft.ACE.OLEDB.12.0; Data Source=BookStoreDB.accdb;";
         static OleDbConnection myConnection = new OleDbConnection(connectionString);
+
+       
+
         static OleDbCommand myCommand = new OleDbCommand(string.Empty, myConnection);
         static OleDbDataAdapter myAdapter = new OleDbDataAdapter(myCommand);
 
@@ -59,6 +63,8 @@ namespace BookStoreSystem
             return bookList;
         }
 
+      
+
         public static void AddBook(Book book)
         {
             List<Book> bookList = GetBookList();
@@ -73,6 +79,8 @@ namespace BookStoreSystem
             catch (OleDbException ex) { Console.WriteLine(ex.Message); }
             finally { myConnection.Close(); }
         }
+
+        
         public static void ModifyBook(Book book)
         {
             try
@@ -150,6 +158,65 @@ namespace BookStoreSystem
 
         /**************************** User Methods *******************************************/
 
+        public static bool UpdateUser(User selectedUser)
+        {
+            OleDbConnection conn = new OleDbConnection(connectionString);
+
+            try
+            {
+                conn.Open();
+                OleDbCommand cmd = new OleDbCommand(@"update [User] set
+                                                [Username] = @Username, [Password] = @Password, Account_Type = @AccountType
+                                                where User_ID=@UserID", conn);
+                cmd.Parameters.Add("@Username", OleDbType.VarChar).Value = selectedUser.UserName;
+                cmd.Parameters.Add("@Password", OleDbType.VarChar).Value = selectedUser.Password;
+                cmd.Parameters.Add("@AccountType", OleDbType.VarChar).Value = selectedUser.AccountType1;
+                cmd.Parameters.Add("@UserID", OleDbType.Integer).Value = selectedUser.UserID;
+                cmd.ExecuteNonQuery();
+            }
+            catch (OleDbException ex)
+            {
+                Console.WriteLine(ex.Message);
+                return false;
+            }
+            finally
+            {
+                conn.Close();
+            }
+            return true;
+        }
+
+        public static bool DeleteUser(int userID)
+        {
+            OleDbConnection conn = new OleDbConnection();
+            conn.ConnectionString = connectionString;
+
+            OleDbCommand cmd = new OleDbCommand(@"Delete from [User] where User_ID=@UserID");
+
+            conn.Open();
+            cmd.Connection = conn;
+
+            if(conn.State == ConnectionState.Open)
+            {
+                cmd.Parameters.Add(@"UserID", OleDbType.Integer).Value = userID;
+                try
+                {
+                    cmd.ExecuteNonQuery();
+                }
+                catch (OleDbException ex)
+                {
+                    Console.WriteLine(ex.Message);
+                    return false;
+                }
+                finally
+                {
+                    conn.Close();
+                }
+            }
+            return true;
+        }
+
+
         public static User GetUser(string userName, string password, AccountType accountType)
         {
             OleDbConnection conn = null;
@@ -165,12 +232,7 @@ namespace BookStoreSystem
                 OleDbDataReader reader = cmd.ExecuteReader();
                 if (reader.Read())
                 {
-                    User user = new User(
-                        int.Parse(reader["User_ID"].ToString()),
-                        reader["Username"].ToString(),
-                        reader["Password"].ToString(),
-                        (AccountType)Enum.Parse(typeof(AccountType), reader["Account_Type"].ToString())
-                        );
+                    User user = BindUser(reader);
                     return user;
                 }
                 else
@@ -187,6 +249,45 @@ namespace BookStoreSystem
                 conn.Close();
             }
             return null;
+        }
+
+        private static User BindUser(OleDbDataReader reader)
+        {
+            return new User(
+                int.Parse(reader["User_ID"].ToString()),
+                reader["Username"].ToString(),
+                reader["Password"].ToString(),
+                (AccountType)Enum.Parse(typeof(AccountType), reader["Account_Type"].ToString())
+                );
+        }
+
+        public static List<User> GetAllUsers()
+        {
+            OleDbConnection conn = null;
+            List<User> users = new List<User>();
+            try
+            {
+                conn = new OleDbConnection(connectionString);
+                conn.Open();
+
+                OleDbCommand cmd = new OleDbCommand("Select * From [User] ", conn);
+              
+                OleDbDataReader reader = cmd.ExecuteReader();
+                while (reader.Read())
+                {
+                    User user = BindUser(reader);
+                    users.Add(user);
+                }
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex);
+            }
+            finally
+            {
+                conn.Close();
+            }
+            return users;
         }
 
         public static bool AddUser(User user)
@@ -219,6 +320,162 @@ namespace BookStoreSystem
                 }
             }
             return false;
+        }
+
+        /**************************** Transaction Methods *****************************************/
+
+
+        public static bool CreateTransaction(Transaction transaction)
+        {
+            OleDbConnection connection = new OleDbConnection(connectionString);
+
+            try
+            {
+                connection.Open();
+                OleDbCommand oleDbCommand = new OleDbCommand(@"INSERT into [Transaction] ( User_ID, PurchaseDate, TotalCost, CardNumber, CardType,
+                                            ExpirationDate, SecurityCode, BillingAddress, ZIP, State)
+                                            values(@User_ID, @PurchaseDate, @TotalCost, @CardNumber, @CardType,
+                                            @ExpirationDate, @SecurityCode, @BillingAddress, @ZIP, @State)", connection);
+                
+                oleDbCommand.Parameters.Add("@User_ID", OleDbType.Integer).Value = transaction.UserID;
+                oleDbCommand.Parameters.Add("@PurchaseDate", OleDbType.Date).Value = transaction.PurchaseDate;
+                oleDbCommand.Parameters.Add("@TotalCost", OleDbType.Double).Value = transaction.TotalCost;
+                oleDbCommand.Parameters.Add("@CardNumber", OleDbType.VarChar).Value = transaction.CardNumber;
+                oleDbCommand.Parameters.Add("@CardType", OleDbType.VarChar).Value = transaction.CardType1;
+                oleDbCommand.Parameters.Add("@ExpirationDate", OleDbType.Date).Value = transaction.ExpDate;
+                oleDbCommand.Parameters.Add("@SecurityCode", OleDbType.Integer).Value = transaction.SecurityCode;
+                oleDbCommand.Parameters.Add("@BillingAddress", OleDbType.VarChar).Value = transaction.BillingAddress;
+                oleDbCommand.Parameters.Add("@ZIP", OleDbType.VarChar).Value = transaction.ZIP;
+                oleDbCommand.Parameters.Add("@State", OleDbType.VarChar).Value = transaction.State;
+                oleDbCommand.ExecuteNonQuery();
+
+                var cmd1 = new OleDbCommand("SELECT @@IDENTITY", connection);
+                int transactionId = (int)cmd1.ExecuteScalar();
+
+              
+               //insert into booktransaction table
+               foreach (var item in transaction.Books)
+               {
+                   OleDbCommand cmd2 = new OleDbCommand(@"INSERT into BookTransaction
+                               (Book_ID, Transaction_ID)
+                               values(@Book_ID, @Transaction_ID)", connection);
+
+                   cmd2.Parameters.Add("@Book_ID", OleDbType.Integer).Value = item.Id;
+                   cmd2.Parameters.Add("@Transaction_ID", OleDbType.Integer).Value = transactionId;
+                   try
+                   {
+                       cmd2.ExecuteNonQuery();
+                   }
+                   catch (OleDbException ex)
+                   {
+                       Debug.WriteLine(ex.Message);
+                       connection.Close();
+                        return false;
+                   }
+               }
+            }
+            catch (OleDbException ex)
+            {
+                Debug.WriteLine(ex.Message);
+                return false;
+            }
+            finally
+            {
+                connection.Close();
+            }
+            return true;
+        }
+
+
+        public static List<Transaction> GetTransactions()
+        {
+            OleDbConnection connection = new OleDbConnection(connectionString);
+            List<Transaction> transactions = new List<Transaction>();
+            try
+            {
+                connection.Open();
+                OleDbCommand oleDbCommand = new OleDbCommand("select * from [Transaction]", connection);
+                OleDbDataReader reader = oleDbCommand.ExecuteReader();
+
+                while (reader.Read())
+                {
+                    Transaction transaction = BindTransaction(reader);
+                    transactions.Add(transaction);
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                return new List<Transaction>();
+            }
+            finally
+            {
+                connection.Close();
+            }
+            return transactions;
+        }
+
+        public static List<Book> GetBooksByTransaction(int transactionID)
+        {
+            OleDbConnection connection = new OleDbConnection(connectionString);
+            List<Book> books = new List<Book>();
+
+            try
+            {
+                connection.Open();
+                OleDbCommand oleDbCommand = new OleDbCommand(@"select * from Book inner join BookTransaction on 
+                    BookTransaction.Book_ID = Book.Book_ID where BookTransaction.Transaction_ID=@transaction_ID ", connection);
+                oleDbCommand.Parameters.Add("@transaction_ID", OleDbType.Integer).Value = transactionID;
+                OleDbDataReader reader = oleDbCommand.ExecuteReader();
+
+                while (reader.Read())
+                {
+                    Book book = BindBook(reader);
+                    books.Add(book);
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                return new List<Book>();
+            }
+            finally
+            {
+                connection.Close();
+            }
+
+            return books;
+        }
+
+        private static Book BindBook(OleDbDataReader reader)
+        {
+            Book book = new Book()
+            {
+                Title = reader["Title"].ToString(),
+                Author = reader["Author"].ToString(),
+                Price = Convert.ToDouble(reader["Price"])
+            };
+
+            return book;
+        }
+
+        private static Transaction BindTransaction(OleDbDataReader reader)
+        {
+           
+           Transaction transaction = new Transaction(
+              Convert.ToInt32(reader["Transaction_ID"]),
+              Convert.ToInt32(reader["User_ID"]),
+              DateTime.Parse(reader["PurchaseDate"].ToString()),
+              Convert.ToDouble(reader["TotalCost"]),
+              reader["CardNumber"].ToString(),
+              (CardType)Enum.Parse(typeof(CardType), reader["CardType"].ToString()),
+              DateTime.Parse(reader["ExpirationDate"].ToString()),
+              Convert.ToInt32(reader["SecurityCode"]),
+              reader["BillingAddress"].ToString(),
+              reader["ZIP"].ToString(),
+              reader["State"].ToString());
+           return transaction;
+
         }
     }
 }
