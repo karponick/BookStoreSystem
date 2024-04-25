@@ -42,17 +42,17 @@
             this.btnSearch.Location = new System.Drawing.Point(53, 64);
             this.btnSearch.Name = "btnSearch";
             this.btnSearch.Size = new System.Drawing.Size(323, 23);
-            this.btnSearch.TabIndex = 0;
+            this.btnSearch.TabIndex = 2;
             this.btnSearch.Text = "Search";
             this.btnSearch.UseVisualStyleBackColor = true;
             this.btnSearch.Click += new System.EventHandler(this.btnSearch_Click);
             // 
             // btnPrev
             // 
-            this.btnPrev.Location = new System.Drawing.Point(53, 108);
+            this.btnPrev.Location = new System.Drawing.Point(53, 93);
             this.btnPrev.Name = "btnPrev";
             this.btnPrev.Size = new System.Drawing.Size(130, 30);
-            this.btnPrev.TabIndex = 1;
+            this.btnPrev.TabIndex = 3;
             this.btnPrev.Text = "Prev";
             this.btnPrev.UseVisualStyleBackColor = true;
             this.btnPrev.Click += new System.EventHandler(this.btnPrev_Click);
@@ -62,39 +62,39 @@
             this.txtTitle.Location = new System.Drawing.Point(53, 12);
             this.txtTitle.Name = "txtTitle";
             this.txtTitle.Size = new System.Drawing.Size(323, 20);
-            this.txtTitle.TabIndex = 2;
+            this.txtTitle.TabIndex = 0;
             // 
             // txtAuthor
             // 
             this.txtAuthor.Location = new System.Drawing.Point(53, 38);
             this.txtAuthor.Name = "txtAuthor";
             this.txtAuthor.Size = new System.Drawing.Size(323, 20);
-            this.txtAuthor.TabIndex = 3;
+            this.txtAuthor.TabIndex = 1;
             // 
             // lblTitle
             // 
-            this.lblTitle.AutoSize = true;
-            this.lblTitle.Location = new System.Drawing.Point(12, 15);
+            this.lblTitle.Location = new System.Drawing.Point(12, 12);
             this.lblTitle.Name = "lblTitle";
-            this.lblTitle.Size = new System.Drawing.Size(27, 13);
+            this.lblTitle.Size = new System.Drawing.Size(40, 20);
             this.lblTitle.TabIndex = 4;
             this.lblTitle.Text = "Title";
+            this.lblTitle.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // label2
             // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(12, 41);
+            this.label2.Location = new System.Drawing.Point(12, 38);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(38, 13);
+            this.label2.Size = new System.Drawing.Size(40, 20);
             this.label2.TabIndex = 5;
             this.label2.Text = "Author";
+            this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // btnNext
             // 
-            this.btnNext.Location = new System.Drawing.Point(246, 108);
+            this.btnNext.Location = new System.Drawing.Point(246, 93);
             this.btnNext.Name = "btnNext";
             this.btnNext.Size = new System.Drawing.Size(130, 30);
-            this.btnNext.TabIndex = 6;
+            this.btnNext.TabIndex = 4;
             this.btnNext.Text = "Next";
             this.btnNext.UseVisualStyleBackColor = true;
             this.btnNext.Click += new System.EventHandler(this.btnNext_Click);
@@ -103,7 +103,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(388, 150);
+            this.ClientSize = new System.Drawing.Size(388, 134);
             this.Controls.Add(this.btnNext);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.lblTitle);

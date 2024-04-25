@@ -25,6 +25,7 @@ namespace BookStoreSystem.View
             BorderStyle = BorderStyle.Fixed3D;
             Dock = DockStyle.Fill;
             MinimumSize = new Size(0,180);
+            MaximumSize = new Size(0,180);
             BackColor = Color.LightGoldenrodYellow;
             Margin = new Padding(15,15,30,15);
 
@@ -151,6 +152,11 @@ namespace BookStoreSystem.View
 
             review = DatabaseController.GetReview(review.Id);
             PopulatePanel();
+            
+            // Used to cause parent tlp to call OnControllRemoved event to update averages
+            Panel temp = new Panel();
+            Parent.Controls.Add(temp);
+            Parent.Controls.Remove(temp);
         }
         private void delete_Click(object sender, EventArgs e)
         {

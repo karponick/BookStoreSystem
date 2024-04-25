@@ -52,7 +52,10 @@ namespace BookStoreSystem.View
             {
                 tlpReviews.Controls.Add(new ReviewPanel(review, tlpReviews.Width) { Parent = this });
             }
-
+            UpdateAverageText();
+        }
+        private void UpdateAverageText()
+        {
             double[] averageRatings = DatabaseController.AverageRatings(bookId);
             lblAverageRatings.Text = string.Format("Average Ratings: \n{3}Style: {0:0.0}\n{3}Plot: {1:0.0}\n{3}Character: {2:0.0}",
                 averageRatings[0], averageRatings[1], averageRatings[2], "        ");
@@ -65,6 +68,11 @@ namespace BookStoreSystem.View
             frmReviewEdit reviewEditForm = new frmReviewEdit(newReview, false);
             reviewEditForm.ShowDialog();
             UpdateView();
+        }
+
+        private void tlpReviews_ControlRemoved(object sender, ControlEventArgs e)
+        {
+            UpdateAverageText();
         }
     }
 }

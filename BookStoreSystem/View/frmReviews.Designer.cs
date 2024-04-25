@@ -54,6 +54,7 @@
             this.tlpReviews.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tlpReviews.Size = new System.Drawing.Size(741, 438);
             this.tlpReviews.TabIndex = 7;
+            this.tlpReviews.ControlRemoved += new System.Windows.Forms.ControlEventHandler(this.tlpReviews_ControlRemoved);
             // 
             // frmReviews
             // 

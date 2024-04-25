@@ -29,9 +29,9 @@ namespace BookStoreSystem.Controller
             if (titleQuery != string.Empty) 
             { 
                 query += titleQuery; // Query only title
-                if (authorQuery != string.Empty) {  query += "+" + authorQuery; } // Query title and author
+                if (authorQuery != string.Empty) {  query += "+inauthor:" + authorQuery; } // Query title and author
             }
-            if (authorQuery != string.Empty) { query += authorQuery; } // Query only author
+            if (authorQuery != string.Empty) { query += "inauthor:" + authorQuery; } // Query only author
 
             var listRequest = service.Volumes.List(query);
             var listResponse = listRequest.Execute();
@@ -42,27 +42,35 @@ namespace BookStoreSystem.Controller
             {
                 foreach (Volume item in listResponse.Items )
                 {
-                    Volume.VolumeInfoData data = item.VolumeInfo;
-                    string title = data.Title;
-                    string author = data.Authors[0];
-                    // genre ?
-                    string description = data.Description;
-                    int pages = (data.PageCount ?? 0);
-                    // price ?
-                    string publication = data.PublishedDate.Substring(0, 4);
-                    string imgUrl = data.ImageLinks.Thumbnail;
-
-                    bookList.Add(new Book()
+                    try
                     {
-                        Title = title,
-                        Author = author,
+                        Volume.VolumeInfoData data = item.VolumeInfo;
+                        if (data == null) { continue; }
+                        string title = data.Title ?? string.Empty;
+                        string author = string.Empty;
+                        if (data.Authors != null) { author = data.Authors[0]; }
                         // genre ?
-                        Description = description,
-                        Pages = pages,
+                        string description = data.Description ?? string.Empty;
+                        int pages = data.PageCount ?? 0;
                         // price ?
-                        Publication = publication,
-                        CoverUrl = imgUrl,
-                    });
+                        string publication = string.Empty;
+                        if (data.PublishedDate != null) { publication = data.PublishedDate.Substring(0, 4); }
+                        string imgUrl = string.Empty;
+                        if (data.ImageLinks != null) { imgUrl = data.ImageLinks.Thumbnail; }
+
+                        bookList.Add(new Book()
+                        {
+                            Title = title,
+                            Author = author,
+                            // genre ?
+                            Description = description,
+                            Pages = pages,
+                            // price ?
+                            Publication = publication,
+                            CoverUrl = imgUrl,
+                        });
+                    }
+                    catch (Exception ex) { Console.WriteLine(ex.Message); }
                 }
             }
             return bookList;
