@@ -57,7 +57,7 @@ namespace BookStoreSystem.View
             // flpCustomersWhoOrdered
             // 
             this.flpCustomersWhoOrdered.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
-            this.flpCustomersWhoOrdered.Location = new System.Drawing.Point(952, 329);
+            this.flpCustomersWhoOrdered.Location = new System.Drawing.Point(900, 212);
             this.flpCustomersWhoOrdered.Name = "flpCustomersWhoOrdered";
             this.flpCustomersWhoOrdered.Size = new System.Drawing.Size(333, 349);
             this.flpCustomersWhoOrdered.TabIndex = 14;
@@ -65,14 +65,14 @@ namespace BookStoreSystem.View
             // flpListOfBooks
             // 
             this.flpListOfBooks.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
-            this.flpListOfBooks.Location = new System.Drawing.Point(40, 329);
+            this.flpListOfBooks.Location = new System.Drawing.Point(20, 212);
             this.flpListOfBooks.Name = "flpListOfBooks";
             this.flpListOfBooks.Size = new System.Drawing.Size(834, 349);
             this.flpListOfBooks.TabIndex = 13;
             // 
             // txtTotalCost
             // 
-            this.txtTotalCost.Location = new System.Drawing.Point(300, 262);
+            this.txtTotalCost.Location = new System.Drawing.Point(280, 171);
             this.txtTotalCost.Name = "txtTotalCost";
             this.txtTotalCost.ReadOnly = true;
             this.txtTotalCost.Size = new System.Drawing.Size(100, 22);
@@ -81,7 +81,7 @@ namespace BookStoreSystem.View
             // lblSemesterCost
             // 
             this.lblSemesterCost.AutoSize = true;
-            this.lblSemesterCost.Location = new System.Drawing.Point(218, 265);
+            this.lblSemesterCost.Location = new System.Drawing.Point(198, 174);
             this.lblSemesterCost.Name = "lblSemesterCost";
             this.lblSemesterCost.Size = new System.Drawing.Size(76, 17);
             this.lblSemesterCost.TabIndex = 16;
@@ -90,7 +90,7 @@ namespace BookStoreSystem.View
             // lblSelectedBooks
             // 
             this.lblSelectedBooks.AutoSize = true;
-            this.lblSelectedBooks.Location = new System.Drawing.Point(37, 265);
+            this.lblSelectedBooks.Location = new System.Drawing.Point(17, 174);
             this.lblSelectedBooks.Name = "lblSelectedBooks";
             this.lblSelectedBooks.Size = new System.Drawing.Size(106, 17);
             this.lblSelectedBooks.TabIndex = 15;
@@ -98,7 +98,7 @@ namespace BookStoreSystem.View
             // 
             // txtSecurityCode
             // 
-            this.txtSecurityCode.Location = new System.Drawing.Point(185, 179);
+            this.txtSecurityCode.Location = new System.Drawing.Point(165, 121);
             this.txtSecurityCode.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.txtSecurityCode.Name = "txtSecurityCode";
             this.txtSecurityCode.Size = new System.Drawing.Size(178, 22);
@@ -107,7 +107,7 @@ namespace BookStoreSystem.View
             // lblSecurityCode
             // 
             this.lblSecurityCode.AutoSize = true;
-            this.lblSecurityCode.Location = new System.Drawing.Point(39, 184);
+            this.lblSecurityCode.Location = new System.Drawing.Point(19, 126);
             this.lblSecurityCode.Name = "lblSecurityCode";
             this.lblSecurityCode.Size = new System.Drawing.Size(96, 17);
             this.lblSecurityCode.TabIndex = 59;
@@ -115,7 +115,7 @@ namespace BookStoreSystem.View
             // 
             // txtCardNo
             // 
-            this.txtCardNo.Location = new System.Drawing.Point(185, 107);
+            this.txtCardNo.Location = new System.Drawing.Point(165, 49);
             this.txtCardNo.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.txtCardNo.Name = "txtCardNo";
             this.txtCardNo.Size = new System.Drawing.Size(178, 22);
@@ -124,7 +124,7 @@ namespace BookStoreSystem.View
             // lblExpDate
             // 
             this.lblExpDate.AutoSize = true;
-            this.lblExpDate.Location = new System.Drawing.Point(39, 146);
+            this.lblExpDate.Location = new System.Drawing.Point(19, 88);
             this.lblExpDate.Name = "lblExpDate";
             this.lblExpDate.Size = new System.Drawing.Size(104, 17);
             this.lblExpDate.TabIndex = 54;
@@ -133,7 +133,7 @@ namespace BookStoreSystem.View
             // lblCardNo
             // 
             this.lblCardNo.AutoSize = true;
-            this.lblCardNo.Location = new System.Drawing.Point(39, 112);
+            this.lblCardNo.Location = new System.Drawing.Point(19, 54);
             this.lblCardNo.Name = "lblCardNo";
             this.lblCardNo.Size = new System.Drawing.Size(92, 17);
             this.lblCardNo.TabIndex = 53;
@@ -142,7 +142,7 @@ namespace BookStoreSystem.View
             // lblCardType
             // 
             this.lblCardType.AutoSize = true;
-            this.lblCardType.Location = new System.Drawing.Point(39, 81);
+            this.lblCardType.Location = new System.Drawing.Point(19, 23);
             this.lblCardType.Name = "lblCardType";
             this.lblCardType.Size = new System.Drawing.Size(74, 17);
             this.lblCardType.TabIndex = 52;
@@ -156,14 +156,14 @@ namespace BookStoreSystem.View
             "Visa",
             "Master Card",
             "American Express"});
-            this.cbCardType.Location = new System.Drawing.Point(185, 74);
+            this.cbCardType.Location = new System.Drawing.Point(165, 16);
             this.cbCardType.Name = "cbCardType";
             this.cbCardType.Size = new System.Drawing.Size(178, 24);
             this.cbCardType.TabIndex = 62;
             // 
             // txtBillingName
             // 
-            this.txtBillingName.Location = new System.Drawing.Point(710, 69);
+            this.txtBillingName.Location = new System.Drawing.Point(690, 11);
             this.txtBillingName.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.txtBillingName.Name = "txtBillingName";
             this.txtBillingName.Size = new System.Drawing.Size(178, 22);
@@ -172,7 +172,7 @@ namespace BookStoreSystem.View
             // lblBillingName
             // 
             this.lblBillingName.AutoSize = true;
-            this.lblBillingName.Location = new System.Drawing.Point(564, 74);
+            this.lblBillingName.Location = new System.Drawing.Point(544, 16);
             this.lblBillingName.Name = "lblBillingName";
             this.lblBillingName.Size = new System.Drawing.Size(86, 17);
             this.lblBillingName.TabIndex = 63;
@@ -180,7 +180,7 @@ namespace BookStoreSystem.View
             // 
             // txtBillingAddress
             // 
-            this.txtBillingAddress.Location = new System.Drawing.Point(710, 107);
+            this.txtBillingAddress.Location = new System.Drawing.Point(690, 49);
             this.txtBillingAddress.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.txtBillingAddress.Name = "txtBillingAddress";
             this.txtBillingAddress.Size = new System.Drawing.Size(178, 22);
@@ -189,7 +189,7 @@ namespace BookStoreSystem.View
             // lblBillingAddress
             // 
             this.lblBillingAddress.AutoSize = true;
-            this.lblBillingAddress.Location = new System.Drawing.Point(564, 112);
+            this.lblBillingAddress.Location = new System.Drawing.Point(544, 54);
             this.lblBillingAddress.Name = "lblBillingAddress";
             this.lblBillingAddress.Size = new System.Drawing.Size(101, 17);
             this.lblBillingAddress.TabIndex = 65;
@@ -198,7 +198,7 @@ namespace BookStoreSystem.View
             // lblState
             // 
             this.lblState.AutoSize = true;
-            this.lblState.Location = new System.Drawing.Point(565, 151);
+            this.lblState.Location = new System.Drawing.Point(545, 93);
             this.lblState.Name = "lblState";
             this.lblState.Size = new System.Drawing.Size(41, 17);
             this.lblState.TabIndex = 67;
@@ -206,7 +206,7 @@ namespace BookStoreSystem.View
             // 
             // txtZIP
             // 
-            this.txtZIP.Location = new System.Drawing.Point(711, 189);
+            this.txtZIP.Location = new System.Drawing.Point(691, 131);
             this.txtZIP.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.txtZIP.Name = "txtZIP";
             this.txtZIP.Size = new System.Drawing.Size(178, 22);
@@ -215,7 +215,7 @@ namespace BookStoreSystem.View
             // lblZip
             // 
             this.lblZip.AutoSize = true;
-            this.lblZip.Location = new System.Drawing.Point(565, 194);
+            this.lblZip.Location = new System.Drawing.Point(545, 136);
             this.lblZip.Name = "lblZip";
             this.lblZip.Size = new System.Drawing.Size(29, 17);
             this.lblZip.TabIndex = 69;
@@ -276,7 +276,7 @@ namespace BookStoreSystem.View
             "West Virginia",
             "Wisconsin",
             "Wyoming"});
-            this.cbState.Location = new System.Drawing.Point(710, 151);
+            this.cbState.Location = new System.Drawing.Point(690, 93);
             this.cbState.Name = "cbState";
             this.cbState.Size = new System.Drawing.Size(178, 24);
             this.cbState.TabIndex = 71;
@@ -284,7 +284,7 @@ namespace BookStoreSystem.View
             // btnPurchase
             // 
             this.btnPurchase.BackColor = System.Drawing.Color.MediumSpringGreen;
-            this.btnPurchase.Location = new System.Drawing.Point(969, 98);
+            this.btnPurchase.Location = new System.Drawing.Point(917, 6);
             this.btnPurchase.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btnPurchase.Name = "btnPurchase";
             this.btnPurchase.Size = new System.Drawing.Size(316, 65);
@@ -295,7 +295,7 @@ namespace BookStoreSystem.View
             // 
             // txtExpDate
             // 
-            this.txtExpDate.Location = new System.Drawing.Point(185, 143);
+            this.txtExpDate.Location = new System.Drawing.Point(165, 85);
             this.txtExpDate.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.txtExpDate.Name = "txtExpDate";
             this.txtExpDate.Size = new System.Drawing.Size(178, 22);
@@ -304,7 +304,7 @@ namespace BookStoreSystem.View
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(369, 148);
+            this.label1.Location = new System.Drawing.Point(349, 90);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(66, 17);
             this.label1.TabIndex = 74;
@@ -314,7 +314,7 @@ namespace BookStoreSystem.View
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1347, 746);
+            this.ClientSize = new System.Drawing.Size(1257, 606);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.txtExpDate);
             this.Controls.Add(this.btnPurchase);

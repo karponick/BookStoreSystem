@@ -13,6 +13,9 @@ namespace BookStoreSystem
         /*************************** Fields ***************************/
         const string connectionString = "provider=Microsoft.ACE.OLEDB.12.0; Data Source=BookStoreDB.accdb;";
         static OleDbConnection myConnection = new OleDbConnection(connectionString);
+
+       
+
         static OleDbCommand myCommand = new OleDbCommand(string.Empty, myConnection);
         static OleDbDataAdapter myAdapter = new OleDbDataAdapter(myCommand);
 
@@ -60,7 +63,7 @@ namespace BookStoreSystem
             return bookList;
         }
 
-        
+      
 
         public static void AddBook(Book book)
         {
@@ -76,6 +79,8 @@ namespace BookStoreSystem
             catch (OleDbException ex) { Console.WriteLine(ex.Message); }
             finally { myConnection.Close(); }
         }
+
+        
         public static void ModifyBook(Book book)
         {
             try
@@ -153,6 +158,65 @@ namespace BookStoreSystem
 
         /**************************** User Methods *******************************************/
 
+        public static bool UpdateUser(User selectedUser)
+        {
+            OleDbConnection conn = new OleDbConnection(connectionString);
+
+            try
+            {
+                conn.Open();
+                OleDbCommand cmd = new OleDbCommand(@"update [User] set
+                                                [Username] = @Username, [Password] = @Password, Account_Type = @AccountType
+                                                where User_ID=@UserID", conn);
+                cmd.Parameters.Add("@Username", OleDbType.VarChar).Value = selectedUser.UserName;
+                cmd.Parameters.Add("@Password", OleDbType.VarChar).Value = selectedUser.Password;
+                cmd.Parameters.Add("@AccountType", OleDbType.VarChar).Value = selectedUser.AccountType1;
+                cmd.Parameters.Add("@UserID", OleDbType.Integer).Value = selectedUser.UserID;
+                cmd.ExecuteNonQuery();
+            }
+            catch (OleDbException ex)
+            {
+                Console.WriteLine(ex.Message);
+                return false;
+            }
+            finally
+            {
+                conn.Close();
+            }
+            return true;
+        }
+
+        public static bool DeleteUser(int userID)
+        {
+            OleDbConnection conn = new OleDbConnection();
+            conn.ConnectionString = connectionString;
+
+            OleDbCommand cmd = new OleDbCommand(@"Delete from [User] where User_ID=@UserID");
+
+            conn.Open();
+            cmd.Connection = conn;
+
+            if(conn.State == ConnectionState.Open)
+            {
+                cmd.Parameters.Add(@"UserID", OleDbType.Integer).Value = userID;
+                try
+                {
+                    cmd.ExecuteNonQuery();
+                }
+                catch (OleDbException ex)
+                {
+                    Console.WriteLine(ex.Message);
+                    return false;
+                }
+                finally
+                {
+                    conn.Close();
+                }
+            }
+            return true;
+        }
+
+
         public static User GetUser(string userName, string password, AccountType accountType)
         {
             OleDbConnection conn = null;
@@ -168,12 +232,7 @@ namespace BookStoreSystem
                 OleDbDataReader reader = cmd.ExecuteReader();
                 if (reader.Read())
                 {
-                    User user = new User(
-                        int.Parse(reader["User_ID"].ToString()),
-                        reader["Username"].ToString(),
-                        reader["Password"].ToString(),
-                        (AccountType)Enum.Parse(typeof(AccountType), reader["Account_Type"].ToString())
-                        );
+                    User user = BindUser(reader);
                     return user;
                 }
                 else
@@ -190,6 +249,45 @@ namespace BookStoreSystem
                 conn.Close();
             }
             return null;
+        }
+
+        private static User BindUser(OleDbDataReader reader)
+        {
+            return new User(
+                int.Parse(reader["User_ID"].ToString()),
+                reader["Username"].ToString(),
+                reader["Password"].ToString(),
+                (AccountType)Enum.Parse(typeof(AccountType), reader["Account_Type"].ToString())
+                );
+        }
+
+        public static List<User> GetAllUsers()
+        {
+            OleDbConnection conn = null;
+            List<User> users = new List<User>();
+            try
+            {
+                conn = new OleDbConnection(connectionString);
+                conn.Open();
+
+                OleDbCommand cmd = new OleDbCommand("Select * From [User] ", conn);
+              
+                OleDbDataReader reader = cmd.ExecuteReader();
+                while (reader.Read())
+                {
+                    User user = BindUser(reader);
+                    users.Add(user);
+                }
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex);
+            }
+            finally
+            {
+                conn.Close();
+            }
+            return users;
         }
 
         public static bool AddUser(User user)
@@ -227,7 +325,7 @@ namespace BookStoreSystem
         /**************************** Transaction Methods *****************************************/
 
 
-        public static void CreateTransaction(Transaction transaction)
+        public static bool CreateTransaction(Transaction transaction)
         {
             OleDbConnection connection = new OleDbConnection(connectionString);
 
@@ -272,18 +370,20 @@ namespace BookStoreSystem
                    {
                        Debug.WriteLine(ex.Message);
                        connection.Close();
+                        return false;
                    }
                }
             }
             catch (OleDbException ex)
             {
                 Debug.WriteLine(ex.Message);
-                return;
+                return false;
             }
             finally
             {
                 connection.Close();
             }
+            return true;
         }
 
 

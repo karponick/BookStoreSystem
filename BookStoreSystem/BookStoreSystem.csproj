@@ -101,6 +101,12 @@
     <Compile Include="View\frmTransactionList.Designer.cs">
       <DependentUpon>frmTransactionList.cs</DependentUpon>
     </Compile>
+    <Compile Include="View\frmUserList.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="View\frmUserList.Designer.cs">
+      <DependentUpon>frmUserList.cs</DependentUpon>
+    </Compile>
     <Compile Include="View\ReviewPanel.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -134,6 +140,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="View\frmTransactionList.resx">
       <DependentUpon>frmTransactionList.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="View\frmUserList.resx">
+      <DependentUpon>frmUserList.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>

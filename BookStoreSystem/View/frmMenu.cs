@@ -28,7 +28,8 @@ namespace BookStoreSystem
 
         private void btnUsers_Click(object sender, EventArgs e)
         {
-
+            frmUserList userList = new frmUserList();
+            userList.ShowDialog();
         }
 
         private void btnTransactions_Click(object sender, EventArgs e)

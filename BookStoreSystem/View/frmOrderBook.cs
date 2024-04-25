@@ -55,18 +55,25 @@ namespace BookStoreSystem.View
                     cardType, expiration, int.Parse(txtSecurityCode.Text), txtBillingAddress.Text,
                     txtZIP.Text, cbState.SelectedItem.ToString()
                     );
-                //add database method to get add transaction to the DB
-                DatabaseController.CreateTransaction(transaction);
+                //add transaction to the DB
+                bool processedSuccessfully = DatabaseController.CreateTransaction(transaction);
 
-                Label lblPersonWhoIsBillingInfo = new Label();
-                lblPersonWhoIsBillingInfo.Text = "Billing Name: " + txtBillingName.Text + " " + "Billing Address: " + txtBillingAddress.Text;
-                lblPersonWhoIsBillingInfo.Width = flpCustomersWhoOrdered.ClientSize.Width;
-                flpCustomersWhoOrdered.Controls.Add(lblPersonWhoIsBillingInfo);
+                if (processedSuccessfully)
+                {
+                    Label lblPersonWhoIsBillingInfo = new Label();
+                    lblPersonWhoIsBillingInfo.Text = "Billing Name: " + txtBillingName.Text + " " + "Billing Address: " + txtBillingAddress.Text;
+                    lblPersonWhoIsBillingInfo.Width = flpCustomersWhoOrdered.ClientSize.Width;
+                    flpCustomersWhoOrdered.Controls.Add(lblPersonWhoIsBillingInfo);
 
-                txtBillingName.Text = "";
-                txtBillingAddress.Text = "";
+                    txtBillingName.Text = "";
+                    txtBillingAddress.Text = "";
+                    MessageBox.Show("Thank you for your order. Transaction is successful.", "Book Order", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+                else
+                {
+                    MessageBox.Show("There was an error to process your transaction. Please try again later.", "Book Order", MessageBoxButtons.OK, MessageBoxIcon.Error); 
+                }
 
-                //add database method to get transaction
             }
             
         }
