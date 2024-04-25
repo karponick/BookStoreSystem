@@ -69,6 +69,7 @@
   <ItemGroup>
     <Compile Include="Controller\APIController.cs" />
     <Compile Include="Controller\DatabaseController.cs" />
+    <Compile Include="Controller\FileController.cs" />
     <Compile Include="Controller\SystemController.cs" />
     <Compile Include="Model\Book.cs" />
     <Compile Include="Model\Review.cs" />
@@ -128,6 +129,18 @@
     <Compile Include="View\frmReviews.Designer.cs">
       <DependentUpon>frmReviews.cs</DependentUpon>
     </Compile>
+    <Compile Include="View\frmTransactionList.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="View\frmTransactionList.Designer.cs">
+      <DependentUpon>frmTransactionList.cs</DependentUpon>
+    </Compile>
+    <Compile Include="View\frmUserList.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="View\frmUserList.Designer.cs">
+      <DependentUpon>frmUserList.cs</DependentUpon>
+    </Compile>
     <Compile Include="View\ReviewPanel.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -164,6 +177,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="View\frmReviews.resx">
       <DependentUpon>frmReviews.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="View\frmTransactionList.resx">
+      <DependentUpon>frmTransactionList.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="View\frmUserList.resx">
+      <DependentUpon>frmUserList.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">

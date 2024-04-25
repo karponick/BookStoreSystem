@@ -44,6 +44,22 @@ namespace BookStoreSystem
             this.state = state; 
         }
 
+        public Transaction(int transactionID, int userID, DateTime purchaseDate, double totalCost, string cardNumber, CardType cardType, DateTime expirationDate,
+            int securityCode, string billingAddress, string zip, string state)
+        {
+            this.transactionID = transactionID;
+            this.userID = userID;
+            this.purchaseDate = purchaseDate;
+            this.totalCost = totalCost;
+            this.cardNumber = cardNumber;
+            this.cardType = cardType;
+            this.expirationDate = expirationDate;
+            this.securityCode = securityCode;
+            this.billingAddress = billingAddress;
+            this.zip = zip;
+            this.state = state;
+        }
+
         public int TransactionID
         {
             get { return transactionID; }
