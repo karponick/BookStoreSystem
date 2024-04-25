@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BookStoreSystem.View;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -31,10 +32,14 @@ namespace BookStoreSystem
             InitializeComponent();
             forModification = true;
 
+            Populate(book);
+        }
+        public void Populate(Book book)
+        {
             id = book.Id;
             txtTitle.Text = book.Title;
             txtAuthor.Text = book.Author;
-            cmbGenre.SelectedIndex = cmbGenre.Items.IndexOf(book.Genre);
+            if (book.Genre != null) cmbGenre.SelectedIndex = cmbGenre.Items.IndexOf(book.Genre);
             txtDescription.Text = book.Description;
             txtPages.Text = book.Pages.ToString();
             txtPrice.Text = book.Price.ToString();
@@ -61,13 +66,9 @@ namespace BookStoreSystem
 
             if (errors.Count > 0)
             {
-                MessageBox.Show("Missing Data: " + string.Join(", ", errors));
+                MessageBox.Show("Missing Data:\n" + string.Join(", ", errors));
                 return;
             }
-
-
-
-
 
 
             // Create Book object using values from Form inputs
@@ -114,6 +115,12 @@ namespace BookStoreSystem
             {
                 if (txtPublication.Text.Length == 4) { e.Handled = true; }
             }
+        }
+
+        private void btnSearch_Click(object sender, EventArgs e)
+        {
+            frmGoogleSearch googleSearchForm = new frmGoogleSearch(this);
+            googleSearchForm.ShowDialog();
         }
     }
 }

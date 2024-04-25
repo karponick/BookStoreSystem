@@ -154,7 +154,7 @@
             // 
             this.txtFilter.Location = new System.Drawing.Point(164, 7);
             this.txtFilter.Name = "txtFilter";
-            this.txtFilter.Size = new System.Drawing.Size(200, 20);
+            this.txtFilter.Size = new System.Drawing.Size(424, 20);
             this.txtFilter.TabIndex = 9;
             this.txtFilter.TextChanged += new System.EventHandler(this.txtFilter_TextChanged);
             // 

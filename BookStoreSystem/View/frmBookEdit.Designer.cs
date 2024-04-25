@@ -46,6 +46,7 @@
             this.txtCoverUrl = new System.Windows.Forms.TextBox();
             this.lblCoverUrl = new System.Windows.Forms.Label();
             this.picCover = new System.Windows.Forms.PictureBox();
+            this.btnSearch = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.picCover)).BeginInit();
             this.SuspendLayout();
             // 
@@ -68,14 +69,14 @@
             this.txtDescription.Location = new System.Drawing.Point(118, 89);
             this.txtDescription.Name = "txtDescription";
             this.txtDescription.Size = new System.Drawing.Size(200, 20);
-            this.txtDescription.TabIndex = 3;
+            this.txtDescription.TabIndex = 4;
             // 
             // txtPages
             // 
             this.txtPages.Location = new System.Drawing.Point(118, 115);
             this.txtPages.Name = "txtPages";
             this.txtPages.Size = new System.Drawing.Size(200, 20);
-            this.txtPages.TabIndex = 4;
+            this.txtPages.TabIndex = 5;
             this.txtPages.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.NumOnly_TextChanged);
             // 
             // txtPrice
@@ -83,7 +84,7 @@
             this.txtPrice.Location = new System.Drawing.Point(118, 141);
             this.txtPrice.Name = "txtPrice";
             this.txtPrice.Size = new System.Drawing.Size(200, 20);
-            this.txtPrice.TabIndex = 5;
+            this.txtPrice.TabIndex = 6;
             this.txtPrice.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.NumOnly_TextChanged);
             // 
             // lblTitle
@@ -153,6 +154,7 @@
             // 
             this.cmbGenre.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbGenre.FormattingEnabled = true;
+            this.cmbGenre.ItemHeight = 13;
             this.cmbGenre.Items.AddRange(new object[] {
             "Fantasy",
             "History",
@@ -172,14 +174,14 @@
             this.cmbGenre.Location = new System.Drawing.Point(118, 62);
             this.cmbGenre.Name = "cmbGenre";
             this.cmbGenre.Size = new System.Drawing.Size(200, 21);
-            this.cmbGenre.TabIndex = 15;
+            this.cmbGenre.TabIndex = 3;
             // 
             // btnSubmit
             // 
             this.btnSubmit.Location = new System.Drawing.Point(116, 225);
             this.btnSubmit.Name = "btnSubmit";
             this.btnSubmit.Size = new System.Drawing.Size(202, 23);
-            this.btnSubmit.TabIndex = 17;
+            this.btnSubmit.TabIndex = 9;
             this.btnSubmit.Text = "Submit";
             this.btnSubmit.UseVisualStyleBackColor = true;
             this.btnSubmit.Click += new System.EventHandler(this.btnSubmit_Click);
@@ -189,7 +191,7 @@
             this.txtPublication.Location = new System.Drawing.Point(118, 167);
             this.txtPublication.Name = "txtPublication";
             this.txtPublication.Size = new System.Drawing.Size(200, 20);
-            this.txtPublication.TabIndex = 18;
+            this.txtPublication.TabIndex = 7;
             this.txtPublication.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.NumOnly_TextChanged);
             // 
             // txtCoverUrl
@@ -197,7 +199,7 @@
             this.txtCoverUrl.Location = new System.Drawing.Point(118, 193);
             this.txtCoverUrl.Name = "txtCoverUrl";
             this.txtCoverUrl.Size = new System.Drawing.Size(200, 20);
-            this.txtCoverUrl.TabIndex = 20;
+            this.txtCoverUrl.TabIndex = 8;
             this.txtCoverUrl.TextChanged += new System.EventHandler(this.txtCoverUrl_TextChanged);
             // 
             // lblCoverUrl
@@ -218,11 +220,22 @@
             this.picCover.TabIndex = 21;
             this.picCover.TabStop = false;
             // 
+            // btnSearch
+            // 
+            this.btnSearch.Location = new System.Drawing.Point(324, 225);
+            this.btnSearch.Name = "btnSearch";
+            this.btnSearch.Size = new System.Drawing.Size(150, 23);
+            this.btnSearch.TabIndex = 22;
+            this.btnSearch.Text = "Search Online ->";
+            this.btnSearch.UseVisualStyleBackColor = true;
+            this.btnSearch.Click += new System.EventHandler(this.btnSearch_Click);
+            // 
             // frmBookEdit
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(488, 261);
+            this.Controls.Add(this.btnSearch);
             this.Controls.Add(this.picCover);
             this.Controls.Add(this.txtCoverUrl);
             this.Controls.Add(this.lblCoverUrl);
@@ -271,5 +284,6 @@
         private System.Windows.Forms.TextBox txtCoverUrl;
         private System.Windows.Forms.Label lblCoverUrl;
         private System.Windows.Forms.PictureBox picCover;
+        private System.Windows.Forms.Button btnSearch;
     }
 }
