@@ -17,13 +17,18 @@ namespace BookStoreSystem
         private readonly BookPanel bookPanel;
         private int selectedIndex;
         private bool isAdmin;
+        private readonly int userId;
+        private List<Book> selectedBooks;
+
         /************************ Constructors ************************/
-        public frmBookList(bool isAdmin)
+        public frmBookList(bool isAdmin, int userId)
         {
             InitializeComponent();
             selectedIndex = -1;
             this.isAdmin = isAdmin;
+            this.userId = userId;
             if (isAdmin) { btnCreate.Visible = true; }
+            selectedBooks = new List<Book>();
 
             // Initialize datagridview properties
             dgvBooks.AutoGenerateColumns = false;
@@ -145,9 +150,10 @@ namespace BookStoreSystem
                     btnDelete.Visible = true;
                 }
                 // If logged in User ia a customer, enable Purchase, Review buttons
-                else if (!isAdmin)
+                else
                 {
                     btnPurchase.Visible = true;
+                    btnAddToCart.Visible = true;
                 }
 
                 btnReviews.Visible = true;
@@ -157,9 +163,13 @@ namespace BookStoreSystem
 
         private void btnPurchase_Click(object sender, EventArgs e)
         {
-            // TODO: Daniel
-            Book book = (Book)dgvBooks.Rows[selectedIndex].DataBoundItem;
-            frmOrderBook bookOrderForm = new frmOrderBook(book.Id);
+            if (selectedBooks.Count == 0)
+            {
+                MessageBox.Show("Please select at least one book");
+                return;
+            }
+            
+            frmOrderBook bookOrderForm = new frmOrderBook(selectedBooks, userId);
             bookOrderForm.ShowDialog();
         }
 
@@ -169,6 +179,13 @@ namespace BookStoreSystem
             Book book = (Book)dgvBooks.Rows[selectedIndex].DataBoundItem;
             frmReviews reviewForm = new frmReviews(book.Id);
             reviewForm.ShowDialog();
+        }
+
+        private void btnAddToCart_Click(object sender, EventArgs e)
+        {
+            Book book = (Book)dgvBooks.Rows[selectedIndex].DataBoundItem;
+            selectedBooks.Add(book);
+            MessageBox.Show("Total " + selectedBooks.Count + " item(s) in the cart.");
         }
     }
 }
