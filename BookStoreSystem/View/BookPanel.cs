@@ -22,8 +22,8 @@ namespace BookStoreSystem.View
             //MouseLeave += bookPan_MouseLeave;
             padValue = 5;
 
-            Size = new Size(250, 438);
-            Location = new Point(720, 12);
+            Size = new Size(250, 436);
+            Location = new Point(720, 7);
             Padding = new Padding(padValue, padValue, padValue, padValue);
             BorderStyle = BorderStyle.FixedSingle;
             Visible = false;
