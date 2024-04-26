@@ -72,7 +72,7 @@ namespace BookStoreSystem.View
             description.Text = book.Description;
             pages.Text = book.Pages.ToString() + " Pages";
             price.Text = "Price: " + book.Price.ToString();
-            publication.Text = "Published: " + book.Publication;
+            publication.Text = "Year Published: " + book.Publication;
 
             cover.Size = defaultCoverSize;
             if (book.CoverImage == null)

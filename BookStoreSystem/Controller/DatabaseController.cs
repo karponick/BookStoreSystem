@@ -7,6 +7,7 @@ using static BookStoreSystem.User;
 using static BookStoreSystem.Transaction;
 using System.Net;
 using System.Collections;
+using Google.Apis.Books.v1.Data;
 
 namespace BookStoreSystem
 {
@@ -18,32 +19,60 @@ namespace BookStoreSystem
         static OleDbCommand myCommand = new OleDbCommand(string.Empty, myConnection);
         static OleDbDataAdapter myAdapter = new OleDbDataAdapter(myCommand);
 
-        /*************************** Book Methods ***************************/
-        private void PrintColHeaders(DataTable table)
+        /************** Overhead Template Methods **********************/
+        private static DataSet FillDataSet(string query, string table)
         {
-            // Used for testing purposes - will be deleted, eventually....
-            foreach (DataColumn col in table.Columns)
-            {
-                Console.WriteLine(col.ColumnName + ": " + col.DataType.ToString());
-            }
-        }
-
-        public static List<Book> GetBookList()
-        {
-            // Gets all Books from Book table
-            List<Book> bookList = new List<Book>();
-            myCommand.CommandText = "SELECT * FROM Book";
+            // Template for filling DataSet with given database table
+            myCommand.CommandText = query;
             DataSet dataSet = new DataSet();
             try
             {
                 myConnection.Open();
-                myAdapter.Fill(dataSet, "Book");
+                myAdapter.Fill(dataSet, table);
             }
             catch (OleDbException ex) { Console.WriteLine(ex.Message); }
             finally { myConnection.Close(); }
+            return dataSet;
+        }
+
+        public static void ExecuteCommand(string query)
+        {
+            // Template for ExecuteNonQuery commands (mostly Add/Modify/Delete functions)
+            try
+            {
+                if (myConnection.State == ConnectionState.Closed) { myConnection.Open(); }
+                myCommand.CommandText = query;
+                myCommand.ExecuteNonQuery();
+            }
+            catch (OleDbException ex) { Console.WriteLine(ex.Message); }
+            finally { myConnection.Close(); }
+        }
+
+        private static void SetBookParameters(Book book)
+        {
+            // non-specific book parameters (no ids)
+            myCommand.Parameters.Clear();
+            myCommand.Parameters.Add("@BookTitle", OleDbType.VarChar).Value = book.Title;
+            myCommand.Parameters.Add("@BookAuthor", OleDbType.VarChar).Value = book.Author;
+            myCommand.Parameters.Add("@BookGenre", OleDbType.VarChar).Value = book.Genre;
+            myCommand.Parameters.Add("@BookDescription", OleDbType.LongVarChar).Value = book.Description;
+            myCommand.Parameters.Add("@BookPages", OleDbType.Integer).Value = book.Pages;
+            myCommand.Parameters.Add("@BookPrice", OleDbType.Currency).Value = (decimal)book.Price;
+            myCommand.Parameters.Add("@BookPublication", OleDbType.VarChar).Value = book.Publication;
+            myCommand.Parameters.Add("@BookCoverUrl", OleDbType.VarChar).Value = book.CoverUrl;
+        }
+
+        /*************************** Book Methods ***************************/
+        public static List<Book> GetBookList()
+        {
+            // List to hold all Books from Book table
+            List<Book> bookList = new List<Book>();
 
             // Handle data from database
-            DataTable tableBooks = dataSet.Tables["Book"];
+            string query = "SELECT * FROM Book";
+            string table = "Book";
+            DataSet dataSet = FillDataSet(query, table);
+            DataTable tableBooks = dataSet.Tables[table];
 
             foreach (DataRow row in tableBooks.Rows)
             {
@@ -61,58 +90,45 @@ namespace BookStoreSystem
             }
             return bookList;
         }
-
         public static void AddBook(Book book)
         {
-            try
-            {
-                myConnection.Open();
-                myCommand.CommandText = string.Format("INSERT INTO Book (Title, Author, Genre, Description, Pages, " +
-                    "Price, Publication, Cover_Url) VALUES ('{0}', '{1}', '{2}', '{3}', {4}, {5}, '{6}', '{7}')",
-                    book.Title, book.Author, book.Genre, book.Description, book.Pages, book.Price, book.Publication, book.CoverUrl);
-                myCommand.ExecuteNonQuery();
-            }
-            catch (OleDbException ex) { Console.WriteLine(ex.Message); }
-            finally { myConnection.Close(); }
+            /* Add given book to database */
+            string query = "INSERT INTO Book (Title, Author, Genre, Description, Pages, Price, Publication, Cover_Url) " +
+                "VALUES (@BookTitle, @BookAuthor, @BookGenre, @BookDescription, @BookPages, @BookPrice, @BookPublication, @BookCoverUrl)";
+            SetBookParameters(book);
+            ExecuteCommand(query);
         }
         public static void ModifyBook(Book book)
         {
-            try
-            {
-                myConnection.Open();
-                myCommand.CommandText = string.Format("UPDATE Book SET Title = '{1}', Author = '{2}', Genre = '{3}', " +
-                    "Description = '{4}', Pages = {5}, Price = {6}, Publication = '{7}', Cover_Url = '{8}' WHERE Book_ID = {0}",
-                    book.Id, book.Title, book.Author, book.Genre, book.Description, book.Pages, book.Price, book.Publication, book.CoverUrl);
-                myCommand.ExecuteNonQuery();
-            }
-            catch (OleDbException ex) { Console.WriteLine(ex.Message); }
-            finally { myConnection.Close(); }
+            /* Modify given book in database */
+            string query = "UPDATE Book SET Title = @BookTitle, Author = @BookAuthor, Genre = @BookGenre, Description = @BookDescription, " +
+                "Pages = @BookPages, Price = @BookPrice, Publication = @BookPublication, Cover_Url = @BookCoverUrl WHERE Book_ID = @BookId";
+            SetBookParameters(book);
+            // NOTE: Order in which OleDB Parameters are added to the Command MATTERS
+            // If @BookId is added before the ones in SetBookParameters, errors are thrown
+            myCommand.Parameters.Add("@BookId", OleDbType.Integer).Value = book.Id;
+            ExecuteCommand(query);   
         }
         public static void DeleteBook(int bookId)
         {
-            try
-            {
-                myConnection.Open();
-                myCommand.CommandText = "DELETE FROM Book WHERE Book_ID = " + bookId;
-                myCommand.ExecuteNonQuery();
-            }
-            catch (OleDbException ex) { Console.WriteLine(ex.Message); }
-            finally { myConnection.Close(); }
+            /* Delete book given by book id from database */
+            string query = "DELETE FROM Book WHERE Book_ID = @BookId";
+            myCommand.Parameters.Clear();
+            myCommand.Parameters.Add("@BookId", OleDbType.Integer).Value = bookId;
+            ExecuteCommand(query);
         }
-        public static string GetBookTitle(int id)
+        public static string GetBookTitle(int bookId)
         {
             // Gets Book Title from Database by ID
-            myCommand.CommandText = "SELECT Title FROM Book WHERE Book_ID = " + id.ToString();
-            DataSet dataSet = new DataSet();
-            try
-            {
-                myConnection.Open();
-                myAdapter.Fill(dataSet, "Book");
-            }
-            catch (OleDbException ex) { Console.WriteLine(ex.Message); }
-            finally { myConnection.Close(); }
+            string query = "SELECT Title FROM Book WHERE Book_ID = @BookId";
+            string tableString = "Book";
 
-            DataTable table = dataSet.Tables["Book"];
+            myCommand.Parameters.Clear();
+            myCommand.Parameters.Add("@BookId", OleDbType.Integer).Value = bookId;
+
+            DataSet dataSet = FillDataSet(query, tableString);
+
+            DataTable table = dataSet.Tables[tableString];
             DataRow row = table.Rows[0];
             return row["Title"].ToString();
         }
@@ -120,21 +136,17 @@ namespace BookStoreSystem
         /**************************** Review Methods *****************************************/
         public static List<Review> GetReviewList(int bookId)
         {
-            // Gets all Books from Book table
+            /* Gets all Books from Book table in database */
             List<Review> reviewList = new List<Review>();
-            myCommand.CommandText = "SELECT * FROM Review WHERE Book_ID = " + bookId.ToString();
-            DataSet dataSet = new DataSet();
-            try
-            {
-                myConnection.Open();
-                myAdapter.Fill(dataSet, "Review");
-            }
-            catch (OleDbException ex) { Console.WriteLine(ex.Message); }
-            finally { myConnection.Close(); }
+            string query = "SELECT * FROM Review WHERE Book_ID = @BookId";
+            string tableString = "Review";
+            myCommand.Parameters.Clear();
+            myCommand.Parameters.Add("@BookId", OleDbType.Integer).Value = bookId;
+
+            DataSet dataSet = FillDataSet(query, tableString);
 
             // Handle data from database
-            DataTable table = dataSet.Tables["Review"];
-
+            DataTable table = dataSet.Tables[tableString];
             foreach (DataRow row in table.Rows)
             {
                 // Create review and add to list
@@ -153,58 +165,55 @@ namespace BookStoreSystem
         }
         public static void AddReview(Review review)
         {
-            try
-            {
-                myConnection.Open();
-                myCommand.CommandText = string.Format("INSERT INTO Review (User_ID, Book_ID, Description, Style_Rating, " +
-                    "Plot_Rating, Character_Rating, Submission_DateTime) " +
-                    "VALUES ({0}, {1}, '{2}', {3}, {4}, {5}, '{6}')",
-                    review.UserId, review.BookId, review.Description, review.StyleRating, review.PlotRating, review.CharacterRating,
-                    review.SubmissionDateTime);
-                myCommand.ExecuteNonQuery();
-            }
-            catch (OleDbException ex) { Console.WriteLine(ex.Message); }
-            finally { myConnection.Close(); }
+            /* Add given Review to database */
+            string query = "INSERT INTO Review (User_ID, Book_ID, Description, Style_Rating, Plot_Rating, Character_Rating, Submission_DateTime) " +
+                "VALUES (@UserId, @BookId, @ReviewDescription, @ReviewStyle, @ReviewPlot, @ReviewCharacter, @ReviewSubmission)";
+            myCommand.Parameters.Clear();
+            myCommand.Parameters.Add("@UserId", OleDbType.Integer).Value = review.UserId;
+            myCommand.Parameters.Add("@BookId", OleDbType.Integer).Value = review.BookId;
+            myCommand.Parameters.Add("@ReviewDescription", OleDbType.LongVarChar).Value = review.Description;
+            myCommand.Parameters.Add("@ReviewStyle", OleDbType.Integer).Value = review.StyleRating;
+            myCommand.Parameters.Add("@ReviewPlot", OleDbType.Integer).Value = review.PlotRating;
+            myCommand.Parameters.Add("@ReviewCharacter", OleDbType.Integer).Value = review.CharacterRating;
+            myCommand.Parameters.Add("@ReviewSubmission", OleDbType.VarChar).Value = review.SubmissionDateTime;
+            ExecuteCommand(query);
         }
         public static void ModifyReview(Review review)
         {
-            try
-            {
-                myConnection.Open();
-                myCommand.CommandText = string.Format("UPDATE Review SET Description = '{1}', " +
-                    "Style_Rating = {2}, Plot_Rating = {3}, Character_Rating = {4}, LastEdit_DateTime = '{5}' WHERE Review_ID = {0}",
-                    review.Id, review.Description, review.StyleRating, review.PlotRating, review.CharacterRating, review.LastEditDateTime);
-                myCommand.ExecuteNonQuery();
-            }
-            catch (OleDbException ex) { Console.WriteLine(ex.Message); }
-            finally { myConnection.Close(); }
+            /* Modify given Review in database */
+            string query = "UPDATE Review SET Description = @ReviewDescription, Style_Rating = @ReviewStyle, " +
+                "Plot_Rating = @ReviewPlot, Character_Rating = @ReviewCharacter, LastEdit_DateTime = @ReviewLastEdit " +
+                "WHERE Review_ID = @ReviewId";
+            myCommand.Parameters.Clear();
+            myCommand.Parameters.Add("@ReviewDescription", OleDbType.LongVarChar).Value = review.Description;
+            myCommand.Parameters.Add("@ReviewStyle", OleDbType.Integer).Value = review.StyleRating;
+            myCommand.Parameters.Add("@ReviewPlot", OleDbType.Integer).Value = review.PlotRating;
+            myCommand.Parameters.Add("@ReviewCharacter", OleDbType.Integer).Value = review.CharacterRating;
+            myCommand.Parameters.Add("@ReviewLastEdit", OleDbType.VarChar).Value = review.LastEditDateTime;
+            myCommand.Parameters.Add("@ReviewId", OleDbType.Integer).Value = review.Id;
+            ExecuteCommand(query);
         }
         public static void DeleteReview(int reviewId)
         {
-            try
-            {
-                myConnection.Open();
-                myCommand.CommandText = "DELETE FROM Review WHERE Review_ID = " + reviewId;
-                myCommand.ExecuteNonQuery();
-            }
-            catch (OleDbException ex) { Console.WriteLine(ex.Message); }
-            finally { myConnection.Close(); }
+            /* Delete review given by review id from database */
+            string query = "DELETE FROM Review WHERE Review_ID = @ReviewId";
+            myCommand.Parameters.Clear();
+            myCommand.Parameters.Add("@ReviewId", OleDbType.Integer).Value = reviewId;
+            ExecuteCommand(query);
         }
 
         public static Review GetReview(int reviewId)
         {
-            DataSet dataSet = new DataSet();
-            myCommand.CommandText = "SELECT * FROM Review WHERE Review_ID = " + reviewId.ToString();
-            try
-            {
-                myConnection.Open();
-                myAdapter.Fill(dataSet, "Review");
-            }
-            catch (OleDbException ex) { Console.WriteLine(ex.Message); }
-            finally { myConnection.Close(); }
+            /* Get Review using review Id */
+            string query = "SELECT * FROM Review WHERE Review_ID = @ReviewId";
+            string tableString = "Review";
+            myCommand.Parameters.Clear();
+            myCommand.Parameters.Add("@ReviewId", OleDbType.Integer).Value = reviewId;
+            DataSet dataSet = FillDataSet(query, tableString);
+            
 
             // Handle data from database
-            DataTable table = dataSet.Tables["Review"];
+            DataTable table = dataSet.Tables[tableString];
             DataRow row = table.Rows[0];
             // Create review
             Review newReview = new Review(row["User_ID"].ToString(), row["Book_ID"].ToString())
@@ -220,20 +229,16 @@ namespace BookStoreSystem
 
         public static double[] AverageRatings(int bookId)
         {
-            // Returns an array of average ratings
-            // [0] = Style, [1] = Plot, [2] = Character
-            DataSet dataSet = new DataSet();
-            myCommand.CommandText = "SELECT AVG(Style_Rating), AVG(Plot_Rating), AVG(Character_Rating) FROM Review WHERE Book_ID = " + bookId.ToString();
-            try
-            {
-                myConnection.Open();
-                myAdapter.Fill(dataSet, "Review");
-            }
-            catch (OleDbException ex) { Console.WriteLine(ex.Message); }
-            finally { myConnection.Close(); }
+            /* Returns an array of average ratings for a given book id
+               [0] = Style, [1] = Plot, [2] = Character */
+            string query = "SELECT AVG(Style_Rating), AVG(Plot_Rating), AVG(Character_Rating) FROM Review WHERE Book_ID = @BookId";
+            string tableString = "Review";
+            myCommand.Parameters.Clear();
+            myCommand.Parameters.Add("@BookId", OleDbType.Integer).Value = bookId;
+            DataSet dataSet = FillDataSet(query, tableString);
 
             // Handle data from database
-            DataRow row = dataSet.Tables["Review"].Rows[0];
+            DataRow row = dataSet.Tables[tableString].Rows[0];
             double[] averages = new double[3] { 0, 0, 0 };
             double.TryParse(row[0].ToString(), out averages[0]);
             double.TryParse(row[1].ToString(), out averages[1]);
@@ -408,22 +413,20 @@ namespace BookStoreSystem
             return false;
         }
 
-        public static string GetUsername(int id)
+        public static string GetUsername(int userId)
         {
-            // Gets Username from Database by ID
-            myCommand.CommandText = "SELECT [Username] FROM [User] WHERE [User_ID] = " + id.ToString();
-            DataSet dataSet = new DataSet();
-            try
-            {
-                myConnection.Open();
-                myAdapter.Fill(dataSet, "User");
-            }
-            catch (OleDbException ex) { Console.WriteLine(ex.Message); }
-            finally { myConnection.Close(); }
+            // Gets Username from Database by user id
+            string query = "SELECT [Username] FROM [User] WHERE [User_ID] = " + userId.ToString();
+            string tableString = "User";
+            DataSet dataSet = FillDataSet(query, tableString);
 
-            DataTable table = dataSet.Tables["User"];
-            DataRow row = table.Rows[0];
-            return row["Username"].ToString();
+            DataTable table = dataSet.Tables[tableString];
+            if (table.Rows.Count > 0) 
+            { 
+                DataRow row = table.Rows[0];
+                return row["Username"].ToString();
+            }
+            else { return string.Empty; }
         }
 
         /**************************** Transaction Methods *****************************************/
