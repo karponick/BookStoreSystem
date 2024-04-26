@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.Linq;
@@ -54,6 +55,8 @@ namespace BookStoreSystem.View
             if (listViewTransactions.SelectedIndices.Count > 0)
             {
                 flpBooks.Controls.Clear();
+                flpImages.Controls.Clear();
+               
                 Transaction selectedTrans = transactions[listViewTransactions.SelectedIndices[0]];
                 List<Book> books = DatabaseController.GetBooksByTransaction(selectedTrans.TransactionID);
                 int i = 1;
@@ -64,6 +67,28 @@ namespace BookStoreSystem.View
                     l.Width = flpBooks.ClientSize.Width;//to increase label width
                     flpBooks.Controls.Add(l);
                     i++;
+
+                    PictureBox pb = new PictureBox();
+                    pb.Height = 50;//50 pixels
+                    pb.Width = 50;
+                    pb.SizeMode = PictureBoxSizeMode.StretchImage;
+                    if (!string.IsNullOrEmpty(book.CoverUrl))
+                    {
+                        try
+                        {
+                            pb.Load(book.CoverUrl);
+                        }
+                        catch (Exception ex)
+                        {
+                            Debug.WriteLine(ex.Message);
+                            book.CoverImage = Image.FromFile("placeholder.jpg");
+                        }
+                    }
+                    else
+                    {
+                        book.CoverImage = Image.FromFile("placeholder.jpg");
+                    }
+                    flpImages.Controls.Add(pb);
                 }
             }
    

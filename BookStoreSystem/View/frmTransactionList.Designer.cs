@@ -36,6 +36,7 @@ namespace BookStoreSystem.View
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.exportToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.flpImages = new System.Windows.Forms.FlowLayoutPanel();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -53,7 +54,7 @@ namespace BookStoreSystem.View
             // 
             this.flpBooks.Location = new System.Drawing.Point(12, 273);
             this.flpBooks.Name = "flpBooks";
-            this.flpBooks.Size = new System.Drawing.Size(612, 237);
+            this.flpBooks.Size = new System.Drawing.Size(318, 237);
             this.flpBooks.TabIndex = 1;
             // 
             // lblTransactions
@@ -81,7 +82,7 @@ namespace BookStoreSystem.View
             this.fileToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(646, 28);
+            this.menuStrip1.Size = new System.Drawing.Size(646, 30);
             this.menuStrip1.TabIndex = 4;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -96,15 +97,23 @@ namespace BookStoreSystem.View
             // exportToolStripMenuItem
             // 
             this.exportToolStripMenuItem.Name = "exportToolStripMenuItem";
-            this.exportToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
+            this.exportToolStripMenuItem.Size = new System.Drawing.Size(135, 26);
             this.exportToolStripMenuItem.Text = "Export";
             this.exportToolStripMenuItem.Click += new System.EventHandler(this.exportToolStripMenuItem_Click);
+            // 
+            // flpImages
+            // 
+            this.flpImages.Location = new System.Drawing.Point(336, 273);
+            this.flpImages.Name = "flpImages";
+            this.flpImages.Size = new System.Drawing.Size(288, 237);
+            this.flpImages.TabIndex = 2;
             // 
             // frmTransactionList
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(646, 539);
+            this.Controls.Add(this.flpImages);
             this.Controls.Add(this.lblBooks);
             this.Controls.Add(this.lblTransactions);
             this.Controls.Add(this.flpBooks);
@@ -130,5 +139,6 @@ namespace BookStoreSystem.View
         private System.Windows.Forms.MenuStrip menuStrip1;
         private System.Windows.Forms.ToolStripMenuItem fileToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem exportToolStripMenuItem;
+        private System.Windows.Forms.FlowLayoutPanel flpImages;
     }
 }

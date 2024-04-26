@@ -560,7 +560,8 @@ namespace BookStoreSystem
             {
                 Title = reader["Title"].ToString(),
                 Author = reader["Author"].ToString(),
-                Price = Convert.ToDouble(reader["Price"])
+                Price = Convert.ToDouble(reader["Price"]),
+                CoverUrl = reader["Cover_URL"].ToString()
             };
 
             return book;
