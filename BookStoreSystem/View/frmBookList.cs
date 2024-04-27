@@ -186,6 +186,7 @@ namespace BookStoreSystem
             
             frmOrderBook bookOrderForm = new frmOrderBook(selectedBooks, SystemController.CurrentUser.UserID);
             bookOrderForm.ShowDialog();
+            selectedBooks.Clear();//clear shopping cart
         }
 
         private void btnReviews_Click(object sender, EventArgs e)
