@@ -12,6 +12,12 @@ namespace BookStoreSystem
         /// <summary>
         /// The main entry point for the application.
         /// </summary>
+
+
+
+        /// NOTE: If the program is not starting, try changing the Platform Target
+        /// Project -> BookStoreSystem Properties -> Build -> Platform Target
+
         [STAThread]
         static void Main()
         {
